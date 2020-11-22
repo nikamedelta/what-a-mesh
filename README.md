@@ -5,10 +5,10 @@
 | ---|---|
 | Working Title | What a Mesh! |
 | Final Title | What a Mesh! |
-| Student 1| Jan Klein, jan.klein@stud-mail.uni-wuerzburg.de, S379207 |
-| Student 2| Annika Meeß, annika.meess@stud-mail.uni-wuerzburg.de, S378189 |
-| Engine (version) | 2020.1.10f1 |
-| Start Date | Unity 02.11.2020 |
+| Student 1| Jan Klein, jan.klein@stud-mail.uni-wuerzburg.de, s379207 |
+| Student 2| Annika Meeß, annika.meess@stud-mail.uni-wuerzburg.de, s378189 |
+| Engine (version) | Unity 2020.1.10f1 |
+| Start Date | 02.11.2020 |
 | Study Program | Games Engineering B.Sc.|
 
 ### Abstract
