@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(MeshCollider))]
 public class moveVertices : MonoBehaviour
 {
     Mesh mesh;
+    MeshCollider collider;
     Vector3[] vertices;
     Vector3[] origVertices;
     Vector3[] normals;
@@ -27,6 +30,7 @@ public class moveVertices : MonoBehaviour
     
     void Start()
     {
+        collider = GetComponent<MeshCollider>();
         cam = Camera.main;
         //for (int i = 0; i<vertices.Length; i++)
         //{
@@ -118,7 +122,7 @@ public class moveVertices : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log(mEnd);
+            collider.sharedMesh = mesh;
             foundVertex = false;
             indexToMove = -1;
         }
