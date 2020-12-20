@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MousePointerSelection : MonoBehaviour
+public class MouseHoldAndDrag : MonoBehaviour
 {
     public WhatAMeshSmudgeBrain whatAMesh;
     bool selectedObject;
@@ -12,7 +12,7 @@ public class MousePointerSelection : MonoBehaviour
     {
         if (!selectedObject)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 Debug.Log("Mouse Button Input Recived");
                 RaycastHit hit;
@@ -31,10 +31,23 @@ public class MousePointerSelection : MonoBehaviour
         }
         else 
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 selectedObject = false;
                 whatAMesh.StopDeformation();
+            }
+        }
+
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                radius += .01f;
+            }
+            else if (Input.mouseScrollDelta.y < 0)
+            {
+                radius -= .01f;
             }
         }
     }
