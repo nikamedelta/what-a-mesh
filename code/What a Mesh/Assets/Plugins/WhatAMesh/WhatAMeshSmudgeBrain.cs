@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WhatAMeshSmudgeBrain : MonoBehaviour
 {
-    //GameObject obj;
+    GameObject obj;
     Mesh objMesh;
     Vector3[] objVertices;
     Vector3[] objOrigVertices;
@@ -30,7 +30,8 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
     }
     public void StartDeformation(GameObject obj, Vector3 startPoint, float radius)
     {
-        int vertIndexToMove = FindNearestVertex(obj, startPoint);
+        this.obj = obj;
+        vertIndexToMove = FindNearestVertex(obj, startPoint);
         objVertSelection = findVertexSelection(vertIndexToMove, objVertices, radius);
         performingDeformation = true;
         hitPoint = startPoint;
@@ -38,7 +39,6 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
 
     private void PerformDeformation()
     {
-        Debug.Log("Performing Deformation");
         //desiredPosition = Input.mousePosition;
         objectPoint = objOrigVertices[vertIndexToMove];
         worldOffset = objectPoint - hitPoint;
@@ -65,6 +65,16 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
 
     public void StopDeformation()
     {
+        if (obj.GetComponent<Collider>() is MeshCollider)
+        {
+            obj.GetComponent<MeshCollider>().sharedMesh = objMesh;
+        }
+        else
+        {
+            Destroy(obj.GetComponent<Collider>());
+            obj.AddComponent<MeshCollider>();
+            obj.GetComponent<MeshCollider>().sharedMesh = objMesh;
+        }
         performingDeformation = false;
     }
 
