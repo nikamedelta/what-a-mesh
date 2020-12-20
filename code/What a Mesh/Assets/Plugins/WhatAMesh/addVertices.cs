@@ -40,7 +40,7 @@ public class addVertices : MonoBehaviour
         foreach (Vector3 v in vertices)
         {
             verticesList.Add(v);
-            Vector3[] adjacent = getAdjacent(v, vertices, triangles);
+            /*Vector3[] adjacent = getAdjacent(v, vertices, triangles);
 
             foreach(Vector3 w in adjacent)
             {
@@ -53,7 +53,7 @@ public class addVertices : MonoBehaviour
                     // trianglesList.Add() need indices for that 
 
                 }
-            }
+            } */
         }
 
 
@@ -63,6 +63,7 @@ public class addVertices : MonoBehaviour
 
     }
 
+    /*
     private Vector3[] getAdjacent (Vector3 vertex, Vector3[] vertices , int[] triangles)
     {
         Vector3[] adjacent;
@@ -71,5 +72,5 @@ public class addVertices : MonoBehaviour
 
         return adjacent;
     }
-
+    */
 }
