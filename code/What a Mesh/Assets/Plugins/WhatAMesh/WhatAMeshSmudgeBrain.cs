@@ -9,12 +9,10 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
     Vector3[] objVertices;
     Vector3[] objOrigVertices;
     Vector3[] objNormals;
-    Vector3[] objOrigNormals;
 
     int vertIndexToMove;
     List<int> objVertSelection;
 
-    Vector3 desiredPosition;
     Vector3 hitPoint;
     Vector3 objectPoint;
     Vector3 worldOffset;
@@ -25,11 +23,13 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
     {
         if (performingDeformation)
         {
+            // live updates of distorted vertices
             PerformDeformation();
         }
     }
     public void StartDeformation(GameObject obj, Vector3 startPoint, float radius)
     {
+        // select necessary properties for smudge
         this.obj = obj;
         vertIndexToMove = FindNearestVertex(obj, startPoint);
         objVertSelection = findVertexSelection(vertIndexToMove, objVertices, radius);
@@ -39,7 +39,7 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
 
     private void PerformDeformation()
     {
-        //desiredPosition = Input.mousePosition;
+        // vertices are moved along a plane (parallel to the screen) 
         objectPoint = objOrigVertices[vertIndexToMove];
         worldOffset = objectPoint - hitPoint;
         Plane p = new Plane(Camera.main.transform.forward, hitPoint);
@@ -65,6 +65,7 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
 
     public void StopDeformation()
     {
+        // reassign mesh collider (to allow further deformations)
         if (obj.GetComponent<Collider>() is MeshCollider)
         {
             obj.GetComponent<MeshCollider>().sharedMesh = objMesh;
@@ -84,7 +85,6 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
         objVertices = objMesh.vertices;
         objOrigVertices = objMesh.vertices;
         objNormals = objMesh.normals;
-        objOrigNormals = objMesh.normals;
 
         int index = -1;
         float shortestDistance = float.MaxValue;
