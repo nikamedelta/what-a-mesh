@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class addVertices : MonoBehaviour
@@ -10,7 +11,7 @@ public class addVertices : MonoBehaviour
         Vector3[] normals;
         int[] triangles;
         Mesh mesh;
-
+        
         public MeshData(GameObject gameObject)
         {
             Mesh temp = gameObject.GetComponent<MeshFilter>().mesh;
@@ -27,7 +28,17 @@ public class addVertices : MonoBehaviour
             mesh.RecalculateNormals();
         }
 
-        public void AddVertices()
+        private bool VertexInRadius(Vector3 middle, Vector3 v, float radius)
+        {
+            // check if vertex v is in the given radius around the middle vertex
+            if (Vector3.Distance(middle, v) <= radius)
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        public void AddVertices(Vector3 middle, float radius)
         {
             // create lists of the given arrays (beacause we will be adding stuff to them)
             List<Vector3> verticesList = new List<Vector3>();
@@ -42,41 +53,51 @@ public class addVertices : MonoBehaviour
                 verticesList.Add(i);
             }
 
-            for (int i = 0; i<vertices.Length; i++)
+            int verticesLength = 0;
+            while (verticesLength != verticesList.Count) // breaks if no vertices were added in the last loop 
             {
-                List<int> adjacent = getAdjacent(i, trianglesList);
+                verticesLength = verticesList.Count;
 
-                // adjacent Liste sortieren: nach Länge der Distanz zu dem Vertex i
-                for (int m = 0; m<adjacent.Count; m++)
+                for (int i = 0; i < verticesList.Count; i++)
                 {
-                    Vector3 v1 = verticesList[adjacent[m]];
-                    float longestDistance = Vector3.Distance(v1, verticesList[i]);
-                    int temp = m; 
+                    List<int> adjacent = getAdjacent(i, trianglesList);
 
-                    for (int n = 1; n < adjacent.Count; n++)
+                    // adjacent Liste sortieren: nach Länge der Distanz zu dem Vertex i
+                    for (int m = 0; m < adjacent.Count; m++)
                     {
-                        Vector3 v2 = verticesList[adjacent[n]];
-                        if (longestDistance < Vector3.Distance(v2, verticesList[i]))
+                        Vector3 v1 = verticesList[adjacent[m]];
+                        float longestDistance = Vector3.Distance(v1, verticesList[i]);
+                        int temp = m;
+
+                        for (int n = 1; n < adjacent.Count; n++)
                         {
-                            temp = n;
-                            longestDistance = Vector3.Distance(v2, verticesList[i]);
+                            Vector3 v2 = verticesList[adjacent[n]];
+                            if (longestDistance < Vector3.Distance(v2, verticesList[i]))
+                            {
+                                temp = n;
+                                longestDistance = Vector3.Distance(v2, verticesList[i]);
+                            }
                         }
+
+                        int tempValue = adjacent[temp];
+                        adjacent[temp] = adjacent[m];
+                        adjacent[m] = tempValue;
+
                     }
 
-                    int tempValue = adjacent[temp];
-                    adjacent[temp] = adjacent[m];
-                    adjacent[m] = tempValue;
-                    
-                }
-                
-                foreach(int j in adjacent)
-                {
-                    addVert(i, j, trianglesList, verticesList);
-                    
-                }
-                
-            }
+                    foreach (int j in adjacent)
+                    {
+                        
+                        addVert(i, j, trianglesList, verticesList, middle, radius);
 
+                    }
+
+                }
+                
+                Debug.Log("Vertex Count after: " + verticesList.Count);
+                
+
+            }
 
             // make arrays out of lists
             vertices = verticesList.ToArray();
@@ -86,14 +107,14 @@ public class addVertices : MonoBehaviour
 
         }
 
-        private void addVert(int v1, int v2, List<int> trianglesList, List<Vector3> verticesList)
+        private void addVert(int v1, int v2, List<int> trianglesList, List<Vector3> verticesList, Vector3 middle, float radius)
         {
             if (stillAdjacent(v1, v2, trianglesList))
             {
-                if (Vector3.Distance(verticesList[v1], verticesList[v2]) > .5f) //change radius here
+                if ((Vector3.Distance(verticesList[v1], verticesList[v2]) > (radius*.2f)) && (VertexInRadius(middle, verticesList[v1], radius) || VertexInRadius(middle, verticesList[v2], radius))) //change radius here
                     {
                         Vector3 v3 = Vector3.Lerp(verticesList[v1], verticesList[v2], .5f);
-                        Debug.Log("New Vector at " + v3 + " between " + v1 + " and " + v2);
+                        //Debug.Log("New Vector at " + v3 + " between " + v1 + " and " + v2);
                         // diesen neuen Vector erstellen
                         verticesList.Add(v3);
                         int v3Index = verticesList.Count - 1;
@@ -122,9 +143,6 @@ public class addVertices : MonoBehaviour
                             trianglesList.Add(c);
 
                         }
-
-                        //addVert(v1, v3Index, trianglesList, verticesList);
-                        //addVert(v2, v3Index, trianglesList, verticesList);
                 
                     }
                     // wenn der Abstand klein genug zweischen den Vertices ist führt es zum Abbruch
@@ -214,7 +232,7 @@ public class addVertices : MonoBehaviour
     {       
         
         MeshData meshData = new MeshData(this.gameObject);
-        meshData.AddVertices();
+        //meshData.AddVertices(new Vector3(.5f,0,0), 1f);
 
         
     }
