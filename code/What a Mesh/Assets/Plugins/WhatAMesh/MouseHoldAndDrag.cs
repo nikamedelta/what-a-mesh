@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseClickAndDrag : MonoBehaviour
 {
-    public WhatAMeshSmudgeBrain whatAMesh;
+    public WhatAMeshSmudgeController whatAMesh;
     bool selectedObject;
 
     public float radius;
