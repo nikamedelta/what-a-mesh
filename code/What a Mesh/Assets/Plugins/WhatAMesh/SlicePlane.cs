@@ -64,14 +64,17 @@ public class SlicePlane : MonoBehaviour
                 if (Physics.Raycast(mainCamera.transform.position, midPoint, out hit, Mathf.Infinity))
                 {
                     Debug.Log("Hit");
-                    /*if (hit.transform.gameObject.tag == "Deformable")
+                    if (hit.transform.gameObject.tag == "Deformable")
                     {
                         obj = hit.transform.gameObject;
                         Debug.Log(obj.name);
                         GameObject selectionPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
                         //selectionPlane.transform.localScale = new Vector3(distance, distance, distance);
-                        //selectionPlane.transform.position = obj.transform.position;
-                    }*/
+                        selectionPlane.transform.position = hit.point;
+                        Vector3 relativePos = selectionPoint0 - selectionPoint1;
+                        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+                        selectionPlane.transform.rotation = rotation;
+                    }
 
                 }
                 firstSelected = false;
