@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WhatAMeshSmudgeBrain : MonoBehaviour
+[DisallowMultipleComponent]
+public class WhatAMeshSmudgeController : MonoBehaviour
 {
-    private class MeshData
+    
+        private class MeshData
     {
         Vector3[] vertices;
         Vector3[] normals;
@@ -232,11 +234,37 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
     Vector3 hitPoint;
     Vector3 objectPoint;
     Vector3 worldOffset;
+    Vector3 screenPointV3;
 
     private float radius;
     private Vector3 startVertex;
 
     bool performingDeformation;
+    
+    public KeyCode xKeyPos;
+    public KeyCode xKeyNeg;
+    public KeyCode yKeyPos;
+    public KeyCode yKeyNeg;
+
+    private int xKeyPosVal;
+    private int xKeyNegVal;
+    private int yKeyPosVal;
+    private int yKeyNegVal;
+
+    public string xAxis;
+    public string yAxis;
+
+    public float sensitivity = 0.01f;
+    
+    [System.Serializable]
+    public enum InputType
+    {
+        Mouse,
+        ControllerAxis,
+        Keys
+    }
+
+    public InputType inputType;
 
     private void Update()
     {
@@ -259,20 +287,56 @@ public class WhatAMeshSmudgeBrain : MonoBehaviour
         hitPoint = startPoint;
     }
 
-    private void PerformDeformation()
+ private void PerformDeformation()
     {
-        // vertices are moved along a plane (parallel to the screen) 
         objectPoint = objOrigVertices[vertIndexToMove];
         worldOffset = objectPoint - hitPoint;
         Plane p = new Plane(Camera.main.transform.forward, hitPoint);
         float distance;
-        Vector3 screenPointV3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+
         Ray screenRay = Camera.main.ScreenPointToRay(screenPointV3);
+
         p.Raycast(screenRay, out distance);
-        Vector3 position = screenRay.origin + screenRay.direction * distance;
-        objVertices[vertIndexToMove] = position + worldOffset;
 
+        switch (inputType)
+        {
+            case InputType.Mouse:
+                screenPointV3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+                Vector3 position = screenRay.origin + screenRay.direction * distance;
+                objVertices[vertIndexToMove] = position + worldOffset;
+                break;
 
+            case InputType.Keys:
+                if (Input.GetKey(xKeyPos))
+                    xKeyPosVal = 1;
+                else xKeyPosVal = 0;
+                
+                if (Input.GetKey(xKeyNeg))
+                    xKeyNegVal = 1;
+                else xKeyNegVal = 0;  
+                
+                if (Input.GetKey(yKeyPos))
+                    yKeyPosVal = 1;
+                else yKeyPosVal = 0; 
+                
+                if (Input.GetKey(yKeyNeg))
+                    yKeyNegVal = 1;
+                else yKeyNegVal = 0;
+
+                screenPointV3 = new Vector3(
+                    objVertices[vertIndexToMove].x +=((xKeyPosVal - xKeyNegVal) * sensitivity),
+                    objVertices[vertIndexToMove].y +=((yKeyPosVal - yKeyNegVal) * sensitivity),
+                    0);
+                break;
+
+            case InputType.ControllerAxis:
+                screenPointV3 = new Vector3(
+                        objVertices[vertIndexToMove].x += ((Input.GetAxis(xAxis)) * sensitivity),
+                        objVertices[vertIndexToMove].y += ((Input.GetAxis(yAxis)) * sensitivity),
+                        0);
+                break;
+        }
+        // vertices are moved along a plane (parallel to the screen) 
         foreach (int i in objVertSelection)
         {
             Vector3 temp = objOrigVertices[i] - objOrigVertices[vertIndexToMove];

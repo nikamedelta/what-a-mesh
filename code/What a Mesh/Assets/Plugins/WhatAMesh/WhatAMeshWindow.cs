@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class WhatAMeshEditor : EditorWindow
+public class WhatAMeshWindow : EditorWindow
 {
-    [MenuItem("What A Mesh/Generate Deformation Brain")]
+    [MenuItem("WhatAMesh/Generate Deformation Controller")]
     public static void ShowWindow()
     {
-        GetWindow<WhatAMeshEditor>("Generate Deformation Brain");
+        GetWindow<WhatAMeshWindow>("Generate Deformation Controller");
     }
     private void OnGUI()
     {
@@ -19,9 +19,9 @@ public class WhatAMeshEditor : EditorWindow
             {
                 GameObject whatAMeshTool = new GameObject();
                 whatAMeshTool.name = "What A Mesh Smudge";
-               var brainScript =  whatAMeshTool.AddComponent<WhatAMeshSmudgeBrain>();
-               var selectionTool =  whatAMeshTool.AddComponent<MouseHoldAndDrag>();
-                selectionTool.whatAMesh = brainScript;
+                var c =  whatAMeshTool.AddComponent<WhatAMeshSmudgeController>();
+                var selectionTool =  whatAMeshTool.AddComponent<MouseHoldAndDrag>();
+                selectionTool.whatAMesh = c;
                 selectionTool.radius = .5f;
             }
         }
@@ -32,9 +32,9 @@ public class WhatAMeshEditor : EditorWindow
             {
                 GameObject whatAMeshTool = new GameObject();
                 whatAMeshTool.name = "What A Mesh Smudge";
-                var brainScript = whatAMeshTool.AddComponent<WhatAMeshSmudgeBrain>();
+                var c = whatAMeshTool.AddComponent<WhatAMeshSmudgeController>();
                 var selectionTool = whatAMeshTool.AddComponent<MouseClickAndDrag>();
-                selectionTool.whatAMesh = brainScript;
+                selectionTool.whatAMesh = c;
                 selectionTool.radius = .5f;
             }
         }

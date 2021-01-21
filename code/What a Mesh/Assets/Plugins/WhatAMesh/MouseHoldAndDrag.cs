@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseClickAndDrag : MonoBehaviour
 {
-    public WhatAMeshSmudgeBrain whatAMesh;
+    public WhatAMeshSmudgeController whatAMesh;
     bool selectedObject;
 
     public float radius;
@@ -14,6 +14,7 @@ public class MouseClickAndDrag : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Mouse Button Input Recived");
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 300))
