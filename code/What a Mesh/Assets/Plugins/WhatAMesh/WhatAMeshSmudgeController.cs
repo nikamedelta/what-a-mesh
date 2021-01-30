@@ -88,9 +88,7 @@ public class WhatAMeshSmudgeController : MonoBehaviour
 
                     foreach (int j in adjacent)
                     {
-                        
                         addVert(i, j, trianglesList, verticesList, middle, radius);
-
                     }
 
                 }
