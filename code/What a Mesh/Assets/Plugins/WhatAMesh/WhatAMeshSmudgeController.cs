@@ -129,7 +129,6 @@ public class WhatAMeshSmudgeController : MonoBehaviour
             Vector3 temp = objOrigVertices[i] - objOrigVertices[vertIndexToMove];
 
             Vector3 moveVertex = objVertices[vertIndexToMove] + temp;
-            objVertices[i] = moveVertex;
             
             if (Vector3.Distance(objOrigVertices[vertIndexToMove], objOrigVertices[i]) <= innerRadius)
             {
@@ -139,7 +138,7 @@ public class WhatAMeshSmudgeController : MonoBehaviour
             {
                 float lol = (Vector3.Distance(objOrigVertices[vertIndexToMove], objOrigVertices[i]) - innerRadius) / ((outerRadius - innerRadius));
                 Debug.Log(lol);
-                Vector3 n = Vector3.Lerp(objOrigVertices[i], objVertices[i], 1-lol);
+                Vector3 n = Vector3.Lerp(objOrigVertices[i], moveVertex, 1-lol);
                 objVertices[i] = n;
             }
         }

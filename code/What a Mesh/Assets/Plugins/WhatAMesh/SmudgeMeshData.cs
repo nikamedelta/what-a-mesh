@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using UnityEngine;
 
-public class MeshData : MonoBehaviour
+public class MeshData
     {
         private class Triangle
         {
@@ -247,7 +247,7 @@ public class MeshData : MonoBehaviour
                 }
             }
             // add two more rows of adjacent
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10 && i<relevant.Count; i++)
             {
                 foreach (Vertex vertex in relevant)
                 {
