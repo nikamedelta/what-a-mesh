@@ -643,8 +643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8876ca6960366924c966b8054c5a03ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatAMesh: {fileID: 0}
-  radius: 0
+  whatAMesh: {fileID: 1401883833}
+  radius: 0.4
 --- !u!114 &1401883833
 MonoBehaviour:
   m_ObjectHideFlags: 0
