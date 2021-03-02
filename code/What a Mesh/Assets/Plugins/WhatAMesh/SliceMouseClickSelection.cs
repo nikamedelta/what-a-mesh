@@ -1,27 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SliceMouseClickSelection : MonoBehaviour
 {
-    public SlicePlane slice;
+    public WhatAMeshSliceController whatAMeshSliceController;
     private bool firstSelected = false;
 
     void Update()
     {
         if (!firstSelected)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
-                slice.StartSelection(Input.mousePosition);
+                whatAMeshSliceController.StartSelection(Input.mousePosition);
                 firstSelected = true;
             }
         }
         else
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
-                slice.EndSelection(Input.mousePosition);
+                whatAMeshSliceController.EndSelection(Input.mousePosition);
                 firstSelected = false;
             }
         }
