@@ -14,13 +14,13 @@ public class MouseClickAndDrag : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Mouse Button Input Recived");
+                Debug.Log("Mouse Button Input");
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 300))
                 {
                     Debug.Log("Hit GameObject");
-                    if (hit.transform.gameObject.tag == "Deformable")
+                    if (hit.transform.gameObject.CompareTag("Deformable"))
                     {
                         whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, radius);
                         Debug.Log("Started Deformation on Deformable GameObject");

@@ -38,5 +38,19 @@ public class WhatAMeshWindow : EditorWindow
                 selectionTool.radius = .5f;
             }
         }
+        
+        GUILayout.Label("Slice Tool", EditorStyles.boldLabel);
+        if(GUILayout.Button("Generate Slice with Click Selection"))
+        {
+            if (!GameObject.Find("What A Mesh Slice"))
+            {
+                GameObject whatAMeshTool = new GameObject();
+                whatAMeshTool.name = "What A Mesh Slice";
+                var c =  whatAMeshTool.AddComponent<WhatAMeshSliceController>();
+                var selectionTool =  whatAMeshTool.AddComponent<SliceMouseClickSelection>();
+                selectionTool.whatAMeshSliceController = c;
+                //selectionTool.radius = .5f;
+            }
+        }
     }
 }

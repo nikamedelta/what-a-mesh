@@ -15,7 +15,7 @@ public class rotateObject : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
-            transform.Rotate(Vector3.up, Time.deltaTime*20f);
+            transform.Rotate(Vector3.up, Time.deltaTime*100f);
         }
     }
 }

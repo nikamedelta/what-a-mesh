@@ -8,7 +8,7 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SlicePlane : MonoBehaviour
+public class WhatAMeshSliceController : MonoBehaviour
 {
     private Camera mainCamera;
     private RaycastHit planeStart;
@@ -230,7 +230,7 @@ public class SlicePlane : MonoBehaviour
 
         if (Physics.Raycast(mainCamera.transform.position, midPoint, out planeStart, Mathf.Infinity))
         {
-            if (planeStart.transform.gameObject.tag == "Deformable")
+            if (planeStart.transform.gameObject.tag == "Sliceable")
             {
                 obj = planeStart.transform.gameObject;
                 Vector3 relativePos = selectionPoint0 - selectionPoint1;
