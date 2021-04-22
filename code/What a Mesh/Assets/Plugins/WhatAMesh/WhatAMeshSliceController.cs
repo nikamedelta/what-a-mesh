@@ -20,7 +20,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     private int[] objTriangles;
     
     private Vector3 cursorPosition;
-    private Vector3 normal;
+    private Vector3 planeNormal;
     private Vector3 selectionPoint0;
     private Vector3 selectionPoint1;
     private Vector3 middle;
@@ -33,7 +33,7 @@ public class WhatAMeshSliceController : MonoBehaviour
 
     private List<Vector3> verticesList;
     private List<Vector2> uvList;
-    private List<Vector2> normalList;
+    private List<Vector3> normalsList;
     private List<int> trianglesList;
     
     List<Vertex> posSide;
@@ -153,6 +153,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     {
         private Vector3 point;
         private Vector2 uv;
+        private Vector3 normal;
         private int index;
         private int index1;
         private int index2;
@@ -170,6 +171,7 @@ public class WhatAMeshSliceController : MonoBehaviour
         }
 
         public Vector2 GetUv { get { return uv; } }
+        public Vector3 GetNormal { get { return normal; } }
         public int GetIndex{ get { return index; } }
         public int GetIndex1{ get { return index1; } }
         public int GetIndex2{ get { return index2; } }
@@ -183,13 +185,16 @@ public class WhatAMeshSliceController : MonoBehaviour
         {
             this.uv = newUv;
         }
+
+        public void SetNormal(Vector3 newNormal)
+        {
+            this.normal = newNormal;
+        }
     }
     
     class Vertex
     {
         private Vector3 vertex;
-        private Vector2 uv;
-        private Vector2 normal;
         private int index;
 
         public Vertex(Vector3 vertex, int index)
@@ -197,11 +202,9 @@ public class WhatAMeshSliceController : MonoBehaviour
             this.vertex = vertex;
             this.index = index;
         }
-
-        public Vector3 GetVertex { get { return vertex; } }
         public int GetIndex { get { return index; } }
+        public Vector3 GetVertex { get { return vertex; } }
     }
-
     public void Start()
     {
         mainCamera = Camera.main;
@@ -220,6 +223,14 @@ public class WhatAMeshSliceController : MonoBehaviour
         );
         selectionPoint0 = mainCamera.ScreenToWorldPoint(cursorPosition);
         Debug.DrawRay(mainCamera.transform.position, selectionPoint0, Color.green, Mathf.Infinity);
+    }
+    
+    private void ApplyMesh(GameObject obj, Mesh mesh)
+    {
+        obj.GetComponent<MeshFilter>().mesh = mesh;
+        obj.GetComponent<MeshCollider>().sharedMesh = mesh;
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
     }
 
     public void EndSelection(Vector3 cursorPos)
@@ -312,9 +323,9 @@ public class WhatAMeshSliceController : MonoBehaviour
     private void CreateSlicePlane(Vector3 relativePos)
     {
         //plane which will intersect the object
-        normal = Vector3.Cross(relativePos, -Vector3.forward).normalized;
-        interSectionPlane = new Plane(normal, planeStart.point);
-        DrawPlane(planeStart.point, normal);
+        planeNormal = Vector3.Cross(relativePos, -Vector3.forward).normalized;
+        interSectionPlane = new Plane(planeNormal, planeStart.point);
+        DrawPlane(planeStart.point, planeNormal);
     }
 
     //only for visualisation
@@ -368,31 +379,32 @@ public class WhatAMeshSliceController : MonoBehaviour
                                 line.GetIndexEnd
 
                             );
-                        CalculateUvPosition(interSectionP);
-                        interSectionPoints.Add(interSectionP);
+                    interSectionP.SetUv((objMesh.uv[interSectionP.GetIndex1] + objMesh.uv[interSectionP.GetIndex2]) / 2);
+                    interSectionP.SetNormal(objMesh.normals[interSectionP.GetIndex1]);
+                    interSectionPoints.Add(interSectionP);
                 }
             }
         }
         
         AddIntersectionVertices();
-        Split();
+        SplitObject();
     }
-
-    private void CalculateUvPosition(InterSectionPoint p)
-    {
-        p.SetUv((objMesh.uv[p.GetIndex1] + objMesh.uv[p.GetIndex2]) / 2);
-    }
-
+    //Adds vertices where the plane cuts the Object
     private void AddIntersectionVertices()
     {
         //Lists that will later become tris and vertices of the object
         verticesList = new List<Vector3>();
+        normalsList = new List<Vector3>();
         uvList = new List<Vector2>();
         trianglesList = new List<int>();
         
         foreach (Vector3 vert in objVertices)
         {
             verticesList.Add(vert);
+        } 
+        foreach (Vector3 normal in objMesh.normals)
+        {
+            normalsList.Add(normal);
         }
 
         foreach (Vector2 uv in objMesh.uv)
@@ -410,6 +422,7 @@ public class WhatAMeshSliceController : MonoBehaviour
             //add the intersection point to the vertices of the object
             verticesList.Add(intersection.GetPoint);
             uvList.Add(intersection.GetUv);
+            normalsList.Add(intersection.GetNormal);
             int iPIndex = verticesList.Count - 1;
             intersection.SetIndex(iPIndex);
             
@@ -417,7 +430,6 @@ public class WhatAMeshSliceController : MonoBehaviour
             List<TriangleVertices> triVerts = new List<TriangleVertices>();
             foreach (TriangleVertices triangle in tris)
             {
-                //Debug.Log(triangle.GetV1 + " " + triangle.GetV2 + " " + triangle.GetV3);
                 if (triangle.ContainsIndex(intersection.GetIndex1) && triangle.ContainsIndex(intersection.GetIndex2))
                 {
                     triVerts.Add(triangle);
@@ -475,8 +487,7 @@ public class WhatAMeshSliceController : MonoBehaviour
                     s2 = triangle.GetIndexV3;
                     s3 = triangle.GetIndexV1;
                 }
-
-
+                
                 int indexCounter = CheckIndexOfIntersectedTriangle(s1, s2, s3);
                 
                 //changing the old triangle 
@@ -502,9 +513,10 @@ public class WhatAMeshSliceController : MonoBehaviour
                 tris.Add(tri);
             }
         }
-        //Debug.Log(verticesList.Count);
-        //Debug.Log(uvList.Count);
+        
+        //apply mesh data to properly split object later
         objMesh.vertices = verticesList.ToArray();
+        objMesh.normals = normalsList.ToArray();
         objMesh.uv = uvList.ToArray();
         objMesh.triangles = trianglesList.ToArray();
         ApplyMesh(obj, objMesh);
@@ -528,16 +540,23 @@ public class WhatAMeshSliceController : MonoBehaviour
         return counter;
     }
 
-    public void Split()
+    //creates 2 new Game Object
+    public void SplitObject()
     {
         posSide = new List<Vertex>();
         negSide = new List<Vertex>();
+        List<Vector3> posSideNormals = new List<Vector3>();
+        List<Vector3> negSideNormals = new List<Vector3>();
+        List<Vector2> posSideUvs = new List<Vector2>();
+        List<Vector2> negSideUvs = new List<Vector2>();
         List<int>posSideTriangles = new List<int>();
         List<int>negSideTriangles = new List<int>();
-
+        
+        //Checks on which side of the plane each vertex is to add it to the vertex list of the object it belongs to 
         for (int i = 0; i < objMesh.vertices.Length; i++)
         {
             Vector3 sideTest = new Vector3(objMesh.vertices[i].x + obj.transform.position.x, objMesh.vertices[i].y + obj.transform.position.y, objMesh.vertices[i].z + obj.transform.position.z);
+            //ignore intersection points as they are neither on the positive or negative side of the plane
             if (interSectionPlane.GetSide(sideTest))
             {
                 bool isIntersectionPoint = false;
@@ -548,11 +567,12 @@ public class WhatAMeshSliceController : MonoBehaviour
                         isIntersectionPoint = true;
                     }
                 }
-
                 if (!isIntersectionPoint)
                 {
                     Vertex vertex = new Vertex(objMesh.vertices[i], i);
                     posSide.Add(vertex);
+                    posSideNormals.Add(objMesh.normals[i]);
+                    posSideUvs.Add(objMesh.uv[i]);
                 }
 
 
@@ -572,24 +592,26 @@ public class WhatAMeshSliceController : MonoBehaviour
                 {
                     Vertex vertex = new Vertex(objMesh.vertices[i], i);
                     negSide.Add(vertex);
+                    negSideNormals.Add(objMesh.normals[i]);
+                    negSideUvs.Add(objMesh.uv[i]);
                 }
             }
         }
 
-        //int posSideLength = posSide.Count;
-        //int negSideLength = negSide.Count;
-
+        //add intersection points to both Sides
         foreach (InterSectionPoint iPoint in interSectionPoints)
         {
-            //Debug.Log(iPoint.GetIndex + " " + iPoint.GetPoint);
             Vertex interSectionVertex = new Vertex(iPoint.GetPoint, iPoint.GetIndex);
             posSide.Add(interSectionVertex);
+            posSideNormals.Add(objMesh.normals[iPoint.GetIndex]);
+            posSideUvs.Add(objMesh.uv[iPoint.GetIndex]);
             negSide.Add(interSectionVertex);
+            negSideNormals.Add(objMesh.normals[iPoint.GetIndex]);
+            negSideUvs.Add(objMesh.uv[iPoint.GetIndex]);
         }
 
         foreach (TriangleVertices i in tris)
         {
-            //Debug.Log(i.GetIndexV1 +" " + i.GetIndexV2 + " " + i.GetIndexV3);
             if (i.IsTriangleOnPositiveSide(interSectionPlane, obj.transform.position))
             {
                 posSideTriangles.Add(i.GetIndexV1);
@@ -609,6 +631,7 @@ public class WhatAMeshSliceController : MonoBehaviour
         Vector3[] obj1Vertices = new Vector3[posSide.Count];
         Vector3[] obj2Vertices = new Vector3[negSide.Count];
         
+        //change indices of the triangle so that they match the new list for each side
         for (int i = 0; i < posSide.Count; i++)
         {
             obj1Vertices[i] = posSide[i].GetVertex;
@@ -652,10 +675,21 @@ public class WhatAMeshSliceController : MonoBehaviour
             Debug.Log(i);
         }*/
 
-        obj2Mesh.vertices = new Vector3[obj1Vertices.Length];
+        obj1Mesh.vertices = new Vector3[obj1Vertices.Length];
         obj2Mesh.vertices = new Vector3[obj2Vertices.Length];
         obj1Mesh.vertices = obj1Vertices;
         obj2Mesh.vertices = obj2Vertices;
+        
+        obj1Mesh.normals = new Vector3[posSideNormals.Count ];
+        obj2Mesh.normals = new Vector3[negSideNormals.Count];
+        obj1Mesh.normals = posSideNormals.ToArray();
+        obj2Mesh.normals = negSideNormals.ToArray();
+        
+        obj1Mesh.uv = new Vector2[posSideUvs.Count];
+        obj2Mesh.uv = new Vector2[negSideUvs.Count];
+        obj1Mesh.uv = posSideUvs.ToArray();
+        obj2Mesh.uv = negSideUvs.ToArray();
+        
         obj1Mesh.triangles = new int[obj1Triangles.Length];
         obj2Mesh.triangles = new int[obj2Triangles.Length];
         obj1Mesh.triangles = obj1Triangles;
@@ -664,139 +698,143 @@ public class WhatAMeshSliceController : MonoBehaviour
         ApplyMesh(obj1, obj1Mesh);
         ApplyMesh(obj2, obj2Mesh);
 
-
-        /*for (int i = 0; i < objMesh.vertices.Length; i++)
-        {
-            Debug.Log(objMesh.vertices[i]);
-            Debug.Log(i);
-        }
-        foreach (int i in objMesh.triangles)
-        {
-            Debug.Log(i);
-        }*/
-        
-        /*Debug.Log("negSide");
-        foreach (int i in negSideTriangles)
-        {
-            Debug.Log(i);
-        }
-
-        foreach (Vertex i in negSide)
-        {
-            Debug.Log(i.GetIndex + " " + i.GetVertex);
-        }*/
-
         //obj1.AddComponent<Rigidbody>();*/
-        CloseGap(obj1);
-        //CloseGap(obj2);
+        CloseGap(obj1 , true);
+        CloseGap(obj2, false);
         GameObject.Destroy(obj);
         
 
     }
-
-    private void ApplyMesh(GameObject obj, Mesh mesh)
-    {
-        obj.GetComponent<MeshFilter>().mesh = mesh;
-        obj.GetComponent<MeshCollider>().sharedMesh = mesh;
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-    }
-
-    public void CloseGap(GameObject obj)
+    //On a 3D object a gap occurs after cutting the intersection vertices will be connected to a center point of this gap
+    public void CloseGap(GameObject obj, bool posSide)
     {
         Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
-        /*for (int vert =0; vert <= obj.GetComponent<MeshFilter>().mesh.vertices.Length-1; vert++)
-        {
-            Debug.Log(obj.GetComponent<MeshFilter>().mesh.vertices[vert]);
-
-            Debug.Log(vert);
-        }
-
-        for (int tri = 0; tri <= obj.GetComponent<MeshFilter>().mesh.triangles.Length-1; tri += 3)
-        {
-            Debug.Log(obj.GetComponent<MeshFilter>().mesh.triangles[tri]);
-            Debug.Log(obj.GetComponent<MeshFilter>().mesh.triangles[tri+1]);
-            Debug.Log(obj.GetComponent<MeshFilter>().mesh.triangles[tri+2]);
-        }*/
 
         List<Vector3> verts = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+        List<Vector2> uvs = new List<Vector2>();
         List<int> tris = new List<int>();
         List<Vector3> uIntersections = new List<Vector3>();
         
         foreach(Vector3 vert in mesh.vertices)
         {
             verts.Add(vert);
+        }        
+        foreach(Vector3 normal in mesh.normals)
+        {
+            verts.Add(normal);
+        }        
+        foreach(Vector3 uv in mesh.uv)
+        {
+            verts.Add(uv);
         }
         foreach(int tri in mesh.triangles)
         {
             tris.Add(tri);
         }
-        uIntersections = GetUniqueIntersectionVertices();
-        Vector3 center = obj.transform.position + mesh.bounds.center;
-        Vector3 midPoint = interSectionPlane.ClosestPointOnPlane(center);
         
-        int index = 0;
-        Vector3 startVertex = uIntersections[0];
-        for (int i = 0; i < uIntersections.Count; i = index)
+        uIntersections = SortIntersectionsClockwise();
+        
+        Vector3 objectCenter = obj.transform.position + mesh.bounds.center;
+        Vector3 midPoint = interSectionPlane.ClosestPointOnPlane(objectCenter) - obj.transform.position;
+        int index1;
+        int index2;
+        int startIndex = 0;
+        int endIndex;
+        int midPointIndex;
+        verts.Add(midPoint);
+        midPointIndex = verts.Count-1;
+        for (int i = 0; i < uIntersections.Count-1; i++)
         {
-            Vector3 closestVertex;
-            if (i != uIntersections.Count - 1)
+            verts.Add(uIntersections[i]);
+            index1 = verts.Count - 1;
+            if (i == 0)
             {
-                closestVertex = new Vector3();
+                startIndex = verts.Count - 1;
+            }
+
+            verts.Add(uIntersections[i+1]);
+            index2 = verts.Count - 1;
+            tris.Add(midPointIndex);
+            if (posSide)
+            {
+                tris.Add(index2);
+                tris.Add(index1);
             }
             else
             {
-                closestVertex = startVertex;
+                tris.Add(index1);
+                tris.Add(index2);
             }
-
-            float closestDistance = Mathf.Infinity;
-
-            for (int j = 0; j < uIntersections.Count; j++)
-                {
-                    if (uIntersections[i] != uIntersections[j])
-                    {
-                        if (Vector3.Distance(uIntersections[i], uIntersections[j]) < closestDistance)
-                        {
-                            closestDistance = Vector3.Distance(uIntersections[i], uIntersections[j]);
-                            if (i > j)
-                            {
-                                index = j;
-                            }
-                            else
-                            {
-                                index = j - 1;
-                            }
-
-                            Debug.Log(uIntersections.Count);
-                            closestVertex = uIntersections[j];
-
-                        }
-                    }
-                }
-            Debug.Log(uIntersections[i] + " " + closestVertex);
-            uIntersections.RemoveAt(i);
         }
-
-        //Add midPoint to Vertices Array of Obj (new List again)
-        //Need to find only certain Intersection Vertices as several more are instantiated (might be a problem)
-        //Connect two adjacent and the midPoint to Triangles (new List again)
-        //Profit
-    }
-
-    class VectorPair
-    {
-        public Vector3 vector1;
-        public Vector3 vector2;
-        public VectorPair(Vector3 vector1, Vector3 vector2)
+        verts.Add(uIntersections[uIntersections.Count-1]);
+        endIndex = verts.Count - 1;
+        tris.Add(midPointIndex);
+        if (posSide)
         {
-            this.vector1 = vector1;
-            this.vector2 = vector2;
+            tris.Add(startIndex);
+            tris.Add(endIndex);
         }
-    }
+        else
+        {
+            {
+                tris.Add(endIndex);
+                tris.Add(startIndex);
+            }
+        }
+        mesh = new Mesh();
+        mesh.vertices = new Vector3[verts.Count];
+        mesh.vertices = verts.ToArray();
+        
+        mesh.triangles = new int[tris.Count];
+        mesh.triangles = tris.ToArray();
 
+        ApplyMesh(obj, mesh);
+    }
+    
+    /*in the intersections list there are some doubled vertices that are generated at edge points these shouldn't be ignored but deleted
+     for now they are ignored*/
+    //TODO: remove artefact vertices as they are irrelevant;
+
+    //to form a triangle properly vertices need to be in clockwise order
+    private List<Vector3> SortIntersectionsClockwise()
+    {
+        Vector3 centroid = new Vector3();
+        Quaternion toPlaneSpace = new Quaternion();
+        List<Vector3> uIntersections = new List<Vector3>();
+        List<Vector3> sortedIntersections = new List<Vector3>();
+        uIntersections = GetUniqueIntersectionVertices();
+        float intersectionsLength = uIntersections.Count;
+        float angle;
+        SortedDictionary<float, Vector3> anglesDict = new SortedDictionary<float, Vector3>();
+        
+        //compute a centroid between intersection vertices from which angles are created
+        foreach (Vector3 intersection in uIntersections)
+        {
+            centroid += intersection;
+
+        }
+        centroid = new Vector3(centroid.x / intersectionsLength, centroid.y / intersectionsLength, centroid.z / intersectionsLength);
+        toPlaneSpace = Quaternion.Inverse(Quaternion.LookRotation(planeNormal));
+
+        for (int i = 0; i < uIntersections.Count; i++)
+        {
+            Vector3 offset = toPlaneSpace * (uIntersections[i] - centroid);
+            angle = Mathf.Atan2(offset.y, offset.x);
+            anglesDict.Add(angle, uIntersections[i]);
+        }
+
+        foreach (var item in anglesDict)
+        {
+            sortedIntersections.Add(item.Value);
+        }
+
+        return sortedIntersections;
+    }
+    
+    //find all intersection Points once
     private List<Vector3> GetUniqueIntersectionVertices()
     {
-
         List<Vector3> uiPoints = new List<Vector3>();
         foreach (InterSectionPoint iPoint in interSectionPoints)
         {
