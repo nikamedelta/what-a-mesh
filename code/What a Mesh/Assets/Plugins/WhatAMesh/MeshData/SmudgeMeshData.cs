@@ -17,12 +17,27 @@ public class SmudgeMeshData : MeshData
 
     public SmudgeMeshData(GameObject gameObject) : base(gameObject) { }
 
-    public Vector3 Middle => middle.Position;
-
+    public Vertex Middle => middle;
+    
+    /// <summary>
+    /// Get all vertices in specified radius around middle vertex, based on distance. 
+    /// </summary>
+    /// <param name="radius"></param>
+    /// <returns></returns>
     private List<Vertex> VerticesInRadius(float radius)
     {
         List<Vertex> list = new List<Vertex>();
 
+        foreach (Vertex vertex in vertices)
+        {
+            if (Vector3.Distance(middle.Position, vertex.Position) <= radius)
+            {
+                list.Add(vertex);
+            }
+        }
+        
+        
+        /*        
         list.Add(middle);
         int newIndex = 0;
         bool beginning = true;
@@ -41,7 +56,9 @@ public class SmudgeMeshData : MeshData
                 }
             }
             beginning = false;
-        }
+        }*/
+        
+        
         return list;
     }
 
@@ -204,10 +221,14 @@ public class SmudgeMeshData : MeshData
         
         innerSelection = VerticesInRadius(innerRadius);
         outerSelection = VerticesInRadius(outerRadius);
-        
-        
+        Debug.Log("inner " + innerSelection.Count);
+        Debug.Log("outer " + outerSelection.Count);
     }
 
+    /// <summary>
+    /// Move selected vertices towards the given position. 
+    /// </summary>
+    /// <param name="move"> New position (in local space) that is applied to the middle vertex. </param>
     public void Move(Vector3 move)
     {
         Vector3 originalPosition = middle.Position;
@@ -216,10 +237,15 @@ public class SmudgeMeshData : MeshData
         MoveInnerRadius(originalPosition);
         MoveOuterRadius(originalPosition);
         
-        distanceSinceLastAdd += Vector3.Distance(originalPosition, middle.Position);
+        //distanceSinceLastAdd += Vector3.Distance(originalPosition, middle.Position);
 
         // if (distanceSinceLastAdd > avgDistance*2) AddVerticesForSmudge(middle.Position, outerRadius);
         RecalculateMesh();
+    }
+
+    public void EndMove()
+    {
+        AddVerticesForSmudge(middle.Position, outerRadius);
     }
 
     private void MoveInnerRadius(Vector3 originalMiddlePosition)
@@ -229,12 +255,12 @@ public class SmudgeMeshData : MeshData
             if (vertex != middle)
             {
                 Vector3 temp = vertex.Position - originalMiddlePosition;
-                Vector3 moveVertex = originalMiddlePosition + temp;
+                Vector3 moveVertex = middle.Position + temp;
                 
                 vertex.Position = moveVertex;
             }
         }
-    }
+    } 
 
     private void MoveOuterRadius(Vector3 originalMiddlePosition)
     {
@@ -242,12 +268,12 @@ public class SmudgeMeshData : MeshData
         {
             if (!innerSelection.Contains(vertex))
             {
-                Vector3 temp = vertex.Position - originalMiddlePosition;
-                Vector3 moveVertex = originalMiddlePosition + temp;
+                Vector3 temp = vertex.OrigPosition - middle.OrigPosition;
+                Vector3 moveVertex = middle.Position + temp;
                 
-                float lol = (Vector3.Distance(originalMiddlePosition, vertex.Position) - innerRadius) / ((outerRadius - innerRadius));
+                float lol = (Vector3.Distance(middle.OrigPosition, vertex.OrigPosition) - innerRadius) / ((outerRadius - innerRadius));
                 // Debug.Log(lol);
-                Vector3 n = Vector3.Lerp(vertex.Position, moveVertex, 1-lol);
+                Vector3 n = Vector3.Lerp(vertex.OrigPosition, moveVertex, 1-lol);
                 vertex.Position = n; 
             }
         }

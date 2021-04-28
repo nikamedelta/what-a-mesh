@@ -6,22 +6,14 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class WhatAMeshSmudgeController : MonoBehaviour
 {
-    private Camera camera;
-    
-    GameObject obj;
-    Mesh objMesh;
-    Vector3[] objVertices;
-    Vector3[] objOrigVertices;
-    Vector3[] objNormals;
+    private Camera mainCamera;
+
     private SmudgeMeshData objMeshData;
-    private SmudgeMeshData objMeshDataCopy;
 
     int vertIndexToMove;
     List<int> objVertSelection;
 
     Vector3 hitPoint;
-    Vector3 objectPoint;
-    Vector3 worldOffset;
     Vector3 screenPointV3;
 
     private float outerRadius;
@@ -43,7 +35,7 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     public string yAxis;
 
     public float sensitivity = 0.01f;
-    
+
     [Serializable]
     public enum InputType
     {
@@ -56,7 +48,7 @@ public class WhatAMeshSmudgeController : MonoBehaviour
 
     private void Awake()
     {
-        camera = Camera.main;
+        mainCamera = Camera.main;
     }
 
     private void Update()
@@ -76,16 +68,14 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     /// <param name="outerRadius"> vertices in outer radius are smoothed out </param>
     public void StartDeformation(GameObject obj, Vector3 startPoint, float innerRadius, float outerRadius)
     {
-        this.obj = obj;
         objMeshData = new SmudgeMeshData(obj);
         
         objMeshData.BeginMove(startPoint, innerRadius, outerRadius);
-        objMeshDataCopy = objMeshData;
         
         performingDeformation = true;
         hitPoint = startPoint;
         
-        Debug.Log((hitPoint-obj.transform.position) + " hitpoint, " + objMeshData.Middle + " middle");
+        //Debug.Log((hitPoint-obj.transform.position) + " hitpoint, " + objMeshData.Middle + " middle");
     } 
     
     /// <summary>
@@ -93,24 +83,22 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     /// </summary>
     private void PerformDeformation()
     {
-        objMeshData.Move(new Vector3(1,1,1));
-        return;
+        Vector3 endPosition = objMeshData.Middle.Position;
         
-        Vector3 endPosition = objMeshData.Middle;
-        
-        objectPoint = objMeshDataCopy.Middle;
-        worldOffset = objectPoint - hitPoint;
-        Plane plane = new Plane(camera.transform.forward, hitPoint);
-
-        Ray screenRay = camera.ScreenPointToRay(screenPointV3);
+        Vector3 objectPoint = objMeshData.Middle.OrigPosition;
+        Vector3 worldOffset = objectPoint - hitPoint;
+        Plane plane = new Plane(mainCamera.transform.forward, hitPoint);
+        Vector3 position = new Vector3();
+        Ray screenRay = mainCamera.ScreenPointToRay(screenPointV3);
 
         plane.Raycast(screenRay, out float distance);
 
         switch (inputType)
         {
-            case InputType.Mouse:  
+            case InputType.Mouse:
                 screenPointV3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-                Vector3 position = screenRay.origin + screenRay.direction * distance;
+                screenRay = Camera.main.ScreenPointToRay(screenPointV3);
+                position = screenRay.origin + screenRay.direction * distance;
                 endPosition = position + worldOffset;
                 break;
 
@@ -134,25 +122,26 @@ public class WhatAMeshSmudgeController : MonoBehaviour
                 break;
         }
         objMeshData.Move(endPosition);
-        Debug.Log(endPosition);
     }
     /// <summary>
     /// End and apply the deformation. 
     /// </summary>
     public void StopDeformation()
     {
+        performingDeformation = false;
         // reassign mesh collider (to allow further deformations)
-        if (obj.GetComponent<Collider>() is MeshCollider)
+        if (objMeshData.GameObject.GetComponent<Collider>() is MeshCollider)
         {
-            obj.GetComponent<MeshCollider>().sharedMesh = objMesh;
+            objMeshData.GameObject.GetComponent<MeshCollider>().sharedMesh = objMeshData.Mesh;
         }
         else
         {
-            Destroy(obj.GetComponent<Collider>());
-            obj.AddComponent<MeshCollider>();
-            obj.GetComponent<MeshCollider>().sharedMesh = objMesh;
+            Destroy(objMeshData.GameObject.GetComponent<Collider>());
+            objMeshData.GameObject.AddComponent<MeshCollider>();
+            objMeshData.GameObject.GetComponent<MeshCollider>().sharedMesh = objMeshData.Mesh;
         }
-        performingDeformation = false;
+        
+        objMeshData.EndMove();
     }
     /// <summary>
     /// Deformation ist not applied to the object. 

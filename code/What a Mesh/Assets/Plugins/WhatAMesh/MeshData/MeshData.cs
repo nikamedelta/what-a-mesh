@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MeshData
     {
-        protected class Triangle
+        public class Triangle
         {
             private int v1Index;
             private int v2Index;
@@ -74,18 +75,24 @@ public class MeshData
             }
         }
 
-        protected class Vertex
+        public class Vertex
         {
             private Vector3 position;
             private int index;
             private List<Vertex> neighbors;
             private List<Vector3> underlyingList;
+            private Vector3 origPosition;
+
+            public Vector3 OrigPosition => origPosition;
+
+
             public Vertex(Vector3 position, int index, List<Vector3> underlyingList)
             {
                 this.position = position;
                 this.index = index;
                 this.underlyingList = underlyingList;
                 neighbors = new List<Vertex>();
+                this.origPosition = position;
             }
 
             public Vector3 Position
@@ -116,11 +123,16 @@ public class MeshData
         protected List<Triangle> triangles;
         protected List<Vertex> vertices;
         protected List<Triangle> origTriangles;
-        protected List<Vertex> origVertices;
         protected List<Vector3> originalVertices;
         protected Mesh mesh;
+
+        public Mesh Mesh => mesh;
+        
         protected float avgDistance;
         protected GameObject gameObject;
+
+        public GameObject GameObject => gameObject;
+        
         
         public MeshData(GameObject gameObject)
         {
@@ -130,7 +142,6 @@ public class MeshData
             vertices = CreateVertices(originalVertices);
             triangles = CreateTriangles(temp.triangles);
             origTriangles = triangles;
-            origVertices = vertices;
             mesh = temp;
             AddNeighbors();
             
@@ -186,12 +197,12 @@ public class MeshData
             Vertex closestVertex = null;
             float distance = float.MaxValue;
             
+            Vector3 pivot = gameObject.transform.position;
+            Quaternion rotation = gameObject.transform.rotation;
+            
             foreach (Vertex vertex in vertices)
             {
                 // rotate vertex position along object transform's position
-                Vector3 pivot = gameObject.transform.position;
-                Quaternion rotation = gameObject.transform.rotation;
-
                 Vector3 position = rotation * (vertex.Position - pivot) + pivot;
                 
                 if (closestVertex == null || Vector3.Distance(hitPoint, position) < distance)
@@ -200,7 +211,6 @@ public class MeshData
                     distance = Vector3.Distance(hitPoint, position);
                 }
             }
-
             return closestVertex;
         }
 

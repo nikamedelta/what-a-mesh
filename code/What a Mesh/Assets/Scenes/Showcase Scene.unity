@@ -307,7 +307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354020730}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.244, y: 0, z: 0.69}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 355305462}
@@ -731,7 +731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927647230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -8.23, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 355305462}
@@ -929,7 +929,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323631968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: 0.5, z: -2.81}
+  m_LocalPosition: {x: 0, y: 0.36, z: -2.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1036,6 +1036,8 @@ GameObject:
   - component: {fileID: 1401883834}
   - component: {fileID: 1401883833}
   - component: {fileID: 1401883832}
+  - component: {fileID: 1401883836}
+  - component: {fileID: 1401883835}
   m_Layer: 0
   m_Name: What A Mesh Smudge
   m_TagString: Untagged
@@ -1056,7 +1058,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatAMesh: {fileID: 1401883833}
-  radius: 0.4
+  innerRadius: 0.2
+  outerRadius: 0.3
 --- !u!114 &1401883833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1091,6 +1094,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1401883835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401883831}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92248ccf23f63140901612ab0f967eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatAMess: {fileID: 1401883836}
+  whatAMesh: {fileID: 1401883833}
+  testObject: {fileID: 354020730}
+--- !u!114 &1401883836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401883831}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 102a96283e22bf641b6d334bdfb265a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xKeyPos: 0
+  xKeyNeg: 0
+  yKeyPos: 0
+  yKeyNeg: 0
+  xAxis: 
+  yAxis: 
+  sensitivity: 0.01
+  inputType: 0
 --- !u!1 &2052089752
 GameObject:
   m_ObjectHideFlags: 0
