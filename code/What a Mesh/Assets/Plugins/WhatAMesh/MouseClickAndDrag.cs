@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseHoldAndDrag : MonoBehaviour
 {
     public WhatAMeshSmudgeController whatAMesh;
     bool selectedObject;
 
-    public float radius;
+    public float innerRadius = 0.5f;
+    public float outerRadius = 1f;
     private void Update()
     {
         if (!selectedObject)
@@ -21,7 +20,7 @@ public class MouseHoldAndDrag : MonoBehaviour
                     Debug.Log("Hit GameObject");
                     if (hit.transform.gameObject.tag == "Deformable")
                     {
-                        whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, radius);
+                        whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, innerRadius, outerRadius);
                         Debug.Log("Started Deformation on Deformable GameObject");
                         selectedObject = true;
                     }
@@ -35,6 +34,13 @@ public class MouseHoldAndDrag : MonoBehaviour
                 selectedObject = false;
                 whatAMesh.StopDeformation();
             }
+            
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                selectedObject = false;
+                whatAMesh.CancelDeformation();
+
+            }
         }
 
 
@@ -42,12 +48,13 @@ public class MouseHoldAndDrag : MonoBehaviour
         {
             if (Input.mouseScrollDelta.y > 0)
             {
-                radius += .01f;
+                outerRadius += .01f;
             }
             else if (Input.mouseScrollDelta.y < 0)
             {
-                radius -= .01f;
+                outerRadius -= .01f;
             }
         }
+        
     }
 }

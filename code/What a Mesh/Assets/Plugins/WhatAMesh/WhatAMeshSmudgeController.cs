@@ -1,26 +1,19 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor;
+using System.Net;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [DisallowMultipleComponent]
 public class WhatAMeshSmudgeController : MonoBehaviour
 {
-    GameObject obj;
-    Mesh objMesh;
-    Vector3[] objVertices;
-    Vector3[] objOrigVertices;
-    Vector3[] objNormals;
+    private Camera mainCamera;
+
+    private SmudgeMeshData objMeshData;
 
     int vertIndexToMove;
     List<int> objVertSelection;
 
     Vector3 hitPoint;
-    Vector3 objectPoint;
-    Vector3 worldOffset;
     Vector3 screenPointV3;
 
     private float outerRadius;
@@ -42,8 +35,8 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     public string yAxis;
 
     public float sensitivity = 0.01f;
-    
-    [System.Serializable]
+
+    [Serializable]
     public enum InputType
     {
         Mouse,
@@ -53,6 +46,11 @@ public class WhatAMeshSmudgeController : MonoBehaviour
 
     public InputType inputType;
 
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
+
     private void Update()
     {
         if (performingDeformation)
@@ -61,148 +59,101 @@ public class WhatAMeshSmudgeController : MonoBehaviour
             PerformDeformation();
         }
     }
-    public void StartDeformation(GameObject obj, Vector3 startPoint, float radius)
+    /// <summary>
+    /// Starting the deformation. 
+    /// </summary>
+    /// <param name="obj"> the object to deform </param>
+    /// <param name="startPoint"> the center of the deformation </param>
+    /// <param name="innerRadius"> vertices in inner radius are moved by the maximum amount </param>
+    /// <param name="outerRadius"> vertices in outer radius are smoothed out </param>
+    public void StartDeformation(GameObject obj, Vector3 startPoint, float innerRadius, float outerRadius)
     {
-        this.outerRadius = radius;
-        innerRadius = radius / 2;
-
-        // select necessary properties for smudge
-        this.obj = obj;
-        vertIndexToMove = FindNearestVertex(obj, startPoint);
-        objVertSelection = findVertexSelection(vertIndexToMove, objVertices, radius);
+        objMeshData = new SmudgeMeshData(obj);
+        
+        objMeshData.BeginMove(startPoint, innerRadius, outerRadius);
+        
         performingDeformation = true;
         hitPoint = startPoint;
-    }
-
- private void PerformDeformation()
+        
+        //Debug.Log((hitPoint-obj.transform.position) + " hitpoint, " + objMeshData.Middle + " middle");
+    } 
+    
+    /// <summary>
+    /// Determines the movement of the middle vertex. 
+    /// </summary>
+    private void PerformDeformation()
     {
-        objectPoint = objOrigVertices[vertIndexToMove];
-        worldOffset = objectPoint - hitPoint;
-        Plane p = new Plane(Camera.main.transform.forward, hitPoint);
-        float distance;
+        Vector3 endPosition = objMeshData.Middle.Position;
+        
+        Vector3 objectPoint = objMeshData.Middle.OrigPosition;
+        Vector3 worldOffset = objectPoint - hitPoint;
+        Plane plane = new Plane(mainCamera.transform.forward, hitPoint);  
+        Vector3 position = new Vector3();
+        Ray screenRay = mainCamera.ScreenPointToRay(screenPointV3);
 
-        Ray screenRay = Camera.main.ScreenPointToRay(screenPointV3);
-
-        p.Raycast(screenRay, out distance);
+        plane.Raycast(screenRay, out float distance);
 
         switch (inputType)
         {
             case InputType.Mouse:
                 screenPointV3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-                Vector3 position = screenRay.origin + screenRay.direction * distance;
-                objVertices[vertIndexToMove] = position + worldOffset;
+                screenRay = Camera.main.ScreenPointToRay(screenPointV3);
+                position = screenRay.origin + screenRay.direction * distance;
+                endPosition = position + worldOffset;
                 break;
 
             case InputType.Keys:
-                if (Input.GetKey(xKeyPos))
-                    xKeyPosVal = 1;
-                else xKeyPosVal = 0;
-                
-                if (Input.GetKey(xKeyNeg))
-                    xKeyNegVal = 1;
-                else xKeyNegVal = 0;  
-                
-                if (Input.GetKey(yKeyPos))
-                    yKeyPosVal = 1;
-                else yKeyPosVal = 0; 
-                
-                if (Input.GetKey(yKeyNeg))
-                    yKeyNegVal = 1;
-                else yKeyNegVal = 0;
+                xKeyPosVal = Input.GetKey(xKeyPos) ? 1 : 0;
+                xKeyNegVal = Input.GetKey(xKeyNeg) ? 1 : 0;
+                yKeyPosVal = Input.GetKey(yKeyPos) ? 1 : 0;
+                yKeyNegVal = Input.GetKey(yKeyNeg) ? 1 : 0;
 
                 screenPointV3 = new Vector3(
-                    objVertices[vertIndexToMove].x +=((xKeyPosVal - xKeyNegVal) * sensitivity),
-                    objVertices[vertIndexToMove].y +=((yKeyPosVal - yKeyNegVal) * sensitivity),
-                    0);
+                endPosition.x +=(xKeyPosVal - xKeyNegVal) * sensitivity,
+                endPosition.y +=(yKeyPosVal - yKeyNegVal) * sensitivity,
+                0);
                 break;
 
             case InputType.ControllerAxis:
                 screenPointV3 = new Vector3(
-                        objVertices[vertIndexToMove].x += ((Input.GetAxis(xAxis)) * sensitivity),
-                        objVertices[vertIndexToMove].y += ((Input.GetAxis(yAxis)) * sensitivity),
-                        0);
+                    endPosition.x += Input.GetAxis(xAxis) * sensitivity,
+                    endPosition.y += Input.GetAxis(yAxis) * sensitivity,
+                    0);
                 break;
         }
-        // vertices are moved along a plane (parallel to the screen) 
-        foreach (int i in objVertSelection)
-        {
-            Vector3 temp = objOrigVertices[i] - objOrigVertices[vertIndexToMove];
-
-            Vector3 moveVertex = objVertices[vertIndexToMove] + temp;
-            
-            if (Vector3.Distance(objOrigVertices[vertIndexToMove], objOrigVertices[i]) <= innerRadius)
-            {
-                objVertices[i] = moveVertex;
-            }
-            else if (Vector3.Distance(objOrigVertices[vertIndexToMove], objOrigVertices[i])<= outerRadius)
-            {
-                float lol = (Vector3.Distance(objOrigVertices[vertIndexToMove], objOrigVertices[i]) - innerRadius) / ((outerRadius - innerRadius));
-                Debug.Log(lol);
-                Vector3 n = Vector3.Lerp(objOrigVertices[i], moveVertex, 1-lol);
-                objVertices[i] = n;
-            }
-        }
-
-        objMesh.vertices = objVertices;
-        objMesh.normals = objNormals;
-        objMesh.RecalculateNormals();
-        objMesh.RecalculateBounds();
+        objMeshData.Move(endPosition);
     }
-
+    /// <summary>
+    /// End and apply the deformation. 
+    /// </summary>
     public void StopDeformation()
     {
+        performingDeformation = false;
+        objMeshData.EndMove();
+        ReassignCollider();
+    }
+    /// <summary>
+    /// Deformation ist not applied to the object, original mesh is applied. 
+    /// </summary>
+    public void CancelDeformation()
+    {
+        performingDeformation = false;
+        objMeshData.ApplyOriginalMesh();
+        ReassignCollider();
+    }
+
+    private void ReassignCollider()
+    {
         // reassign mesh collider (to allow further deformations)
-        if (obj.GetComponent<Collider>() is MeshCollider)
+        if (objMeshData.GameObject.GetComponent<Collider>() is MeshCollider)
         {
-            obj.GetComponent<MeshCollider>().sharedMesh = objMesh;
+            objMeshData.GameObject.GetComponent<MeshCollider>().sharedMesh = objMeshData.Mesh;
         }
         else
         {
-            Destroy(obj.GetComponent<Collider>());
-            obj.AddComponent<MeshCollider>();
-            obj.GetComponent<MeshCollider>().sharedMesh = objMesh;
+            Destroy(objMeshData.GameObject.GetComponent<Collider>());
+            objMeshData.GameObject.AddComponent<MeshCollider>();
+            objMeshData.GameObject.GetComponent<MeshCollider>().sharedMesh = objMeshData.Mesh;
         }
-        performingDeformation = false;
-        
-        // add Vertices to distorted mesh
-        MeshData meshData = new MeshData(obj);
-        meshData.AddVerticesForSmudge(objVertices[vertIndexToMove], outerRadius);
-        Debug.Log("Vertices added");
-    }
-
-    private int FindNearestVertex(GameObject obj, Vector3 startPoint)
-    {
-        objMesh = obj.GetComponent<MeshFilter>().mesh;
-        objVertices = objMesh.vertices;
-        objOrigVertices = objMesh.vertices;
-        objNormals = objMesh.normals;
-
-        int index = -1;
-        float shortestDistance = float.MaxValue;
-
-        for (int i = 0; i < objVertices.Length; i++)
-        {
-            float distance = Vector3.Distance(startPoint, obj.transform.position + objVertices[i]);
-            if (distance < shortestDistance)
-            {
-                index = i;
-                shortestDistance = distance;
-            }
-        }
-        return index;
-    }
-
-    private List<int> findVertexSelection(int firstSelected, Vector3[] objVertices, float radius)
-    {
-        List<int> selection = new List<int>();
-
-        for (int i = 0; i < objVertices.Length; i++)
-        {
-            if (Vector3.Distance(objVertices[firstSelected], objVertices[i]) < radius)
-            {
-                selection.Add(i);
-            }
-        }
-        return selection;
     }
 }

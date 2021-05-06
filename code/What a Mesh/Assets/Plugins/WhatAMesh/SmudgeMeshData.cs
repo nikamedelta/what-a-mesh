@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using UnityEngine;
 
-public class MeshData
+public class FirstMeshData
     {
         private class Triangle
         {
@@ -117,7 +117,7 @@ public class MeshData
         private float avgDistance;
         private GameObject go;
         
-        public MeshData(GameObject gameObject)
+        public FirstMeshData(GameObject gameObject)
         {
             go = gameObject;
             Mesh temp = gameObject.GetComponent<MeshFilter>().mesh;

@@ -1,29 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseClickAndDrag : MonoBehaviour
 {
     public WhatAMeshSmudgeController whatAMesh;
     bool selectedObject;
 
-    public float radius;
+    public float innerRadius;
+    public float outerRadius;
     private void Update()
     {
         if (!selectedObject)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Mouse Button Input");
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 300))
                 {
-                    Debug.Log("Hit GameObject");
                     if (hit.transform.gameObject.CompareTag("Deformable"))
                     {
-                        whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, radius);
-                        Debug.Log("Started Deformation on Deformable GameObject");
+                        whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, innerRadius, outerRadius);
                         selectedObject = true;
                     }
                 }
@@ -37,16 +33,23 @@ public class MouseClickAndDrag : MonoBehaviour
                 whatAMesh.StopDeformation();
             }
         }
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            selectedObject = false;
+            whatAMesh.CancelDeformation();
+
+        }
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
             if (Input.mouseScrollDelta.y > 0)
             {
-                radius += .01f;
+                outerRadius += .01f;
             }
             else if (Input.mouseScrollDelta.y < 0)
             {
-                radius -= .01f;
+                outerRadius -= .01f;
             }
         }
     }

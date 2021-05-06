@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 public class WhatAMeshWindow : EditorWindow
@@ -22,7 +20,8 @@ public class WhatAMeshWindow : EditorWindow
                 var c =  whatAMeshTool.AddComponent<WhatAMeshSmudgeController>();
                 var selectionTool =  whatAMeshTool.AddComponent<MouseHoldAndDrag>();
                 selectionTool.whatAMesh = c;
-                selectionTool.radius = .5f;
+                selectionTool.innerRadius = .5f;
+                selectionTool.outerRadius = 1f;
             }
         }
 
@@ -35,7 +34,8 @@ public class WhatAMeshWindow : EditorWindow
                 var c = whatAMeshTool.AddComponent<WhatAMeshSmudgeController>();
                 var selectionTool = whatAMeshTool.AddComponent<MouseClickAndDrag>();
                 selectionTool.whatAMesh = c;
-                selectionTool.radius = .5f;
+                selectionTool.innerRadius = .5f;
+                selectionTool.outerRadius = 1f;
             }
         }
         
