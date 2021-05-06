@@ -125,6 +125,7 @@ public class MeshData
         protected List<Triangle> origTriangles;
         protected List<Vector3> originalVertices;
         protected Mesh mesh;
+        protected readonly Mesh originalMesh;
 
         public Mesh Mesh => mesh;
         
@@ -137,12 +138,13 @@ public class MeshData
         public MeshData(GameObject gameObject)
         {
             this.gameObject = gameObject;
-            Mesh temp = gameObject.GetComponent<MeshFilter>().mesh;
-            originalVertices = new List<Vector3>(temp.vertices);
+            mesh = gameObject.GetComponent<MeshFilter>().mesh;
+            originalVertices = new List<Vector3>(mesh.vertices);
             vertices = CreateVertices(originalVertices);
-            triangles = CreateTriangles(temp.triangles);
+            triangles = CreateTriangles(mesh.triangles);
             origTriangles = triangles;
-            mesh = temp;
+            Mesh temp = gameObject.GetComponent<MeshFilter>().mesh;
+            originalMesh = temp;
             AddNeighbors();
             
             int i = 0;
@@ -264,6 +266,11 @@ public class MeshData
                 }
             }
             return trigs;
+        }
+
+        public void ApplyOriginalMesh()
+        {
+            mesh = originalMesh;
         }
 
     }

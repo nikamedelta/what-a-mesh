@@ -79,7 +79,7 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     } 
     
     /// <summary>
-    /// Determines the movement of the middle vertex and moves vertices according to their radius. 
+    /// Determines the movement of the middle vertex. 
     /// </summary>
     private void PerformDeformation()
     {
@@ -87,7 +87,7 @@ public class WhatAMeshSmudgeController : MonoBehaviour
         
         Vector3 objectPoint = objMeshData.Middle.OrigPosition;
         Vector3 worldOffset = objectPoint - hitPoint;
-        Plane plane = new Plane(mainCamera.transform.forward, hitPoint);
+        Plane plane = new Plane(mainCamera.transform.forward, hitPoint);  
         Vector3 position = new Vector3();
         Ray screenRay = mainCamera.ScreenPointToRay(screenPointV3);
 
@@ -109,15 +109,15 @@ public class WhatAMeshSmudgeController : MonoBehaviour
                 yKeyNegVal = Input.GetKey(yKeyNeg) ? 1 : 0;
 
                 screenPointV3 = new Vector3(
-                endPosition.x +=((xKeyPosVal - xKeyNegVal) * sensitivity),
-                endPosition.y +=((yKeyPosVal - yKeyNegVal) * sensitivity),
+                endPosition.x +=(xKeyPosVal - xKeyNegVal) * sensitivity,
+                endPosition.y +=(yKeyPosVal - yKeyNegVal) * sensitivity,
                 0);
                 break;
 
             case InputType.ControllerAxis:
                 screenPointV3 = new Vector3(
-                    endPosition.x += ((Input.GetAxis(xAxis)) * sensitivity),
-                    endPosition.y += ((Input.GetAxis(yAxis)) * sensitivity),
+                    endPosition.x += Input.GetAxis(xAxis) * sensitivity,
+                    endPosition.y += Input.GetAxis(yAxis) * sensitivity,
                     0);
                 break;
         }
@@ -129,6 +129,21 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     public void StopDeformation()
     {
         performingDeformation = false;
+        objMeshData.EndMove();
+        ReassignCollider();
+    }
+    /// <summary>
+    /// Deformation ist not applied to the object, original mesh is applied. 
+    /// </summary>
+    public void CancelDeformation()
+    {
+        performingDeformation = false;
+        objMeshData.ApplyOriginalMesh();
+        ReassignCollider();
+    }
+
+    private void ReassignCollider()
+    {
         // reassign mesh collider (to allow further deformations)
         if (objMeshData.GameObject.GetComponent<Collider>() is MeshCollider)
         {
@@ -140,14 +155,5 @@ public class WhatAMeshSmudgeController : MonoBehaviour
             objMeshData.GameObject.AddComponent<MeshCollider>();
             objMeshData.GameObject.GetComponent<MeshCollider>().sharedMesh = objMeshData.Mesh;
         }
-        
-        objMeshData.EndMove();
-    }
-    /// <summary>
-    /// Deformation ist not applied to the object. 
-    /// </summary>
-    public void CancelDeformation()
-    {
-        throw new NotImplementedException();
     }
 }

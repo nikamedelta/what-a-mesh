@@ -33,6 +33,13 @@ public class MouseClickAndDrag : MonoBehaviour
                 whatAMesh.StopDeformation();
             }
         }
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            selectedObject = false;
+            whatAMesh.CancelDeformation();
+
+        }
 
         if (Input.GetKey(KeyCode.LeftControl))
         {

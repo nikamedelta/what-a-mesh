@@ -231,8 +231,15 @@ public class SmudgeMeshData : MeshData
     /// <param name="move"> New position (in local space) that is applied to the middle vertex. </param>
     public void Move(Vector3 move)
     {
+        // rotation
+        Vector3 pivot = Middle.OrigPosition;
+        Quaternion rotation = GameObject.transform.rotation;
+        rotation = Quaternion.Inverse(rotation);
+        Vector3 newMove = rotation * (move - pivot) + pivot;
+
+        
         Vector3 originalPosition = middle.Position;
-        middle.Position = move;
+        middle.Position = newMove;
         
         MoveInnerRadius(originalPosition);
         MoveOuterRadius(originalPosition);

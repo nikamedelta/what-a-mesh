@@ -34,6 +34,13 @@ public class MouseHoldAndDrag : MonoBehaviour
                 selectedObject = false;
                 whatAMesh.StopDeformation();
             }
+            
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                selectedObject = false;
+                whatAMesh.CancelDeformation();
+
+            }
         }
 
 
@@ -48,5 +55,6 @@ public class MouseHoldAndDrag : MonoBehaviour
                 outerRadius -= .01f;
             }
         }
+        
     }
 }
