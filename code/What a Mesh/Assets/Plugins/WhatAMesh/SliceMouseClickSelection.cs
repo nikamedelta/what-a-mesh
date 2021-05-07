@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 public class SliceMouseClickSelection : MonoBehaviour
 {
     [FormerlySerializedAs("whatAMeshSlice")] [FormerlySerializedAs("slice")] public WhatAMeshSliceController whatAMeshSliceController;
+
     private bool firstSelected = false;
 
     void Update()
