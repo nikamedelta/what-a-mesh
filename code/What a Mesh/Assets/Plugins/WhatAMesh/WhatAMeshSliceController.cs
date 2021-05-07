@@ -47,7 +47,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     //TODO: The Mesh Collider somehow distorts when set to convex. // This didn'T happen anymore when uvs and normals were correctly applied but I'm unsure if that really was the cause might need testing.
     
     //UI
-    //TODO: Allow Dev to choose if object is 2D or 3D (as closegape ist not needed in 2D objects)
+    //TODO: Allow Dev to choose if object is 2D or 3D (as closegap ist not needed in 2D objects)
     
     //Performance
     //TODO: Due to generalization issues duplicate vertices are created everytime a line is intersected that is part of 2 triangles. This should only happen when the intersection takes place on an edge of the object.
@@ -278,6 +278,7 @@ public class WhatAMeshSliceController : MonoBehaviour
                     Destroy(obj.GetComponent<Collider>());
 
                     obj.AddComponent<MeshCollider>();
+                    obj.GetComponent<MeshCollider>().convex = true;
                 }
 
                 CreateLines();
@@ -336,7 +337,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     private void CreateSlicePlane(Vector3 relativePos)
     {
         //plane which will intersect the object
-        planeNormal = Vector3.Cross(relativePos, -Vector3.forward).normalized;
+        planeNormal = Vector3.Cross(relativePos, -mainCamera.transform.forward).normalized;
         interSectionPlane = new Plane(planeNormal, planeStart.point);
         DrawPlane(planeStart.point, planeNormal);
     }
@@ -374,6 +375,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     {
         //each line will be tested if it is intersected by the plane
         interSectionPoints = new List<InterSectionPoint>();
+        Debug.Log("started Calculating uvs");
         foreach(Line line in lines)
         {
             Ray lineRay = new Ray(line.GetStartPoint, line.GetDirection);
@@ -392,7 +394,13 @@ public class WhatAMeshSliceController : MonoBehaviour
                                 line.GetIndexEnd
 
                             );
-                    interSectionP.SetUv((objMesh.uv[interSectionP.GetIndex1] + objMesh.uv[interSectionP.GetIndex2]) / 2);
+
+                    float uvx;
+                    float uvy;
+                    Vector2 intersectionUv =(objMesh.uv[interSectionP.GetIndex1] + objMesh.uv[interSectionP.GetIndex2]) / 2;
+                    interSectionP.SetUv(new Vector2(intersectionUv.x + interSectionP.GetPoint.x/2, intersectionUv.y));
+                    Debug.Log(objMesh.uv[interSectionP.GetIndex1] + " " + interSectionP.GetUv + " " + objMesh.uv[interSectionP.GetIndex2]);
+                    Debug.Log(objMesh.vertices[interSectionP.GetIndex1] + " " + interSectionP.GetPoint + " " + objMesh.vertices[interSectionP.GetIndex2]);
                     interSectionP.SetNormal(objMesh.normals[interSectionP.GetIndex1]);
                     interSectionPoints.Add(interSectionP);
                 }
@@ -673,6 +681,8 @@ public class WhatAMeshSliceController : MonoBehaviour
         }
         GameObject obj1 = Instantiate(obj);
         GameObject obj2 = Instantiate(obj);
+        RemoveExtraCollider(obj1);
+        RemoveExtraCollider(obj2);
 
         Mesh obj1Mesh = new Mesh();
         Mesh obj2Mesh = new Mesh();
@@ -800,7 +810,6 @@ public class WhatAMeshSliceController : MonoBehaviour
         mesh = new Mesh();
         mesh.vertices = new Vector3[verts.Count];
         mesh.vertices = verts.ToArray();
-        Debug.Log(mesh.vertices.Length);
 
         mesh.normals = new Vector3[normals.Count];
         mesh.normals = normals.ToArray();
@@ -869,5 +878,13 @@ public class WhatAMeshSliceController : MonoBehaviour
             }
         }
         return uiPoints;
+    }
+
+    private void RemoveExtraCollider(GameObject obj)
+    {
+        if (obj.GetComponent<Collider>().GetType() != typeof(MeshCollider))
+        {
+            Destroy(obj.GetComponent<Collider>());
+        }
     }
 }
