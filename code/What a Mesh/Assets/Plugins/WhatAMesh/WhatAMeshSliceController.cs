@@ -299,6 +299,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     private void CreateLines()
     {
         //creates sets of 3 Vertices that make up a triangle
+        //umstrukturieren create lines & create triangles
         tris = new List<TriangleVertices>();
         int count = 0;
         for (int i = 0; i < objTriangles.Length; i+=3)
@@ -375,7 +376,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     {
         //each line will be tested if it is intersected by the plane
         interSectionPoints = new List<InterSectionPoint>();
-        Debug.Log("started Calculating uvs");
+        //Debug.Log("started Calculating uvs");
         foreach(Line line in lines)
         {
             Ray lineRay = new Ray(line.GetStartPoint, line.GetDirection);
@@ -512,7 +513,7 @@ public class WhatAMeshSliceController : MonoBehaviour
                 int indexCounter = CheckIndexOfIntersectedTriangle(s1, s2, s3);
                 
                 //changing the old triangle 
-                trianglesList[0 + indexCounter]  = iPIndex;
+                trianglesList[0 + indexCounter] = iPIndex;
                 trianglesList[1 + indexCounter] = s2;
                 trianglesList[2 + indexCounter] = s3;
                 
@@ -566,7 +567,6 @@ public class WhatAMeshSliceController : MonoBehaviour
     {
         List<Vertex>posSideVerts = new List<Vertex>();
         List<Vertex>negSideVerts = new List<Vertex>();
-        negSideVerts = new List<Vertex>();
         List<Vector3> posSideNormals = new List<Vector3>();
         List<Vector3> negSideNormals = new List<Vector3>();
         List<Vector2> posSideUvs = new List<Vector2>();
@@ -579,6 +579,7 @@ public class WhatAMeshSliceController : MonoBehaviour
         {
             Vector3 sideTest = new Vector3(objMesh.vertices[i].x + obj.transform.position.x, objMesh.vertices[i].y + obj.transform.position.y, objMesh.vertices[i].z + obj.transform.position.z);
             //ignore intersection points as they are neither on the positive or negative side of the plane
+            //if statement für side test besser schreiben
             if (interSectionPlane.GetSide(sideTest))
             {
                 bool isIntersectionPoint = false;
