@@ -23,7 +23,6 @@ public class WhatAMeshSliceController : MonoBehaviour
     private Vector3 planeNormal;
     private Vector3 selectionPoint0;
     private Vector3 selectionPoint1;
-    private Vector3 middle;
     private Plane interSectionPlane;
     
     private float interSection;
@@ -38,9 +37,7 @@ public class WhatAMeshSliceController : MonoBehaviour
     
     //List<Vertex> posSideVerts;
     //List<Vertex> negSideVerts;
-    
-    private bool firstSelected = false;
-    
+
     //TODO: When slicing a small part of the corner some index can't be found colliders not beeing removed might be the cause
 
     //There might be a way to split the gape of an concave object so that close gap could work properly but I'm unsure if this is possible in the scope of gl 2
@@ -263,7 +260,7 @@ public class WhatAMeshSliceController : MonoBehaviour
 
         if (Physics.Raycast(mainCamera.transform.position, midPoint, out planeStart, Mathf.Infinity))
         {
-            if (planeStart.transform.gameObject.tag == "Sliceable")
+            if (planeStart.transform.gameObject.tag == "Deformable")
             {
                 obj = planeStart.transform.gameObject;
                 Vector3 relativePos = selectionPoint0 - selectionPoint1;
@@ -321,6 +318,8 @@ public class WhatAMeshSliceController : MonoBehaviour
         lines = new List<Line>();
         foreach (TriangleVertices i in tris)
         {
+
+            //applying position and scale of object to these vertices is necessary to calculate position of intersection points
             Vector3 v1 = i.GetV1 + obj.transform.position;
             Vector3 v2 = i.GetV2 + obj.transform.position;
             Vector3 v3 = i.GetV3 + obj.transform.position;
@@ -376,7 +375,6 @@ public class WhatAMeshSliceController : MonoBehaviour
     {
         //each line will be tested if it is intersected by the plane
         interSectionPoints = new List<InterSectionPoint>();
-        //Debug.Log("started Calculating uvs");
         foreach(Line line in lines)
         {
             Ray lineRay = new Ray(line.GetStartPoint, line.GetDirection);
@@ -395,13 +393,10 @@ public class WhatAMeshSliceController : MonoBehaviour
                                 line.GetIndexEnd
 
                             );
-
-                    float uvx;
-                    float uvy;
                     Vector2 intersectionUv =(objMesh.uv[interSectionP.GetIndex1] + objMesh.uv[interSectionP.GetIndex2]) / 2;
-                    interSectionP.SetUv(new Vector2(intersectionUv.x + interSectionP.GetPoint.x/2, intersectionUv.y));
-                    Debug.Log(objMesh.uv[interSectionP.GetIndex1] + " " + interSectionP.GetUv + " " + objMesh.uv[interSectionP.GetIndex2]);
-                    Debug.Log(objMesh.vertices[interSectionP.GetIndex1] + " " + interSectionP.GetPoint + " " + objMesh.vertices[interSectionP.GetIndex2]);
+                    interSectionP.SetUv(new Vector2(intersectionUv.x, intersectionUv.y));
+                    //Debug.Log(objMesh.uv[interSectionP.GetIndex1] + " " + interSectionP.GetUv + " " + objMesh.uv[interSectionP.GetIndex2]);
+                    //Debug.Log(objMesh.vertices[interSectionP.GetIndex1] + " " + interSectionP.GetPoint + " " + objMesh.vertices[interSectionP.GetIndex2]);
                     interSectionP.SetNormal(objMesh.normals[interSectionP.GetIndex1]);
                     interSectionPoints.Add(interSectionP);
                 }
@@ -459,12 +454,9 @@ public class WhatAMeshSliceController : MonoBehaviour
             //change each triangle so it connects with the new vertex & generate a new triangle that contains the now missing vertex
             foreach (TriangleVertices triangle in triVerts)
             {
-                
                 int s1 = 0;
                 int s2 = 0;
                 int s3 = 0;
-
-                
                 //this didn't work when the same allocations where put into the same statement somehow
                 if
                 (intersection.GetIndex1 == triangle.GetIndexV1 && intersection.GetIndex2 == triangle.GetIndexV2)
@@ -577,7 +569,7 @@ public class WhatAMeshSliceController : MonoBehaviour
         //Checks on which side of the plane each vertex is to add it to the vertex list of the object it belongs to 
         for (int i = 0; i < objMesh.vertices.Length; i++)
         {
-            Vector3 sideTest = new Vector3(objMesh.vertices[i].x + obj.transform.position.x, objMesh.vertices[i].y + obj.transform.position.y, objMesh.vertices[i].z + obj.transform.position.z);
+            Vector3 sideTest = new Vector3((objMesh.vertices[i].x) + obj.transform.position.x, objMesh.vertices[i].y + obj.transform.position.y, objMesh.vertices[i].z + obj.transform.position.z);
             //ignore intersection points as they are neither on the positive or negative side of the plane
             //if statement für side test besser schreiben
             if (interSectionPlane.GetSide(sideTest))

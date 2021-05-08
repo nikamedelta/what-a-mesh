@@ -46,7 +46,7 @@ public class WhatAMeshWindow : EditorWindow
             {
                 GameObject whatAMeshTool = new GameObject();
                 whatAMeshTool.name = "What A Mesh Slice";
-                var c =  whatAMeshTool.AddComponent<WhatAMeshSliceController>();
+                var c =  whatAMeshTool.AddComponent<SliceController>();
                 var selectionTool =  whatAMeshTool.AddComponent<SliceMouseClickSelection>();
                 selectionTool.whatAMeshSliceController = c;
                 //selectionTool.radius = .5f;
