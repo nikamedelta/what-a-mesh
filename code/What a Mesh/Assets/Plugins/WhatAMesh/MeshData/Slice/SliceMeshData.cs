@@ -118,7 +118,6 @@ public class SliceMeshData : MeshData
         Vector2 intersectionUv =(mesh.uv[intersection.V1.Index] + mesh.uv[intersection.V2.Index]) / 2;
         intersection.UV = new Vector2(intersectionUv.x, intersectionUv.y);
     }
-
     private void AddIntersectionVertices()
     {
         foreach (Intersection intersection in intersections)
@@ -127,22 +126,25 @@ public class SliceMeshData : MeshData
             Vertex newVertex = new Vertex
                 (intersection.Point, intersection.Normal, intersection.UV, intersection.Index);
             vertices.Add(newVertex);
-            List<Triangle> relevantTriangles = TrianglesOfTwoVectors(intersection.V1, intersection.V2);
+            List<Triangle> relevantTriangles = TrianglesOfTwoVectorsWithIndices(intersection.V1, intersection.V2);
             foreach (Triangle triangle in relevantTriangles)
             {
-                 int s1 = 0;
+                Debug.Log(triangle.V1Index + " " + triangle.V2Index + " " + triangle.V3Index);
+                int s1 = 0;
                 int s2 = 0;
                 int s3 = 0;
+                Debug.Log(intersection.V1.Index + " " + intersection.V2.Index);
+
                 //this didn't work when the same allocations where put into the same statement somehow
                 if
-                (intersection.V1.Index == triangle.V1.Index && intersection.V2.Index == triangle.V2.Index)
+                (intersection.V1.Position == triangle.V1.Position && intersection.V2.Position == triangle.V2.Position)
                 {
                     s1 = triangle.V1.Index;
                     s2 = triangle.V2.Index;
                     s3 = triangle.V3.Index;
                 }
                 else if
-                (intersection.V1.Index == triangle.V2.Index && intersection.V2.Index == triangle.V1.Index)
+                (intersection.V1.Position == triangle.V2.Position && intersection.V2.Position == triangle.V1.Position)
                 {
                     s1 = triangle.V1.Index;
                     s2 = triangle.V2.Index;
@@ -150,28 +152,28 @@ public class SliceMeshData : MeshData
                 }
 
                 else if
-                (intersection.V1.Index == triangle.V1.Index && intersection.V2.Index == triangle.V3.Index)
+                (intersection.V1.Position == triangle.V1.Position && intersection.V2.Position == triangle.V3.Position)
                 {
                     s1 = triangle.V3.Index;
                     s2 = triangle.V1.Index;
                     s3 = triangle.V2.Index;
                 }
                 else if
-                (intersection.V1.Index == triangle.V3.Index && intersection.V2.Index == triangle.V1.Index)
+                (intersection.V1.Position == triangle.V3.Position && intersection.V2.Position == triangle.V1.Position)
                 {
                     s1 = triangle.V3.Index;
                     s2 = triangle.V1.Index;
                     s3 = triangle.V2.Index;
                 }
                 else if
-                (intersection.V1.Index == triangle.V2.Index && intersection.V2.Index == triangle.V3.Index)
+                (intersection.V1.Position == triangle.V2.Position && intersection.V2.Position == triangle.V3.Position)
                 {
                     s1 = triangle.V2.Index;
                     s2 = triangle.V3.Index;
                     s3 = triangle.V1.Index;
                 }
                 else if
-                (intersection.V1.Index == triangle.V3.Index && intersection.V2.Index == triangle.V2.Index)
+                (intersection.V1.Position == triangle.V3.Position && intersection.V2.Position == triangle.V2.Position)
                 {
                     s1 = triangle.V2.Index;
                     s2 = triangle.V3.Index;
@@ -182,9 +184,6 @@ public class SliceMeshData : MeshData
                 triangles[triangle.ID].V1Index = (newVertex.Index);
                 triangles[triangle.ID].V2Index =(s2);
                 triangles[triangle.ID].V3Index =(s3);
-                /*tris[triangle.ID].SetIndexV1(iPIndex);
-                tris[triangle.ID].SetIndexV2(s2);
-                tris[triangle.ID].SetIndexV3(s3);*/
                 
                 Triangle newTriangle = new Triangle(triangles.Count, s1, newVertex.Index, s3, vertices);
                 triangles.Add(newTriangle);

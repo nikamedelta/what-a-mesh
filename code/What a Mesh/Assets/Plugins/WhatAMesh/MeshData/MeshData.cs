@@ -86,6 +86,12 @@ public class MeshData
                 if ((V1.Position == vertex) || (V2.Position == vertex) || (V3.Position == vertex)) return true;
                 return false;
             }
+
+            public bool ContainsIndex(int index)
+            {
+                if ((V1.Index == index) || (V2.Index == index) || (V3.Index == index)) return true;
+                return false;
+            }
         }
 
         public class Vertex
@@ -349,6 +355,19 @@ public class MeshData
             foreach (Triangle triangle in triangles)
             {
                 if (triangle.ContainsVertex(v1.Position) && triangle.ContainsVertex(v2.Position))
+                {
+                    trigs.Add(triangle);
+                }
+            }
+            return trigs;
+        }
+
+        protected List<Triangle> TrianglesOfTwoVectorsWithIndices(Vertex v1, Vertex v2)
+        {
+            List<Triangle> trigs = new List<Triangle>();
+            foreach (Triangle triangle in triangles)
+            {
+                if (triangle.ContainsIndex(v1.Index) && triangle.ContainsIndex(v2.Index))
                 {
                     trigs.Add(triangle);
                 }
