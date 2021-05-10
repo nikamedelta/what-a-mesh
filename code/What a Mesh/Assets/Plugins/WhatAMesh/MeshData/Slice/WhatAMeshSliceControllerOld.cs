@@ -217,8 +217,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
         verticesList = new List<Vector3>();
         trianglesList = new List<int>();
     }
-
-
     public void StartSelection(Vector3 cursorPos)
     {
         cursorPosition = new Vector3
