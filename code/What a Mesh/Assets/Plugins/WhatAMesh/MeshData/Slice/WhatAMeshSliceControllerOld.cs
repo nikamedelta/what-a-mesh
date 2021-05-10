@@ -584,8 +584,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
                     posSideNormals.Add(objMesh.normals[i]);
                     posSideUvs.Add(objMesh.uv[i]);
                 }
-
-
             }
             else if(!interSectionPlane.GetSide(sideTest))
             {
@@ -607,7 +605,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
                 }
             }
         }
-
         //add intersection points to both Sides
         foreach (Intersection iPoint in interSectionPoints)
         {
@@ -621,7 +618,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
             posSideUvs.Add(objMesh.uv[iPoint.GetIndex]);
             negSideUvs.Add(objMesh.uv[iPoint.GetIndex]);
         }
-
         foreach (Triangle tri in tris)
         {
             if (tri.CheckIfTriangleOnPositiveSide(interSectionPlane, obj.transform.position))
@@ -791,7 +787,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
                 tris.Add(startIndex);
             }
         }
-        
         mesh = new Mesh();
         mesh.vertices = new Vector3[verts.Count];
         mesh.vertices = verts.ToArray();
@@ -807,7 +802,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
 
         ApplyMesh(obj, mesh);
     }
-    
     //to form a triangle properly vertices need to be in clockwise order
     private List<Intersection> SortIntersectionsClockwise()
     {
@@ -842,7 +836,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
         }
         return sortedIntersections;
     }
-    
     //find all intersection Points once
     private List<Intersection> GetUniqueIntersectionVertices()
     {
@@ -864,7 +857,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
         }
         return uiPoints;
     }
-
     private void RemoveExtraCollider(GameObject obj)
     {
         if (obj.GetComponent<Collider>().GetType() != typeof(MeshCollider))

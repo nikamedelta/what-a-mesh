@@ -19,7 +19,7 @@ public class SliceController : MonoBehaviour
         (
             cursorPos.x,
             cursorPos.y,
-            100
+            mainCamera.nearClipPlane
         );
         selectionPoint0 = mainCamera.ScreenToWorldPoint(cursorPosition);
         Debug.DrawRay(mainCamera.transform.position, selectionPoint0, Color.green, Mathf.Infinity);
@@ -31,7 +31,7 @@ public class SliceController : MonoBehaviour
         (
             cursorPos.x,
             cursorPos.y,
-            100
+            mainCamera.nearClipPlane
         );
         selectionPoint1 = mainCamera.ScreenToWorldPoint(cursorPosition);
         Debug.DrawRay(mainCamera.transform.position, selectionPoint1, Color.green, Mathf.Infinity);

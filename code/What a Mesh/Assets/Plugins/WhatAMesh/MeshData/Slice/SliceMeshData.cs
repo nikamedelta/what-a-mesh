@@ -128,11 +128,9 @@ public class SliceMeshData : MeshData
             List<Triangle> relevantTriangles = TrianglesOfTwoVectorsWithIndices(intersection.V1, intersection.V2);
             foreach (Triangle triangle in relevantTriangles)
             {
-                Debug.Log(triangle.V1Index + " " + triangle.V2Index + " " + triangle.V3Index);
                 int s1 = 0;
                 int s2 = 0;
                 int s3 = 0;
-                Debug.Log(intersection.V1.Index + " " + intersection.V2.Index);
 
                 //this didn't work when the same allocations where put into the same statement somehow
                 if
