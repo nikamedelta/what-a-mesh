@@ -50,7 +50,7 @@ public class SliceController : MonoBehaviour
         
         if (Physics.Raycast(mainCamera.transform.position, startPoint, out planeStart, Mathf.Infinity))
         {
-            if (planeStart.transform.gameObject.tag == "Deformable")
+            if (planeStart.transform.gameObject.tag == "Sliceable")
             {
                 GameObject obj = planeStart.transform.gameObject;
                 if (gameObject.GetComponent<Collider>().GetType() != typeof(MeshCollider))
@@ -62,11 +62,10 @@ public class SliceController : MonoBehaviour
                 }
                 SliceMeshData sliceData = new SliceMeshData(obj);
                 sliceData.StartSlice(selectionPoint0 - selectionPoint1, planeStart, mainCamera);
-                DrawPlane(obj.transform.position, sliceData.PlaneNormal);
+                //DrawPlane(obj.transform.position, sliceData.PlaneNormal);
             }
         }
     }
-    
     private void DrawPlane(Vector3 position, Vector3 normal)
     {
         Vector3 planeVector;

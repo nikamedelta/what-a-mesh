@@ -59,7 +59,6 @@ public class SliceMeshData : MeshData
     public SliceMeshData(GameObject gameObject) : base(gameObject) { }
     public void StartSlice(Vector3 relativePosition, RaycastHit planeStart, Camera camera)
     {
-        //SetUpTriangles();
         CreateLines();
         CreateSlicePlane(relativePosition, planeStart, camera);
         CalculateIntersection();
@@ -115,7 +114,7 @@ public class SliceMeshData : MeshData
     }
     private void CalculateUV(Intersection intersection)
     {
-        Vector2 intersectionUv =(mesh.uv[intersection.V1.Index] + mesh.uv[intersection.V2.Index]) / 2;
+        Vector2 intersectionUv = (mesh.uv[intersection.V1.Index] + mesh.uv[intersection.V2.Index]) / 2;
         intersection.UV = new Vector2(intersectionUv.x, intersectionUv.y);
     }
     private void AddIntersectionVertices()
