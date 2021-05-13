@@ -228,10 +228,11 @@ GameObject:
   - component: {fileID: 354020732}
   - component: {fileID: 354020731}
   - component: {fileID: 354020735}
+  - component: {fileID: 354020737}
   - component: {fileID: 354020736}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Deformable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,6 +359,21 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
+--- !u!114 &354020737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354020730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb7cceffef0004418fba4270c786525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deformable: 1
+  sliceable: 0
+  is3D: 0
 --- !u!1 &355305461
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +514,7 @@ GameObject:
   - component: {fileID: 788332170}
   - component: {fileID: 788332169}
   - component: {fileID: 788332168}
+  - component: {fileID: 788332171}
   m_Layer: 0
   m_Name: What A Mesh Slice
   m_TagString: Untagged
@@ -517,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86790d7fb0a9a8c4fa298b35c05b0ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatAMeshSliceController: {fileID: 788332169}
+  whatAMeshSliceController: {fileID: 788332171}
 --- !u!114 &788332169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +561,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &788332171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788332167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9f2147ff21c5840a6a43887cde9dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1323631970}
 --- !u!1 &800190732
 GameObject:
   m_ObjectHideFlags: 0

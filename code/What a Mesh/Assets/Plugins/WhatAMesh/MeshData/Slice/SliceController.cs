@@ -50,24 +50,20 @@ public class SliceController : MonoBehaviour
         
         if (Physics.Raycast(mainCamera.transform.position, startPoint, out planeStart, Mathf.Infinity))
         {
-            if (planeStart.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject))
+            if (planeStart.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject) && meshObject.sliceable || meshObject.gameObject.CompareTag("Sliceable"))
             {
-                if (meshObject.sliceable || meshObject.gameObject.CompareTag("Sliceable"))
+                GameObject obj = planeStart.transform.gameObject;
+                if (gameObject.GetComponent<Collider>().GetType() != typeof(MeshCollider))
                 {
-                    GameObject obj = planeStart.transform.gameObject;
-                    if (gameObject.GetComponent<Collider>().GetType() != typeof(MeshCollider))
-                    {
-                        Destroy(gameObject.GetComponent<Collider>());
-    
-                        obj.AddComponent<MeshCollider>();
-                        obj.GetComponent<MeshCollider>().convex = true;
-                    }
-                    SliceMeshData sliceData = new SliceMeshData(obj);
-                    sliceData.StartSlice(selectionPoint0 - selectionPoint1, planeStart, mainCamera);
-                    //DrawPlane(obj.transform.position, sliceData.PlaneNormal);
+                    Destroy(gameObject.GetComponent<Collider>());
+
+                    obj.AddComponent<MeshCollider>();
+                    obj.GetComponent<MeshCollider>().convex = true;
                 }
+                SliceMeshData sliceData = new SliceMeshData(obj);
+                sliceData.StartSlice(selectionPoint0 - selectionPoint1, planeStart, mainCamera);
+                //DrawPlane(obj.transform.position, sliceData.PlaneNormal);
             }
-            
         }
     }
     private void DrawPlane(Vector3 position, Vector3 normal)
