@@ -22,7 +22,7 @@ public class SliceController : MonoBehaviour
             mainCamera.nearClipPlane
         );
         selectionPoint0 = mainCamera.ScreenToWorldPoint(cursorPosition);
-        Debug.DrawRay(mainCamera.transform.position, selectionPoint0, Color.green, Mathf.Infinity);
+        Debug.DrawRay(mainCamera.transform.position, (selectionPoint0 - mainCamera.transform.position)*1000, Color.green, Mathf.Infinity);
     }
 
     public void EndSelection(Vector3 cursorPos)
@@ -34,7 +34,7 @@ public class SliceController : MonoBehaviour
             mainCamera.nearClipPlane
         );
         selectionPoint1 = mainCamera.ScreenToWorldPoint(cursorPosition);
-        Debug.DrawRay(mainCamera.transform.position, selectionPoint1, Color.green, Mathf.Infinity);
+        Debug.DrawRay(mainCamera.transform.position, (selectionPoint1 - mainCamera.transform.position)*1000, Color.yellow, Mathf.Infinity);
         SelectObject();
 
     }
