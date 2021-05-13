@@ -50,20 +50,24 @@ public class SliceController : MonoBehaviour
         
         if (Physics.Raycast(mainCamera.transform.position, startPoint, out planeStart, Mathf.Infinity))
         {
-            if (planeStart.transform.gameObject.tag == "Sliceable")
+            if (planeStart.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject))
             {
-                GameObject obj = planeStart.transform.gameObject;
-                if (gameObject.GetComponent<Collider>().GetType() != typeof(MeshCollider))
+                if (meshObject.sliceable || meshObject.gameObject.CompareTag("Sliceable"))
                 {
-                    Destroy(gameObject.GetComponent<Collider>());
-
-                    obj.AddComponent<MeshCollider>();
-                    obj.GetComponent<MeshCollider>().convex = true;
+                    GameObject obj = planeStart.transform.gameObject;
+                    if (gameObject.GetComponent<Collider>().GetType() != typeof(MeshCollider))
+                    {
+                        Destroy(gameObject.GetComponent<Collider>());
+    
+                        obj.AddComponent<MeshCollider>();
+                        obj.GetComponent<MeshCollider>().convex = true;
+                    }
+                    SliceMeshData sliceData = new SliceMeshData(obj);
+                    sliceData.StartSlice(selectionPoint0 - selectionPoint1, planeStart, mainCamera);
+                    //DrawPlane(obj.transform.position, sliceData.PlaneNormal);
                 }
-                SliceMeshData sliceData = new SliceMeshData(obj);
-                sliceData.StartSlice(selectionPoint0 - selectionPoint1, planeStart, mainCamera);
-                //DrawPlane(obj.transform.position, sliceData.PlaneNormal);
             }
+            
         }
     }
     private void DrawPlane(Vector3 position, Vector3 normal)
