@@ -338,11 +338,13 @@ public class MeshData
         
         public void RecalculateMesh()
         {
+            mesh.Clear();
             ReassignArrays(out Vector3[] verts, out int[] trigs);
             mesh.vertices = verts;
             mesh.triangles = trigs;
             mesh.normals = ArrayFromNormals();
             mesh.uv = ArrayFromUVs();
+
             mesh.RecalculateNormals();
             mesh.Optimize();
             gameObject.GetComponent<MeshFilter>().mesh = mesh;
