@@ -229,7 +229,6 @@ GameObject:
   - component: {fileID: 354020731}
   - component: {fileID: 354020735}
   - component: {fileID: 354020736}
-  - component: {fileID: 354020737}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Deformable
@@ -248,7 +247,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &354020732
@@ -359,19 +358,6 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!114 &354020737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354020730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696d99b86a92d4743b81e33fa7eefce8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameObject: {fileID: 354020730}
 --- !u!1 &355305461
 GameObject:
   m_ObjectHideFlags: 0
