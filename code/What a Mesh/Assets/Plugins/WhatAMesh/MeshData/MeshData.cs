@@ -127,9 +127,16 @@ public class MeshData
         protected Mesh mesh;
         protected readonly Mesh originalMesh;
 
-        public Mesh Mesh => mesh;
-        
+        public Mesh Mesh
+        {
+            get => mesh;
+            set => mesh = value;
+        }
+
         protected float avgDistance;
+
+        public float AvgDistance => avgDistance;
+
         protected GameObject gameObject;
 
         public GameObject GameObject => gameObject;
