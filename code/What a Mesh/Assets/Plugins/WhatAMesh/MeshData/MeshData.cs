@@ -158,7 +158,12 @@ public class MeshData
                     neighbors.Remove(vertex);
                 }
             }
-            public int Index => index;
+
+            public int Index
+            {
+                get => index;
+                set => index = value;
+            }
         }
         public class Line
         {
@@ -344,7 +349,6 @@ public class MeshData
             mesh.triangles = trigs;
             mesh.normals = ArrayFromNormals();
             mesh.uv = ArrayFromUVs();
-
             mesh.RecalculateNormals();
             mesh.Optimize();
             gameObject.GetComponent<MeshFilter>().mesh = mesh;

@@ -23,7 +23,6 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
     private Vector3 planeNormal;
     private Vector3 selectionPoint0;
     private Vector3 selectionPoint1;
-    private Vector3 middle;
     private Plane interSectionPlane;
     
     private float interSection;
@@ -93,8 +92,7 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
         public bool CheckIfTriangleOnPositiveSide(Plane intersectionPlane, Vector3 position)
         {
             Vector3 center = (v1 + v2 + v3) / 3;
-
-
+            
             Vector3 sideTest = new Vector3(center.x + position.x, center.y + position.y, center.z + position.z);
 
             if (intersectionPlane.GetSide(sideTest))
@@ -218,32 +216,70 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
         verticesList = new List<Vector3>();
         trianglesList = new List<int>();
     }
-
-    public void PerformDeformation(Vector3 startPosition, Vector3 endPosition, GameObject objectToDeform)
+    public void StartSelection(Vector3 cursorPos)
     {
-        obj = objectToDeform;
-        Vector3 relativePos = startPosition - endPosition;
-        Mesh temp = obj.GetComponent<MeshFilter>().mesh;
-        objVertices = temp.vertices;
-        //objNormals = temp.normals;
-        objTriangles = temp.triangles;
-        objMesh = temp;
-
-        if (obj.GetComponent<Collider>().GetType() != typeof(MeshCollider))
-        {
-            Destroy(obj.GetComponent<Collider>());
-
-            obj.AddComponent<MeshCollider>();
-            obj.GetComponent<MeshCollider>().convex = true;
-        }
-
-        CreateLines();
-        CreateSlicePlane(relativePos);
-        CalculateIntersection();
-        AddIntersectionVertices();
-        SplitObject();
+        cursorPosition = new Vector3
+        (
+            cursorPos.x,
+            cursorPos.y,
+            100
+        );
+        selectionPoint0 = mainCamera.ScreenToWorldPoint(cursorPosition);
+        Debug.DrawRay(mainCamera.transform.position, selectionPoint0, Color.green, Mathf.Infinity);
     }
 
+    public void EndSelection(Vector3 cursorPos)
+    {
+        cursorPosition= new Vector3
+        (
+            cursorPos.x,
+            cursorPos.y,
+            100
+        );
+        selectionPoint1 = mainCamera.ScreenToWorldPoint(cursorPosition);
+        Debug.DrawRay(mainCamera.transform.position, selectionPoint1, Color.green, Mathf.Infinity);
+        SelectObject();
+
+    }
+    private void SelectObject()
+    {
+        Vector3 midPoint = new Vector3
+        (
+            ((selectionPoint0.x + selectionPoint1.x) / 2),
+            ((selectionPoint0.y + selectionPoint1.y) / 2),
+            ((selectionPoint0.z + selectionPoint1.z) / 2)
+        );
+
+        Debug.DrawRay(mainCamera.transform.position, midPoint, Color.red, Mathf.Infinity);
+
+        if (Physics.Raycast(mainCamera.transform.position, midPoint, out planeStart, Mathf.Infinity))
+        {
+            if (planeStart.transform.gameObject.tag == "Deformable")
+            {
+                obj = planeStart.transform.gameObject;
+                Vector3 relativePos = selectionPoint0 - selectionPoint1;
+                Mesh temp = obj.GetComponent<MeshFilter>().mesh;
+                objVertices = temp.vertices;
+                //objNormals = temp.normals;
+                objTriangles = temp.triangles;
+                objMesh = temp;
+
+                if (obj.GetComponent<Collider>().GetType() != typeof(MeshCollider))
+                {
+                    Destroy(obj.GetComponent<Collider>());
+
+                    obj.AddComponent<MeshCollider>();
+                    obj.GetComponent<MeshCollider>().convex = true;
+                }
+
+                CreateLines();
+                CreateSlicePlane(relativePos);
+                CalculateIntersection();
+                AddIntersectionVertices();
+                SplitObject();
+            }
+        }
+    }
     private void ApplyMesh(GameObject obj, Mesh mesh)
     {
         obj.GetComponent<MeshFilter>().mesh = mesh;
@@ -523,7 +559,7 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
         List<Vector2> negSideUvs = new List<Vector2>();
         List<int>posSideTriangles = new List<int>();
         List<int>negSideTriangles = new List<int>();
-        
+
         //Checks on which side of the plane each vertex is to add it to the vertex list of the object it belongs to 
         for (int i = 0; i < objMesh.vertices.Length; i++)
         {
@@ -655,9 +691,9 @@ public class WhatAMeshSliceControllerOld : MonoBehaviour
         
         ApplyMesh(obj1, obj1Mesh);
         ApplyMesh(obj2, obj2Mesh);
-        
-        CloseGap(obj1 , true);
-        CloseGap(obj2, false);
+
+        //CloseGap(obj1 , true);
+        //CloseGap(obj2, false);
         GameObject.Destroy(obj);
         
 
