@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class SliceMouseClickSelection : MonoBehaviour
+public class SliceMouseClickSelectionOld : MonoBehaviour
 {
-    public SliceController whatAMeshSliceController;
+    [FormerlySerializedAs("whatAMeshSlice")] [FormerlySerializedAs("slice")] public WhatAMeshSliceControllerOld whatAMeshSliceController;
 
     private bool firstSelected = false;
 

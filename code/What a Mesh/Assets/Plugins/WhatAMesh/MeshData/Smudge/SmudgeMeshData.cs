@@ -173,7 +173,7 @@ public class SmudgeMeshData : MeshData
             Vector3 v3 = Vector3.Lerp(v1.Position, v2.Position, .5f);
             // create new Vector
             originalVertices.Add(v3);
-            newVertex = new Vertex(v3, originalVertices.Count - 1, originalVertices); 
+            newVertex = new Vertex(v3, originalVertices.Count - 1); 
             vertices.Add(newVertex);
             // reassign Neighbors
             v1.RemoveNeighbor(v2);
