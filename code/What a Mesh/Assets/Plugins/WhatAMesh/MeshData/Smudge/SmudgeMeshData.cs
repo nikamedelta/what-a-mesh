@@ -252,7 +252,7 @@ public class SmudgeMeshData : MeshData
 
     public void EndMove()
     {
-        AddVerticesForSmudge(middle.Position, outerRadius);
+        //AddVerticesForSmudge(middle.Position, outerRadius);
     }
 
     private void MoveInnerRadius(Vector3 originalMiddlePosition)

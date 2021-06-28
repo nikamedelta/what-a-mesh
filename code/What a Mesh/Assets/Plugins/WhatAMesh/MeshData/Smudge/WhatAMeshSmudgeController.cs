@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
+using g3;
 
 [DisallowMultipleComponent]
 public class WhatAMeshSmudgeController : MonoBehaviour
@@ -130,6 +130,25 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     {
         performingDeformation = false;
         objMeshData.EndMove();
+
+        Mesh uMesh = objMeshData.GameObject.GetComponent<MeshFilter>().mesh;
+        DMesh3 dMesh = g3Conversions.UnityMeshToDMesh(uMesh);
+        
+        //Debug.Log("umesh before: " + objMeshData.GameObject.GetComponent<MeshFilter>().mesh.vertices.Length);
+        //Debug.Log("dmesh before: " + dMesh.VertexCount);
+        
+        // apply g3 remesh
+        Remesher r = new Remesher(dMesh);
+        r.PreventNormalFlips = true;
+        r.SetTargetEdgeLength(objMeshData.AvgDistance*0.9f);
+        for (int k = 0; k < 1; k++)
+            r.BasicRemeshPass();
+        
+        objMeshData.GameObject.GetComponent<MeshFilter>().mesh = g3Conversions.DMeshToUnityMesh(dMesh);
+        
+        //Debug.Log("dmesh after: " + dMesh.VertexCount);
+        //Debug.Log("umesh after: " + objMeshData.GameObject.GetComponent<MeshFilter>().mesh.vertices.Length);
+        
         ReassignCollider();
     }
     /// <summary>
