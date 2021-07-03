@@ -17,11 +17,9 @@ public class MouseHoldAndDrag : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 300))
                 {
-                    Debug.Log("Hit GameObject");
-                    if (hit.transform.gameObject.tag == "Deformable")
+                    if (hit.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject) && meshObject.deformable || meshObject.gameObject.CompareTag("Deformable"))
                     {
                         whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, innerRadius, outerRadius);
-                        Debug.Log("Started Deformation on Deformable GameObject");
                         selectedObject = true;
                     }
                 }

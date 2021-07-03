@@ -8,6 +8,7 @@ public class MeshData
     {
         public class Triangle
         {
+            public readonly int ID;
             private int v1Index;
             private int v2Index;
             private int v3Index;
@@ -20,18 +21,17 @@ public class MeshData
                 this.v2Index = v2Index;
                 this.v3Index = v3Index;
             }
-            /// <summary>
-            /// Recalculates the normals of the triangle's vertices. Based on Unity's runtime normal calculation, similar code found on schemingdeveloper.com.
-            /// </summary>
-            public void RecalculateNormals()
+            
+
+            public Triangle(int ID, int v1Index, int v2Index, int v3Index, List<Vertex> vertexList)
             {
-                Plane surfacePlane = new Plane();
-                surfacePlane.Set3Points(V1.Position, V2.Position, V3.Position);
-                Vector3 normal = surfacePlane.normal;
-                V1.Normal = normal;
-                V2.Normal = normal;
-                V3.Normal = normal;
+                this.ID = ID;
+                underlyingVectorList = vertexList;
+                this.v1Index = v1Index;
+                this.v2Index = v2Index;
+                this.v3Index = v3Index;
             }
+
             public float GetBiggestDistance()
             {
                 float d1 = Vector3.Distance(V1.Position, V2.Position);
@@ -42,6 +42,7 @@ public class MeshData
                 if (d2 > d1 && d2 > d3) return d2;
                 return d3;
             }
+            
             public Vertex GetMostDistantVertex(Vector3 middle)
             {
                 float d1 = Vector3.Distance(middle, V1.Position);
@@ -87,25 +88,42 @@ public class MeshData
                 if ((V1.Position == vertex) || (V2.Position == vertex) || (V3.Position == vertex)) return true;
                 return false;
             }
+
+            public bool ContainsIndex(int index)
+            {
+                if ((V1.Index == index) || (V2.Index == index) || (V3.Index == index)) return true;
+                return false;
+            }
         }
 
         public class Vertex
         {
             private Vector3 position;
+            private Vector3 normal;
+            private Vector2 uv;
+            
             private int index;
             private List<Vertex> neighbors;
-            private List<Vector3> underlyingList;
             private Vector3 origPosition;
             private Vector3 normal;
 
             public Vector3 OrigPosition => origPosition;
 
 
-            public Vertex(Vector3 position, int index, List<Vector3> underlyingList, Vector3 normal)
+            public Vertex(Vector3 position, int index)
             {
                 this.position = position;
                 this.index = index;
-                this.underlyingList = underlyingList;
+                neighbors = new List<Vertex>();
+                this.origPosition = position;
+            }
+
+            public Vertex(Vector3 position, Vector3 normal, Vector2 uv, int index)
+            {
+                this.position = position;
+                this.normal = normal;
+                this.uv = uv;
+                this.index = index;
                 neighbors = new List<Vertex>();
                 this.origPosition = position;
                 this.normal = normal;
@@ -121,6 +139,17 @@ public class MeshData
             {
                 get => position;
                 set => position = value;
+            }
+            public Vector3 Normal
+            {
+                get => normal;
+                set => normal = value;
+            }
+
+            public Vector2 UV
+            {
+                get => uv;
+                set => uv = value;
             }
 
             public List<Vertex> Neighbors => neighbors;
@@ -139,7 +168,39 @@ public class MeshData
                     neighbors.Remove(vertex);
                 }
             }
-            public int Index => index;
+
+            public int Index
+            {
+                get => index;
+                set => index = value;
+            }
+        }
+        public class Line
+        {
+            private Vector3 direction;
+            private Vector3 offset;
+            
+            private Vertex startVertex;
+            private Vertex endVertex;
+            
+
+            public Line(Vertex startVertex, Vertex endVertex,Vector3 direction, Vector3 offset)
+            {
+                this.startVertex = startVertex;
+                this.endVertex = endVertex;
+                this.direction = direction;
+                this.offset = offset;
+            }
+
+            public Vector3 Direction => direction;
+
+            public Vertex StartVertex => startVertex;
+
+            public Vertex EndVertex => endVertex;   
+            
+            public Vector3 StartVertexPosition => startVertex.Position+offset;
+
+            public Vector3 EndVertexPosition => endVertex.Position+offset;
         }
 
         protected List<Triangle> triangles;
@@ -172,17 +233,13 @@ public class MeshData
         {
             this.gameObject = gameObject;
             mesh = gameObject.GetComponent<MeshFilter>().mesh;
-            vertices = CreateVertices(new List<Vector3>(mesh.vertices), mesh.normals);
+            originalVertices = new List<Vector3>(mesh.vertices);
+            vertices = CreateVertices();
             triangles = CreateTriangles(mesh.triangles);
             origTriangles = triangles;
             Mesh temp = gameObject.GetComponent<MeshFilter>().mesh;
             originalMesh = temp;
             AddNeighbors();
-
-            foreach (Triangle triangle in triangles)
-            {
-                triangle.RecalculateNormals();
-            }
             
             int i = 0;
             float distances = 0;
@@ -198,77 +255,12 @@ public class MeshData
             avgDistance = distances / i;
         }
 
-        public MeshData(MeshData meshData)
-        {
-            vertices = meshData.GetVertices;
-            triangles = meshData.GetTriangles;
-            gameObject = meshData.GameObject;
-            originalMesh = meshData.originalMesh;
-            mesh = meshData.mesh;
-            
-            foreach (Triangle triangle in triangles)
-            {
-                triangle.RecalculateNormals();
-            }
-            
-            int i = 0;
-            float distances = 0;
-            foreach (Vertex v in vertices)
-            {
-                List<Vertex> adjacent = v.Neighbors;
-                foreach (Vertex vert in adjacent)
-                {
-                    i++;
-                    distances += Vector3.Distance(v.Position, vert.Position);
-                }
-            }
-            avgDistance = distances / i;
-        }
-        
-        public MeshData(Vector3[] vertices, Vector3[] normals, int[] triangles, GameObject gameObject)
-        {
-            this.gameObject = gameObject;
-            this.vertices = CreateVertices(new List<Vector3>(vertices), normals);
-            this.triangles = CreateTriangles(triangles);
-            origTriangles = this.triangles;
-            AddNeighbors();
-
-            foreach (Triangle triangle in this.triangles)
-            {
-                triangle.RecalculateNormals();
-            }
-            
-            int i = 0;
-            float distances = 0;
-            foreach (Vertex v in this.vertices)
-            {
-                List<Vertex> adjacent = v.Neighbors;
-                foreach (Vertex vert in adjacent)
-                {
-                    i++;
-                    distances += Vector3.Distance(v.Position, vert.Position);
-                }
-            }
-            avgDistance = distances / i;
-            
-            // create mesh as a copy
-            mesh = new Mesh();
-            mesh.vertices = vertices.ToArray();
-            mesh.normals = normals.ToArray();
-            mesh.triangles = triangles.ToArray();
-            
-            originalMesh = new Mesh();
-            originalMesh.vertices = vertices.ToArray();
-            originalMesh.normals = normals.ToArray();
-            originalMesh.triangles = triangles.ToArray();
-        }
-
-        protected List<Vertex> CreateVertices(List<Vector3> verts, Vector3[] normals)
+        protected List<Vertex> CreateVertices()
         {
             List<Vertex> vertices = new List<Vertex>();
-            for (int i = 0; i<verts.Count; i++)
+            for (int i = 0; i<mesh.vertices.Length; i++)
             {
-                vertices.Add(new Vertex(verts[i], i, verts, normals[i]));
+                vertices.Add(new Vertex(mesh.vertices[i], mesh.normals[i], mesh.uv[i], i));
             }
             return vertices;
         }
@@ -320,10 +312,12 @@ public class MeshData
 
         protected List<Triangle> CreateTriangles(int[] trigs)
         {
+            int counter= 0;
             List<Triangle> triangles = new List<Triangle>();
             for (int i = 0; i < trigs.Length; i += 3)
             {
-                triangles.Add(new Triangle(trigs[i], trigs[i+1], trigs[i+2], vertices));
+                triangles.Add(new Triangle(counter, trigs[i], trigs[i+1], trigs[i+2], vertices));
+                counter++;
             }
             return triangles;
         }
@@ -348,18 +342,40 @@ public class MeshData
             }
             trigs = trigIntList.ToArray();
         }
+
+        protected Vector3[] ArrayFromNormals()
+        {
+            Vector3[] list = new Vector3[vertices.Count];
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                list[i] = vertices[i].Normal;
+            }
+            return list;
+        }
+        
+        protected Vector2[] ArrayFromUVs()
+        {
+            Vector2[] list = new Vector2[vertices.Count];
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                list[i] = vertices[i].UV;
+            }
+            return list;
+        }
         
         public void RecalculateMesh()
         {
             mesh.Clear();
-            ReassignArrays(out Vector3[] verts, out int[] trigs, out Vector3[] normals);
+            ReassignArrays(out Vector3[] verts, out int[] trigs);
             mesh.vertices = verts;
             mesh.normals = normals;
             mesh.triangles = trigs;
-            //mesh.RecalculateNormals();
+            mesh.normals = ArrayFromNormals();
+            mesh.uv = ArrayFromUVs();
+            mesh.RecalculateNormals();
             mesh.Optimize();
-
             gameObject.GetComponent<MeshFilter>().mesh = mesh;
+            gameObject.GetComponent<MeshCollider>().sharedMesh = gameObject.GetComponent<MeshFilter>().mesh;
         }
 
         protected List<Triangle> TrianglesOfTwoVectors(Vertex v1, Vertex v2)
@@ -375,9 +391,45 @@ public class MeshData
             return trigs;
         }
 
+        protected List<Triangle> TrianglesOfTwoVectorsWithIndices(Vertex v1, Vertex v2)
+        {
+            List<Triangle> trigs = new List<Triangle>();
+            foreach (Triangle triangle in triangles)
+            {
+                if (triangle.ContainsIndex(v1.Index) && triangle.ContainsIndex(v2.Index))
+                {
+                    trigs.Add(triangle);
+                }
+            }
+            return trigs;
+        }
+
         public void ApplyOriginalMesh()
         {
             gameObject.GetComponent<MeshFilter>().mesh = originalMesh;
+        }
+
+        /// <summary>
+        /// Make two triangles by inserting new vertex between v1 and v2
+        /// </summary>
+        protected Triangle MakeTwoTriangles(Triangle triangle,Vertex v1, Vertex v2, Vertex newVertex)
+        {
+            // replace v2 in existing Triangle
+            Vertex a = triangle.V1;
+            Vertex b = triangle.V2;
+            Vertex c = triangle.V3;
+
+            //zweiter vektor wird durch die neue mitte ersetzt
+            if (a.Position == v2.Position) triangle.V1Index = newVertex.Index;
+            else if (b.Position == v2.Position) triangle.V2Index = newVertex.Index;
+            else if (c.Position == v2.Position) triangle.V3Index = newVertex.Index;
+
+            // create new Triangle with newVertex and v2
+            if (a.Position == v1.Position) a = newVertex;
+            else if (b.Position == v1.Position) b = newVertex;
+            else if (c.Position == v1.Position) c = newVertex;
+
+            return new Triangle(a.Index, b.Index, c.Index, vertices);
         }
 
         public void ApplyNewMesh(Mesh mesh)
