@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using g3;
 
 // code of this class is adapted from the g3 GitHub
@@ -56,6 +55,48 @@ public class g3Conversions
         } else {
             return DMesh3Builder.Build<Vector3f,int,Vector3f>(dmesh_vertices, mesh.triangles, null, null);
         }
+    }
+
+    /// <summary>
+    /// Convert MeshData to a g3.Mesh3. Structured as UnityMeshToDMesh(Mesh mesh).
+    /// </summary>
+    public static DMesh3 MeshDataToDMesh(MeshData meshData)
+    {
+        meshData.ReassignArrays(out var mesh_vertices, out var mesh_triangles, out var mesh_normals);
+        Vector3f[] dmesh_vertices = new Vector3f[mesh_vertices.Length];
+        for (int i = 0; i < mesh_vertices.Length; ++i)
+        {
+            dmesh_vertices[i] = new Vector3f(mesh_vertices[i].x, mesh_vertices[i].y, mesh_vertices[i].z);
+        }
+
+        if (mesh_normals != null)
+        {
+            Vector3f[] dmesh_normals = new Vector3f[mesh_vertices.Length];
+            for (int i = 0; i < mesh_vertices.Length; ++i)
+            {
+                dmesh_normals[i] = new Vector3f(mesh_normals[i].x, mesh_normals[i].y, mesh_normals[i].z);
+            }
+            
+            return DMesh3Builder.Build(dmesh_vertices, mesh_triangles, dmesh_normals);
+        }
+        else
+        {
+            return DMesh3Builder.Build<Vector3f,int,Vector3f>(dmesh_vertices, mesh_triangles, null, null);
+        }
+    }
+
+    public static MeshData DMeshToMeshData(DMesh3 dmesh, GameObject gameObject, bool bLimitTo64k = false)
+    {
+        if (bLimitTo64k && (dmesh.MaxVertexID > 65535 || dmesh.MaxTriangleID > 65535) ) {
+            Debug.Log("g3UnityUtils.DMeshToUnityMesh: attempted to convert DMesh larger than 65535 verts/tris, not supported by Unity!");
+            return null;
+        }
+
+        Vector3[] vertices = dvector_to_vector3(dmesh.VerticesBuffer);
+        Vector3[] normals = (dmesh.HasVertexNormals) ? dvector_to_vector3(dmesh.NormalsBuffer) : null;
+        int[] triangles = dvector_to_int(dmesh.TrianglesBuffer);
+
+        return new MeshData(vertices, normals, triangles, gameObject);
     }
     
     // per-type conversion functions

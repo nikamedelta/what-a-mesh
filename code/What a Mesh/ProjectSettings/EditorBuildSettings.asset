@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Trailer Showcase Scene.unity
+    guid: 8eab3499f04cef54f9fa4a3784345464
   m_configObjects: {}

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using g3;
+using Plugins.WhatAMesh;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 public class WhatAMeshSmudgeController : MonoBehaviour
 {
+    
     private Camera mainCamera;
 
     private SmudgeMeshData objMeshData;
@@ -36,6 +38,8 @@ public class WhatAMeshSmudgeController : MonoBehaviour
 
     public float sensitivity = 0.01f;
 
+    public bool saveMeshData; 
+
     [Serializable]
     public enum InputType
     {
@@ -45,8 +49,8 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     }
 
     public InputType inputType;
-
-    private void Awake()
+    
+    private void Start()
     {
         mainCamera = Camera.main;
     }
@@ -55,10 +59,10 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     {
         if (performingDeformation)
         {
-            // live updates of distorted vertices
             PerformDeformation();
         }
     }
+    
     /// <summary>
     /// Starting the deformation. 
     /// </summary>
@@ -68,14 +72,13 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     /// <param name="outerRadius"> vertices in outer radius are smoothed out </param>
     public void StartDeformation(GameObject obj, Vector3 startPoint, float innerRadius, float outerRadius)
     {
-        objMeshData = new SmudgeMeshData(obj);
-        
-        objMeshData.BeginMove(startPoint, innerRadius, outerRadius);
-        
+        Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
+
+        objMeshData = new SmudgeMeshData(mesh.vertices, mesh.normals, mesh.triangles, obj);
+        objMeshData.BeginMove(startPoint, innerRadius, outerRadius, obj);
         performingDeformation = true;
         hitPoint = startPoint;
-        
-        //Debug.Log((hitPoint-obj.transform.position) + " hitpoint, " + objMeshData.Middle + " middle");
+        Debug.Log("end start");
     } 
     
     /// <summary>
@@ -123,6 +126,7 @@ public class WhatAMeshSmudgeController : MonoBehaviour
         }
         objMeshData.Move(endPosition);
     }
+    
     /// <summary>
     /// End and apply the deformation. 
     /// </summary>
@@ -130,29 +134,17 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     {
         performingDeformation = false;
         objMeshData.EndMove();
-
-        Mesh uMesh = objMeshData.GameObject.GetComponent<MeshFilter>().mesh;
-        DMesh3 dMesh = g3Conversions.UnityMeshToDMesh(uMesh);
-        
-        //Debug.Log("umesh before: " + objMeshData.GameObject.GetComponent<MeshFilter>().mesh.vertices.Length);
-        //Debug.Log("dmesh before: " + dMesh.VertexCount);
-        
-        // apply g3 remesh
-        Remesher r = new Remesher(dMesh);
-        r.PreventNormalFlips = true;
-        r.SetTargetEdgeLength(objMeshData.AvgDistance*0.9f);
-        for (int k = 0; k < 1; k++)
-            r.BasicRemeshPass();
-        
-        objMeshData.GameObject.GetComponent<MeshFilter>().mesh = g3Conversions.DMeshToUnityMesh(dMesh);
-        
-        //Debug.Log("dmesh after: " + dMesh.VertexCount);
-        //Debug.Log("umesh after: " + objMeshData.GameObject.GetComponent<MeshFilter>().mesh.vertices.Length);
-        
         ReassignCollider();
+        
+        // add to object history
+        if (saveMeshData && objMeshData.GameObject.TryGetComponent(out WhatAMeshObject wamObject))
+        {
+            wamObject.AddToHistory(objMeshData.Mesh);
+        }
     }
+    
     /// <summary>
-    /// Deformation ist not applied to the object, original mesh is applied. 
+    /// Deformation ist not applied to the object, original mesh will be applied. 
     /// </summary>
     public void CancelDeformation()
     {

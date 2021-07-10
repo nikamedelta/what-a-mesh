@@ -7,6 +7,7 @@ public class SmudgeMeshData : MeshData
     private Vertex middle;
     private List<Vertex> innerSelection;
     private List<Vertex> outerSelection;
+    private List<Triangle> affectedTriangles;
     private float distanceSinceLastAdd = 0;
 
     private float innerRadius;
@@ -15,7 +16,9 @@ public class SmudgeMeshData : MeshData
     private float lastInnerRadius;
     private float lastOuterRadius;
 
-    public SmudgeMeshData(GameObject gameObject) : base(gameObject) { }
+    public SmudgeMeshData(Vector3[] vertices, Vector3[] normals, int[] triangles, GameObject gameObject) : base(vertices, normals, triangles, gameObject) { }
+
+    public SmudgeMeshData(MeshData meshData) : base(meshData) { }
 
     public Vertex Middle => middle;
     
@@ -35,30 +38,6 @@ public class SmudgeMeshData : MeshData
                 list.Add(vertex);
             }
         }
-        
-        
-        /*        
-        list.Add(middle);
-        int newIndex = 0;
-        bool beginning = true;
-        for (int i = 0; i < list.Count; i++)
-        {
-            // get adjacent
-            List<Vertex> adjacent = list[i].Neighbors;
-            foreach (Vertex vertex in adjacent)
-            {
-                if (Vector3.Distance(vertex.Position, middle.Position) < radius*1.2f || beginning)
-                {
-                    if (!list.Contains(vertex))
-                    {
-                        list.Add(vertex);    
-                    }
-                }
-            }
-            beginning = false;
-        }*/
-        
-        
         return list;
     }
 
@@ -115,104 +94,12 @@ public class SmudgeMeshData : MeshData
                 }
             }
         }
-
         return relevant;
     }
 
-    private void AddVerticesForSmudge(Vector3 middle, float radius)
+    public void BeginMove(Vector3 hitPoint, float innerRadius, float outerRadius, GameObject gameObject)
     {
-        List<Vertex> relevantVertices = GetRelevantVertices(middle, radius);
-        int verticesLength = 0;
-
-        while (verticesLength != vertices.Count) // breaks if no vertices were added in the last loop 
-        {
-            verticesLength = vertices.Count;
-            
-            float globalBiggestDistance = 0;
-            Vertex globalMostDistant1 = null;
-            Vertex globalMostDistant2 = null;
-            
-            foreach (Vertex vertex in relevantVertices)
-            {
-                // adjacent vertices
-                List<Vertex> adjacentVertices = vertex.Neighbors;
-                foreach (Vertex vert in adjacentVertices)
-                {
-                    if (Vector3.Distance(vert.Position, vertex.Position) > globalBiggestDistance)
-                    {
-                        globalBiggestDistance = Vector3.Distance(vert.Position, vertex.Position);
-                        globalMostDistant1 = vert;
-                        globalMostDistant2 = vertex;
-                    }
-                }
-            }
-
-            if (globalMostDistant1 != null)
-            {
-                if (globalBiggestDistance > avgDistance*1.5)
-                {
-                    AddVertex(globalMostDistant1, globalMostDistant2, out Vertex newVertex);
-
-                    if (newVertex != null)
-                    {
-                        // reassign neighbors
-                        globalMostDistant1.RemoveNeighbor(globalMostDistant2);
-                        globalMostDistant2.RemoveNeighbor(globalMostDistant1);
-                    }
-                }
-            }
-            //Debug.Log("Vertex Count after: " + vertices.Count);
-        }
-        RecalculateMesh();
-    }
-
-    private void AddVertex(Vertex v1, Vertex v2, out Vertex newVertex)
-    {
-        newVertex = null;
-        {
-            Vector3 v3 = Vector3.Lerp(v1.Position, v2.Position, .5f);
-            // create new Vector
-            originalVertices.Add(v3);
-            newVertex = new Vertex(v3, originalVertices.Count - 1); 
-            vertices.Add(newVertex);
-            // reassign Neighbors
-            v1.RemoveNeighbor(v2);
-            v1.AddNeighbor(newVertex);
-            v2.RemoveNeighbor(v1);
-            v2.AddNeighbor(newVertex);
-            
-            // get all triangles containing both v1 and v2
-            List<Triangle> trigs = TrianglesOfTwoVectors(v1, v2);
-            // in triangles alle j mit n ersetzen 
-            foreach(Triangle triangle in trigs)
-            {
-                // add neighbors for newVertex
-                if (triangle.V1 != v1 && triangle.V1 != v2) newVertex.AddNeighbor(triangle.V1);
-                if (triangle.V2 != v1 && triangle.V2 != v2) newVertex.AddNeighbor(triangle.V2);
-                if (triangle.V3 != v1 && triangle.V3 != v2) newVertex.AddNeighbor(triangle.V3);
-                
-                // replace v2 in existing Triangle
-                Vertex a = triangle.V1;
-                Vertex b = triangle.V2;
-                Vertex c = triangle.V3;
-
-                //zweiter vektor wird durch die neue mitte ersetzt
-                if (a.Position == v2.Position) triangle.V1Index = newVertex.Index;
-                else if (b.Position == v2.Position) triangle.V2Index = newVertex.Index;
-                else if (c.Position == v2.Position) triangle.V3Index = newVertex.Index;
-
-                // create new Triangle with newVertex and v2
-                if (a.Position == v1.Position) a = newVertex;
-                else if (b.Position == v1.Position) b = newVertex;
-                else if (c.Position == v1.Position) c = newVertex;
-
-                triangles.Add(new Triangle(a.Index, b.Index, c.Index, vertices));
-            }
-        }
-    }
-
-    public void BeginMove(Vector3 hitPoint, float innerRadius, float outerRadius)
-    {
+        this.gameObject = gameObject;
         this.innerRadius = innerRadius;
         this.outerRadius = outerRadius;
         
@@ -221,6 +108,16 @@ public class SmudgeMeshData : MeshData
         
         innerSelection = VerticesInRadius(innerRadius);
         outerSelection = VerticesInRadius(outerRadius);
+
+        affectedTriangles = new List<Triangle>();
+        foreach (Vertex vertex in outerSelection)
+        {
+            foreach (Triangle triangle in triangles)
+            {
+                if (triangle.ContainsVertex(vertex.Position)) affectedTriangles.Add(triangle);
+            }
+        }
+        
         Debug.Log("inner " + innerSelection.Count);
         Debug.Log("outer " + outerSelection.Count);
     }
@@ -246,13 +143,21 @@ public class SmudgeMeshData : MeshData
         
         //distanceSinceLastAdd += Vector3.Distance(originalPosition, middle.Position);
 
-        // if (distanceSinceLastAdd > avgDistance*2) AddVerticesForSmudge(middle.Position, outerRadius);
+        // if (distanceSinceLastAdd > avgDistance*2) AddVerticesForSmudge(middle.Position, outerRadius);+
+        
+        // recalculate normals of moved triangles
+        foreach (Triangle triangle in affectedTriangles)
+        {
+            triangle.RecalculateNormals();
+        }
+
         RecalculateMesh();
     }
 
     public void EndMove()
     {
-        //AddVerticesForSmudge(middle.Position, outerRadius);
+        Remesh();
+        RecalculateMesh();
     }
 
     private void MoveInnerRadius(Vector3 originalMiddlePosition)
@@ -278,12 +183,10 @@ public class SmudgeMeshData : MeshData
                 Vector3 temp = vertex.OrigPosition - middle.OrigPosition;
                 Vector3 moveVertex = middle.Position + temp;
                 
-                float lol = (Vector3.Distance(middle.OrigPosition, vertex.OrigPosition) - innerRadius) / ((outerRadius - innerRadius));
-                // Debug.Log(lol);
-                Vector3 n = Vector3.Lerp(vertex.OrigPosition, moveVertex, 1-lol);
+                float ratio = (Vector3.Distance(middle.OrigPosition, vertex.OrigPosition) - innerRadius) / ((outerRadius - innerRadius));
+                Vector3 n = Vector3.Lerp(vertex.OrigPosition, moveVertex, 1-ratio);
                 vertex.Position = n; 
             }
         }
     }
-
 }
