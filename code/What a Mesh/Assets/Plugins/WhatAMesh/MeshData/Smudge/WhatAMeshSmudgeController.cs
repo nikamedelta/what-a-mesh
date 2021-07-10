@@ -72,37 +72,10 @@ public class WhatAMeshSmudgeController : MonoBehaviour
     /// <param name="outerRadius"> vertices in outer radius are smoothed out </param>
     public void StartDeformation(GameObject obj, Vector3 startPoint, float innerRadius, float outerRadius)
     {
-        if (saveMeshData)
-        {
-            // create meshDataSaver if needed
-            if (obj.TryGetComponent(out MeshDataSaver saver))
-            {
-                MeshData meshDataT = saver.LastEntry();
-                objMeshData = new SmudgeMeshData(meshDataT);
-                objMeshData.BeginMove(startPoint, innerRadius, outerRadius, obj);
-                Debug.Log("hello1");
-                saver.AddEntry(objMeshData);
-            }
-            else
-            {
-                MeshDataSaver dataSaver = obj.AddComponent<MeshDataSaver>() as MeshDataSaver;
-                Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
-                objMeshData = new SmudgeMeshData(mesh.vertices, mesh.normals, mesh.triangles, obj);
-                objMeshData.BeginMove(startPoint, innerRadius, outerRadius, obj);
-                dataSaver.AddEntry(objMeshData);
-                Debug.Log("hello2");
-            }
-        }
-        else // use meshdata without saving
-        { 
-            Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
-            objMeshData = new SmudgeMeshData(mesh.vertices, mesh.normals, mesh.triangles, obj);
+        Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
 
-            
-            Debug.Log("hello3");
-        }
-
-        
+        objMeshData = new SmudgeMeshData(mesh.vertices, mesh.normals, mesh.triangles, obj);
+        objMeshData.BeginMove(startPoint, innerRadius, outerRadius, obj);
         performingDeformation = true;
         hitPoint = startPoint;
         Debug.Log("end start");
@@ -162,6 +135,12 @@ public class WhatAMeshSmudgeController : MonoBehaviour
         performingDeformation = false;
         objMeshData.EndMove();
         ReassignCollider();
+        
+        // add to object history
+        if (saveMeshData && objMeshData.GameObject.TryGetComponent(out WhatAMeshObject wamObject))
+        {
+            wamObject.AddToHistory(objMeshData.Mesh);
+        }
     }
     
     /// <summary>

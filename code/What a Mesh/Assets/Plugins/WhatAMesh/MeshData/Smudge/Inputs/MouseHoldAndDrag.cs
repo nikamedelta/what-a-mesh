@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MouseClickAndDrag : MonoBehaviour
+public class MouseHoldAndDrag : MonoBehaviour
 {
     public WhatAMeshSmudgeController whatAMesh;
     bool selectedObject;

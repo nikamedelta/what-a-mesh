@@ -58,14 +58,14 @@ public class SliceController : MonoBehaviour
         if (Physics.Raycast(mainCamera.transform.position, startPoint, out planeStart, Mathf.Infinity))
         {
 
-            if (planeStart.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject) && meshObject.sliceable || meshObject.gameObject.CompareTag("Sliceable"))
+            if (planeStart.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject) && (meshObject.sliceable || meshObject.gameObject.CompareTag("Sliceable")))
             {
                 obj = planeStart.transform.gameObject;
                 if (gameObject.GetComponent<Collider>().GetType() != typeof(MeshCollider))
                 {
                     Destroy(gameObject.GetComponent<Collider>());
 
-                    obj.AddComponent<MeshCollider>();
+                    //obj.AddComponent<MeshCollider>();
                     //obj.GetComponent<MeshCollider>().convex = true;
                 } 
                 meshData = new SliceMeshData(obj);
@@ -77,6 +77,8 @@ public class SliceController : MonoBehaviour
                     startPoint - mainCamera.transform.position, planeStart, mainCamera))
                 {
                     meshData = null;
+
+
                     Destroy(obj);
                 }
             }
