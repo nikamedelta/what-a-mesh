@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Plugins.WhatAMesh.MeshData.Smudge;
+using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof (WhatAMeshSmudgeController)), CanEditMultipleObjects]
@@ -6,26 +7,42 @@ public class WhatAMeshSmudgeEditor : Editor
 {
     public SerializedProperty
         inputTypeProp,
+
         xKeyPosProp,
         xKeyNegProp,
         yKeyPosProp,
         yKeyNegProp,
+
         xAxisProp,
         yAxisProp,
-        sensitivityProp, 
-        saveMeshDataProp;
+
+        sensitivityProp,
+        saveMeshDataProp,
+        
+        remeshProp,
+        remeshPassesProp,
+        edgeLengthMultiplierProp,
+        deformationIntervalProp;
 
     private void OnEnable()
     {
         inputTypeProp = serializedObject.FindProperty("inputType");
+        
         xKeyPosProp = serializedObject.FindProperty("xKeyPos");
         xKeyNegProp = serializedObject.FindProperty("xKeyNeg");
         yKeyPosProp = serializedObject.FindProperty("yKeyPos");
         yKeyNegProp = serializedObject.FindProperty("yKeyNeg");
+        
         xAxisProp = serializedObject.FindProperty("xAxis");
         yAxisProp = serializedObject.FindProperty("yAxis");
+        
         sensitivityProp = serializedObject.FindProperty("sensitivity");
         saveMeshDataProp = serializedObject.FindProperty("saveMeshData");
+        
+        remeshProp = serializedObject.FindProperty("remesh");
+        remeshPassesProp = serializedObject.FindProperty("remeshPasses");
+        edgeLengthMultiplierProp = serializedObject.FindProperty("edgeLengthMultiplier");
+        deformationIntervalProp = serializedObject.FindProperty("deformationInterval");
     }
     public override void OnInspectorGUI()
     {
@@ -53,6 +70,11 @@ public class WhatAMeshSmudgeEditor : Editor
                 break;
         }
         EditorGUILayout.PropertyField(saveMeshDataProp);
+        
+        EditorGUILayout.PropertyField(remeshProp);
+        EditorGUILayout.PropertyField(remeshPassesProp);
+        EditorGUILayout.PropertyField(edgeLengthMultiplierProp);
+        EditorGUILayout.PropertyField(deformationIntervalProp);
 
         serializedObject.ApplyModifiedProperties();
     }

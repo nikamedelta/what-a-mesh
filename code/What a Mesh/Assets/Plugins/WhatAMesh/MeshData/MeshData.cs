@@ -1,223 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using g3;
 using UnityEngine;
 
-public class MeshData
+namespace Plugins.WhatAMesh.MeshData
+{
+    /**
+     * Represents a MeshData, consisting of vertices and triangles. 
+     */
+    public class MeshData
     {
-        public class Triangle
-        {
-            public readonly int ID;
-            private int v1Index;
-            private int v2Index;
-            private int v3Index;
-            private List<Vertex> underlyingVectorList;
-
-            public Triangle(int v1Index, int v2Index, int v3Index, List<Vertex> vertexList)
-            {
-                underlyingVectorList = vertexList;
-                this.v1Index = v1Index;
-                this.v2Index = v2Index;
-                this.v3Index = v3Index;
-            }
-            
-
-            public Triangle(int ID, int v1Index, int v2Index, int v3Index, List<Vertex> vertexList)
-            {
-                this.ID = ID;
-                underlyingVectorList = vertexList;
-                this.v1Index = v1Index;
-                this.v2Index = v2Index;
-                this.v3Index = v3Index;
-            }
-
-            public float GetBiggestDistance()
-            {
-                float d1 = Vector3.Distance(V1.Position, V2.Position);
-                float d2 = Vector3.Distance(V2.Position, V3.Position);
-                float d3 = Vector3.Distance(V3.Position, V1.Position);
-
-                if (d1 > d2 && d1 > d3) return d1;
-                if (d2 > d1 && d2 > d3) return d2;
-                return d3;
-            }
-            
-            public Vertex GetMostDistantVertex(Vector3 middle)
-            {
-                float d1 = Vector3.Distance(middle, V1.Position);
-                float d2 = Vector3.Distance(middle, V2.Position);
-                float d3 = Vector3.Distance(middle, V3.Position);
-
-                if (d1 > d2 && d1 > d3) return V1;
-                if (d2 > d1 && d2 > d3) return V2;
-                return V3;
-            }
-            
-            /// <summary>
-            /// Recalculates the normals of the triangle's vertices. Based on Unity's runtime normal calculation, similar code found on schemingdeveloper.com.
-            /// </summary>
-            public void RecalculateNormals()
-            {
-                Plane surfacePlane = new Plane();
-                surfacePlane.Set3Points(V1.Position, V2.Position, V3.Position);
-                Vector3 normal = surfacePlane.normal;
-                V1.Normal = normal;
-                V2.Normal = normal;
-                V3.Normal = normal;
-            }
-
-            public Vertex V1
-            {
-                get => underlyingVectorList[v1Index];
-            }
-            public Vertex V2
-            {
-                get => underlyingVectorList[v2Index];
-            }
-            public Vertex V3
-            {
-                get => underlyingVectorList[v3Index];
-            }
-
-            public int V3Index
-            {
-                get => v3Index;
-                set => v3Index = value;
-            }
-
-            public int V2Index
-            {
-                get => v2Index;
-                set => v2Index = value;
-            }
-            public int V1Index
-            {
-                get => v1Index;
-                set => v1Index = value;
-            }
-
-            public bool ContainsVertex(Vector3 vertex)
-            {
-                if ((V1.Position == vertex) || (V2.Position == vertex) || (V3.Position == vertex)) return true;
-                return false;
-            }
-
-            public bool ContainsIndex(int index)
-            {
-                if ((V1.Index == index) || (V2.Index == index) || (V3.Index == index)) return true;
-                return false;
-            }
-        }
-
-        public class Vertex
-        {
-            private Vector3 position;
-            private Vector3 normal;
-            private Vector2 uv;
-            
-            private int index;
-            private List<Vertex> neighbors;
-            private List<Vector3> underlyingList;
-            private Vector3 origPosition;
-
-            public Vector3 OrigPosition => origPosition;
-
-
-            public Vertex(Vector3 position, Vector3 normal, int index)
-            {
-                this.position = position;
-                this.index = index;
-                neighbors = new List<Vertex>();
-                this.origPosition = position;
-                this.normal = normal;
-            }
-
-            public Vertex(Vector3 position, int index)
-            {
-                this.position = position;
-                this.index = index;
-                neighbors = new List<Vertex>();
-                this.origPosition = position;
-            }
-
-            public Vertex(Vector3 position, Vector3 normal, Vector2 uv, int index)
-            {
-                this.position = position;
-                this.normal = normal;
-                this.uv = uv;
-                this.index = index;
-                neighbors = new List<Vertex>();
-                this.origPosition = position;
-                this.normal = normal;
-            }
-
-            public Vector3 Normal
-            {
-                get => normal;
-                set => normal = value;
-            }
-
-            public Vector3 Position
-            {
-                get => position;
-                set => position = value;
-            }
-
-            public Vector2 UV
-            {
-                get => uv;
-                set => uv = value;
-            }
-
-            public List<Vertex> Neighbors => neighbors;
-            
-            public void AddNeighbor(Vertex vertex)
-            {
-                if (!neighbors.Contains(vertex))
-                {
-                    neighbors.Add(vertex);
-                }
-            }
-            public void RemoveNeighbor(Vertex vertex)
-            {
-                if (neighbors.Contains(vertex))
-                {
-                    neighbors.Remove(vertex);
-                }
-            }
-            public int Index => index;
-        }
-        
-        public class Line
-        {
-            private Vector3 direction;
-            private Vector3 offset;
-            
-            private Vertex startVertex;
-            private Vertex endVertex;
-            
-
-            public Line(Vertex startVertex, Vertex endVertex,Vector3 direction, Vector3 offset)
-            {
-                this.startVertex = startVertex;
-                this.endVertex = endVertex;
-                this.direction = direction;
-                this.offset = offset;
-            }
-
-            public Vector3 Direction => direction;
-
-            public Vertex StartVertex => startVertex;
-
-            public Vertex EndVertex => endVertex;   
-            
-            public Vector3 StartVertexPosition => startVertex.Position+offset;
-
-            public Vector3 EndVertexPosition => endVertex.Position+offset;
-        }
-
-
         protected List<Triangle> triangles;
 
         public List<Triangle> GetTriangles => triangles;
@@ -242,8 +34,7 @@ public class MeshData
         protected GameObject gameObject;
 
         public GameObject GameObject => gameObject;
-        
-        
+
         public MeshData(GameObject gameObject)
         {
             this.gameObject = gameObject;
@@ -499,19 +290,19 @@ public class MeshData
             Mesh = mesh;
         }
 
-        public void Remesh()
+        public void Remesh(int remeshPasses, float edgeLengthMultiplier)
         {
             DMesh3 dMesh = g3Conversions.MeshDataToDMesh(this);
         
             // apply g3 remesh
             Remesher r = new Remesher(dMesh);
             r.PreventNormalFlips = true;
-            r.MaxEdgeLength = AvgDistance*3;
+            r.MaxEdgeLength = AvgDistance*edgeLengthMultiplier;
             r.EnableSmoothing = true;
             r.SmoothSpeedT = 0.01f;
             MeshConstraintUtil.FixAllBoundaryEdges(r);
             //r.SetTargetEdgeLength(objMeshData.AvgDistance*0.9f);
-            for (int k = 0; k < 20; k++)
+            for (int k = 0; k < remeshPasses; k++)
                 r.BasicRemeshPass();
             
             
@@ -524,5 +315,28 @@ public class MeshData
             originalMesh = newMeshData.originalMesh;
             origTriangles = newMeshData.origTriangles;
 
+            RecalculateMesh();
+        }
+        
+        /// <summary>
+        /// Get all vertices in specified radius, based on distance. 
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name = "middle">the middle position</param>
+        /// <returns></returns>
+        public List<Vertex> VerticesInRadius(float radius, Vector3 middle)
+        {
+            List<Vertex> list = new List<Vertex>();
+
+            foreach (Vertex vertex in vertices)
+            {
+                if (Vector3.Distance(middle, vertex.Position) <= radius)
+                {
+                    list.Add(vertex);
+                }
+            }
+            return list;
         }
     }
+    
+}

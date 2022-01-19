@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using g3;
+using Plugins.WhatAMesh.MeshData;
 
 // code of this class is adapted from the g3 GitHub
 public class g3Conversions

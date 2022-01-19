@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Plugins.WhatAMesh.MeshData.Slice;
+using Plugins.WhatAMesh.MeshData.Smudge;
+using Plugins.WhatAMesh.MeshData.Smudge.Inputs;
+using UnityEngine;
 using UnityEditor;
 
 public class WhatAMeshWindow : EditorWindow

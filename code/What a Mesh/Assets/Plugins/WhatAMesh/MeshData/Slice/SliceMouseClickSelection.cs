@@ -1,31 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
-public class SliceMouseClickSelection : MonoBehaviour
+namespace Plugins.WhatAMesh.MeshData.Slice
 {
-    public SliceController whatAMeshSliceController;
-
-    private bool firstSelected = false;
-
-    void Update()
+    public class SliceMouseClickSelection : MonoBehaviour
     {
-        if (!firstSelected)
+        public SliceController whatAMeshSliceController;
+
+        private bool firstSelected = false;
+
+        void Update()
         {
-            if (Input.GetMouseButtonDown(1))
+            if (!firstSelected)
             {
-                whatAMeshSliceController.StartSelection(Input.mousePosition);
-                firstSelected = true;
+                if (Input.GetMouseButtonDown(1))
+                {
+                    whatAMeshSliceController.StartSelection(Input.mousePosition);
+                    firstSelected = true;
+                }
             }
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(1))
+            else
             {
-                whatAMeshSliceController.EndSelection(Input.mousePosition);
-                firstSelected = false;
+                if (Input.GetMouseButtonDown(1))
+                {
+                    whatAMeshSliceController.EndSelection(Input.mousePosition);
+                    firstSelected = false;
+                }
             }
         }
     }
