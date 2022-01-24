@@ -1,61 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class WhatAMeshObject : MonoBehaviour
+namespace Plugins.WhatAMesh
 {
-    public bool deformable = false;
-    public bool sliceable = false;
-    public bool is3D = false;
-    
-    public List<Mesh> history = new List<Mesh>();
-    
-    private int counter = 0;
-
-    public void AddToHistory(Mesh mesh)
+    public class WhatAMeshObject : MonoBehaviour
     {
-        history.Add(MeshAsCopy(mesh));
-        Debug.Log("added new history entry");
-    }
+        [SerializeField] private bool deformable = false;
+        [SerializeField] private bool sliceable = false;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("q") && !sliceable)
+        public List<Mesh> history = new List<Mesh>();
+        private int counter = 0;
+    
+        public bool Deformable => deformable;
+        public bool Sliceable => sliceable;
+
+        /// <summary>
+        /// Adds the provided mesh to the object's history.  
+        /// </summary>
+        public void AddToHistory(Mesh mesh)
         {
-            Debug.Log("arrow down " + (counter));
-
-            if (counter == history.Count)
+            // delete following entries if counter is inbetween object's history
+            while (counter < history.Count - 1)
             {
-                // apply original mesh
-                counter = 0;
+                history.RemoveAt(history.Count-1);
             }
-            GetComponent<MeshFilter>().mesh = history[counter];
-            GetComponent<MeshCollider>().sharedMesh = history[counter];
-            
+            history.Add(MeshAsCopy(mesh));
             counter++;
         }
-    }
 
-    private void Start()
-    {
-        if (sliceable) return;
-        // create originalMesh as copy
-        Mesh thisMesh = GetComponent<MeshFilter>().mesh;
-        Mesh originalMesh = MeshAsCopy(thisMesh);
-        history.Add(originalMesh);
-    }
+        /// <summary>
+        /// "Undo" one step of the history. 
+        /// </summary>
+        public Mesh GetPreviousMesh()
+        {
+            counter--;
+            if (counter < 0) counter = history.Count-1;
+            return history[counter];
+        }
 
-    private Mesh MeshAsCopy(Mesh mesh)
-    {
-        Mesh newMesh = new Mesh();
-        Mesh thisMesh = GetComponent<MeshFilter>().mesh;
+        /// <summary>
+        /// "Redo" one step of the history. 
+        /// </summary>
+        public Mesh GetFollowingMesh()
+        {
+            counter++;
+            if (counter >= history.Count) counter = 0;
+            return history[counter];
+        }
 
-        newMesh.vertices = (Vector3[]) thisMesh.vertices.Clone();
-        newMesh.triangles = (int[]) thisMesh.triangles.Clone();
-        newMesh.normals = (Vector3[]) thisMesh.normals.Clone();
+        private void Start()
+        {
+            // create originalMesh as first history entry
+            Mesh thisMesh = GetComponent<MeshFilter>().mesh;
+            Mesh originalMesh = MeshAsCopy(thisMesh);
+            history.Add(originalMesh);
+            counter++;
+        }
+
+        /// <summary>
+        /// Creates a copy of a mesh instead of a reference. Necessary for mesh history. 
+        /// </summary>
+        private Mesh MeshAsCopy(Mesh mesh)
+        {
+            Mesh newMesh = new Mesh();
+
+            newMesh.vertices = (Vector3[]) mesh.vertices.Clone();
+            newMesh.triangles = (int[]) mesh.triangles.Clone();
+            newMesh.normals = (Vector3[]) mesh.normals.Clone();
         
-        Debug.Log("cloned mesh");
-        return newMesh;
+            return newMesh;
+        }
     }
 }

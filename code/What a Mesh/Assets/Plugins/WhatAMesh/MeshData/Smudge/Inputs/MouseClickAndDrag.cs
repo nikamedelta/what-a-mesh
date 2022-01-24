@@ -1,58 +1,61 @@
 ﻿using UnityEngine;
 
-public class MouseClickAndDrag : MonoBehaviour
+namespace Plugins.WhatAMesh.MeshData.Smudge.Inputs
 {
-    public WhatAMeshSmudgeController whatAMesh;
-    bool selectedObject;
-
-    public float innerRadius = 0.5f;
-    public float outerRadius = 1f;
-    private void Update()
+    /// <summary>
+    /// Smudge input by clicking to start, and clicking again to end the deformation.  
+    /// </summary>
+    public class MouseClickAndDrag : MonoBehaviour
     {
-        if (!selectedObject)
+        public WhatAMeshSmudgeController whatAMesh;
+        bool selectedObject;
+
+        public float innerRadius = 0.5f;
+        public float outerRadius = 1f;
+        private void Update()
         {
-            if (Input.GetMouseButton(0))
+            if (!selectedObject)
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 300))
+                if (Input.GetMouseButton(0))
                 {
-                    if (hit.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject) && meshObject.deformable || meshObject.gameObject.CompareTag("Deformable"))
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, 300))
                     {
-                        whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, innerRadius, outerRadius);
-                        selectedObject = true;
+                        if (hit.transform.gameObject.TryGetComponent(out WhatAMeshObject meshObject) && meshObject.Deformable || meshObject.gameObject.CompareTag("Deformable"))
+                        {
+                            whatAMesh.StartDeformation(hit.transform.gameObject, hit.point, innerRadius, outerRadius);
+                            selectedObject = true;
+                        }
                     }
                 }
             }
-        }
-        else 
-        {
-            if (Input.GetMouseButtonUp(0))
+            else 
             {
-                selectedObject = false;
-                whatAMesh.StopDeformation();
-            }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    selectedObject = false;
+                    whatAMesh.StopDeformation();
+                }
             
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                selectedObject = false;
-                whatAMesh.CancelDeformation();
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    selectedObject = false;
+                    whatAMesh.CancelDeformation();
 
+                }
+            }
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                if (Input.mouseScrollDelta.y > 0)
+                {
+                    outerRadius += .01f;
+                }
+                else if (Input.mouseScrollDelta.y < 0)
+                {
+                    outerRadius -= .01f;
+                }
             }
         }
-
-
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            if (Input.mouseScrollDelta.y > 0)
-            {
-                outerRadius += .01f;
-            }
-            else if (Input.mouseScrollDelta.y < 0)
-            {
-                outerRadius -= .01f;
-            }
-        }
-        
     }
 }

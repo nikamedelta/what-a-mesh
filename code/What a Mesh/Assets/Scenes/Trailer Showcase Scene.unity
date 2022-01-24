@@ -202,7 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &23318669
 MeshRenderer:
@@ -253,6 +252,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23318664}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &78290729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78290730}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &78290730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78290729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &98642330
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +453,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &101253254
 MeshRenderer:
@@ -554,7 +582,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &136230998
 MeshRenderer:
@@ -684,7 +711,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &144124120
 MeshRenderer:
@@ -814,7 +840,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &266282084
 MeshRenderer:
@@ -944,7 +969,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &283872994
 MeshRenderer:
@@ -1074,7 +1098,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &314991596
 MeshRenderer:
@@ -1204,7 +1227,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &317086753
 MeshRenderer:
@@ -1334,7 +1356,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &323932276
 MeshRenderer:
@@ -1464,7 +1485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &345493165
 MeshRenderer:
@@ -1594,7 +1614,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &350015338
 MeshRenderer:
@@ -1699,7 +1718,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 645df5c10abf82545889057e2ca7c3b9, type: 2}
+  - {fileID: 2100000, guid: 609eb5b54e0d98a48a53e50864c46af4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1737,7 +1756,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354020730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.98, z: 0}
+  m_LocalPosition: {x: -1.6, y: 0.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 355305462}
@@ -1757,7 +1776,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 1
   sliceable: 0
-  is3D: 1
   history: []
 --- !u!114 &354020737
 MonoBehaviour:
@@ -1982,7 +2000,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &446483030
 MeshRenderer:
@@ -2082,7 +2099,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 1
   sliceable: 0
-  is3D: 1
   history: []
 --- !u!114 &478747847
 MonoBehaviour:
@@ -2241,7 +2257,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &491074242
 MeshRenderer:
@@ -2421,7 +2436,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &524530911
 MeshRenderer:
@@ -2623,7 +2637,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &555174885
 MeshRenderer:
@@ -2753,7 +2766,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &589396110
 MeshRenderer:
@@ -2883,7 +2895,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &612591079
 MeshRenderer:
@@ -3013,7 +3024,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &652581240
 MeshRenderer:
@@ -3143,7 +3153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &654368134
 MeshRenderer:
@@ -3273,7 +3282,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &780099098
 MeshRenderer:
@@ -3403,7 +3411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &787516953
 MeshRenderer:
@@ -3493,7 +3500,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788332167}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb6d9347845d5294994a4f34743cf591, type: 3}
   m_Name: 
@@ -3700,7 +3707,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &847646039
 MeshRenderer:
@@ -3943,7 +3949,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &990862924
 MeshRenderer:
@@ -4073,7 +4078,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1107760246
 MeshRenderer:
@@ -4203,7 +4207,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1115456364
 MeshRenderer:
@@ -4333,7 +4336,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1125234887
 MeshRenderer:
@@ -4429,7 +4431,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1152102889
@@ -4495,7 +4497,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 1
   sliceable: 0
-  is3D: 1
   history: []
 --- !u!1 &1159530041
 GameObject:
@@ -4576,7 +4577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1159530046
 MeshRenderer:
@@ -4627,6 +4627,118 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159530041}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1189699171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1189699176}
+  - component: {fileID: 1189699175}
+  - component: {fileID: 1189699174}
+  - component: {fileID: 1189699172}
+  - component: {fileID: 1189699173}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1189699172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189699171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb7cceffef0004418fba4270c786525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deformable: 1
+  sliceable: 1
+  history: []
+--- !u!64 &1189699173
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189699171}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1189699174
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189699171}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 609eb5b54e0d98a48a53e50864c46af4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1189699175
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189699171}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1189699176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189699171}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.78999996, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1200080494
 GameObject:
   m_ObjectHideFlags: 0
@@ -4706,7 +4818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1200080499
 MeshRenderer:
@@ -4836,7 +4947,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1222050999
 MeshRenderer:
@@ -5061,7 +5171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323631968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.58}
+  m_LocalPosition: {x: 0, y: 0.63, z: -2.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5159,7 +5269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1381299089
 MeshRenderer:
@@ -5221,6 +5330,7 @@ GameObject:
   - component: {fileID: 1401883834}
   - component: {fileID: 1401883833}
   - component: {fileID: 1401883832}
+  - component: {fileID: 1401883835}
   m_Layer: 0
   m_Name: What A Mesh Smudge
   m_TagString: Untagged
@@ -5255,15 +5365,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c09aa97f7e66a34faf21cdf56b53271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xKeyPos: 0
-  xKeyNeg: 0
-  yKeyPos: 0
-  yKeyNeg: 0
-  xAxis: 
-  yAxis: 
   sensitivity: 0.01
   saveMeshData: 1
-  inputType: 0
+  remesh: 1
+  remeshPasses: 20
+  edgeLengthMultiplier: 3
+  deformationInterval: 0
 --- !u!4 &1401883834
 Transform:
   m_ObjectHideFlags: 0
@@ -5278,6 +5385,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1401883835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401883831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ed3722f477afe42bd11df99525996a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  histories:
+  - {fileID: 1189699172}
 --- !u!1 &1437629001
 GameObject:
   m_ObjectHideFlags: 0
@@ -5357,7 +5478,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1437629006
 MeshRenderer:
@@ -5487,7 +5607,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1449622436
 MeshRenderer:
@@ -5572,7 +5691,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 1
   sliceable: 0
-  is3D: 1
   history: []
 --- !u!23 &1527452399
 MeshRenderer:
@@ -5648,7 +5766,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1582188835
@@ -5730,7 +5848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1582188840
 MeshRenderer:
@@ -5955,7 +6072,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1737084699
 MeshRenderer:
@@ -6085,7 +6201,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1843429108
 MeshRenderer:
@@ -6215,7 +6330,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &1865548663
 MeshRenderer:
@@ -6427,7 +6541,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &2034932470
 MeshRenderer:
@@ -6606,7 +6719,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!1 &2069025299
 GameObject:
@@ -6779,7 +6891,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &2100863229
 MeshRenderer:
@@ -6909,7 +7020,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 0
   sliceable: 1
-  is3D: 1
   history: []
 --- !u!23 &2102876363
 MeshRenderer:
@@ -7005,7 +7115,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &2119751685
@@ -7022,7 +7132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformable: 1
   sliceable: 0
-  is3D: 1
   history: []
 --- !u!23 &2119751686
 MeshRenderer:
