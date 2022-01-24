@@ -1,4 +1,5 @@
 ﻿using Plugins.WhatAMesh.MeshData.Slice;
+using Plugins.WhatAMesh.MeshData.Slice.Inputs;
 using Plugins.WhatAMesh.MeshData.Smudge;
 using Plugins.WhatAMesh.MeshData.Smudge.Inputs;
 using UnityEngine;
@@ -18,8 +19,7 @@ public class WhatAMeshWindow : EditorWindow
         {
             if (!GameObject.Find("What A Mesh Smudge"))
             {
-                GameObject whatAMeshTool = new GameObject();
-                whatAMeshTool.name = "What A Mesh Smudge";
+                GameObject whatAMeshTool = new GameObject("What A Mesh Smudge");
                 var c =  whatAMeshTool.AddComponent<WhatAMeshSmudgeController>();
                 var selectionTool =  whatAMeshTool.AddComponent<MouseHoldAndDrag>();
                 selectionTool.whatAMesh = c;
@@ -32,8 +32,7 @@ public class WhatAMeshWindow : EditorWindow
         {
             if (!GameObject.Find("What A Mesh Smudge"))
             {
-                GameObject whatAMeshTool = new GameObject();
-                whatAMeshTool.name = "What A Mesh Smudge";
+                GameObject whatAMeshTool = new GameObject("What A Mesh Smudge");
                 var c = whatAMeshTool.AddComponent<WhatAMeshSmudgeController>();
                 var selectionTool = whatAMeshTool.AddComponent<MouseClickAndDrag>();
                 selectionTool.whatAMesh = c;
@@ -47,8 +46,7 @@ public class WhatAMeshWindow : EditorWindow
         {
             if (!GameObject.Find("What A Mesh Slice"))
             {
-                GameObject whatAMeshTool = new GameObject();
-                whatAMeshTool.name = "What A Mesh Slice";
+                GameObject whatAMeshTool = new GameObject("What A Mesh Slice");
                 var c =  whatAMeshTool.AddComponent<SliceController>();
                 var selectionTool =  whatAMeshTool.AddComponent<SliceMouseClickSelection>();
                 selectionTool.whatAMeshSliceController = c;

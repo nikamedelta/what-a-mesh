@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Plugins.WhatAMesh.MeshData.Slice
 {
@@ -21,9 +20,6 @@ namespace Plugins.WhatAMesh.MeshData.Slice
         private float range= 10000;
     
         private SliceMeshData meshData;
-        
-        [Tooltip("Creates a object-specific history for every slice.")]
-        public bool saveMeshData;
 
         private void Start()
         {
@@ -31,6 +27,9 @@ namespace Plugins.WhatAMesh.MeshData.Slice
             if (mainCamera == null) mainCamera = Camera.main; 
         }
 
+        /// <summary>
+        /// Defines the first point of the intersection plane. 
+        /// </summary>
         public void StartSelection(Vector3 cursorPos)
         {
             cursorPosition = new Vector3
@@ -43,6 +42,9 @@ namespace Plugins.WhatAMesh.MeshData.Slice
             Debug.DrawRay(mainCamera.transform.position, selectionPoint0, Color.green, Mathf.Infinity);
         }
 
+        /// <summary>
+        /// Defines the first point of the intersection plane. 
+        /// </summary>
         public void EndSelection(Vector3 cursorPos)
         {
             cursorPosition= new Vector3
@@ -54,9 +56,11 @@ namespace Plugins.WhatAMesh.MeshData.Slice
             selectionPoint1 = mainCamera.ScreenToWorldPoint(cursorPosition);
             Debug.DrawRay(mainCamera.transform.position, selectionPoint1, Color.yellow, Mathf.Infinity);
             SelectObject();
-
         }
     
+        /// <summary>
+        /// Selects the first object intersected by the plane (created by StartSelection and EndSelection) and slices it. 
+        /// </summary>
         private void SelectObject()
         {
             Vector3 startPoint = new Vector3
@@ -79,7 +83,6 @@ namespace Plugins.WhatAMesh.MeshData.Slice
                         //obj.GetComponent<MeshCollider>().convex = true;
                     } 
                     meshData = new SliceMeshData(obj);
-                    Debug.Log(obj.name);
                     obj1 = Instantiate(obj, obj.transform.parent);
                     obj2 = Instantiate(obj, obj.transform.parent);
                     DrawPlane(obj.transform.position, meshData.PlaneNormal);
@@ -89,19 +92,16 @@ namespace Plugins.WhatAMesh.MeshData.Slice
                         meshData = null;
                         Destroy(obj);
                     }
-                    
-                    // add new changes to object history
-                    if (saveMeshData && obj1.TryGetComponent(out WhatAMeshObject wamObject1) && obj1.TryGetComponent(out WhatAMeshObject wamObject2) )
-                    {
-                        
-                    }
                 }
             }
         }
+        
+        /// <summary>
+        /// Draws a plane for the scene view of the intersection plane. 
+        /// </summary>
         private void DrawPlane(Vector3 position, Vector3 normal)
         {
             Vector3 planeVector;
-            Debug.Log("Drawing Plane");
             if (normal.normalized != Vector3.forward)
             {
                 planeVector = Vector3.Cross(normal, Vector3.forward).normalized;

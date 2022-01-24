@@ -2,6 +2,9 @@
 
 namespace Plugins.WhatAMesh.MeshData.Smudge.Inputs
 {
+    /// <summary>
+    /// Smudge input by clicking and holding to drag the selection. 
+    /// </summary>
     public class MouseHoldAndDrag : MonoBehaviour
     {
         public WhatAMeshSmudgeController whatAMesh;

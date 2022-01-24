@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Plugins.WhatAMesh.MeshData
 {
+    /// <summary>
+    /// Triangles are a collection of three vertices, saved with the index of the respective list that contains the vertices.   
+    /// </summary>
     public class Triangle
     {
         public readonly int id;

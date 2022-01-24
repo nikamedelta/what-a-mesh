@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Plugins.WhatAMesh.MeshData
 {
+    /// <summary>
+    /// A Vertex represents one node of a mesh, containing data (normal, uv) for this exact position.  
+    /// </summary>
     public class Vertex
     {
         private Vector3 position;

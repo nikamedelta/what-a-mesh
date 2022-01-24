@@ -23,62 +23,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
 
         public Vertex Middle => middle;
 
-        private List<Vertex> GetRelevantVertices(Vector3 middlePosition, float radius)
-        {
-            List<Vertex> relevant = new List<Vertex>();
-            // get Vertex with middle v3
-            Vertex mVertex = null;
-            
-            float closest = float.MaxValue;
-            foreach (Vertex v in vertices)
-            {
-                if (Vector3.Distance(v.Position, middlePosition) < closest)
-                {
-                    mVertex = v;
-                    closest = Vector3.Distance(v.Position, middlePosition);
-                }
-            }
-
-            if (mVertex != null)
-            {
-                relevant.Add(mVertex);
-                bool beginning = true;
-                for (int i = 0; i < relevant.Count; i++)
-                {
-                    // get adjacent
-                    List<Vertex> adjacent = relevant[i].Neighbors;
-                    foreach (Vertex vertex in adjacent)
-                    {
-                        if (Vector3.Distance(vertex.Position, middlePosition) < radius*1.2f || beginning)
-                        {
-                            if (!relevant.Contains(vertex))
-                            {
-                                relevant.Add(vertex);    
-                            }
-                        }
-                    }
-                    beginning = false;
-                }
-            }
-            // add two more rows of adjacent
-            for (int i = 0; i < 10 && i<relevant.Count; i++)
-            {
-                foreach (Vertex vertex in relevant)
-                {
-                    // get adjacent
-                    List<Vertex> adjacent = relevant[i].Neighbors;
-                    foreach (Vertex v in adjacent)
-                    {
-                        if (!relevant.Contains(vertex))
-                        {
-                            relevant.Add(vertex);
-                        }
-                    }
-                }
-            }
-            return relevant;
-        }
-
         /// <summary>
         /// Creates vertices at the edge of the outer radius. 
         /// </summary>
@@ -124,7 +68,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
                     foreach (Vertex v2 in notInOuterRadius)
                     {
                         float ratio =  0.5f;
-                        Debug.Log(ratio);
                         AddVertex(v2, v1, ratio, out Vertex v3);
                         vertices.Add(v3);
                     }
@@ -132,6 +75,9 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             }
         }
 
+        /// <summary>
+        /// Creates a vertex between v1 and v2. Ratio of 0.5f is the middle of the vertices.   
+        /// </summary>
         private void AddVertex(Vertex v1, Vertex v2, float ratio, out Vertex newVertex)
         {
             Vector3 v3 = Vector3.Lerp(v1.Position, v2.Position, ratio);
@@ -178,6 +124,13 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             }
         }
 
+        /// <summary>
+        /// Starting the deformation. Call this once before calling the move function. 
+        /// </summary>
+        /// <param name="hitPoint"> The nearest vertex to this position is chosen as the middle vertex. </param>
+        /// <param name="innerRadius"> The vertices in the inner radius are moved by the full length. </param>
+        /// <param name="outerRadius"> The vertices in the outer radius are moved by a ratio of the distance to the middle vertex. </param>
+        /// <param name="gameObject"> The GameObject whose mesh is being deformed. </param>
         public void BeginMove(Vector3 hitPoint, float innerRadius, float outerRadius, GameObject gameObject)
         {
             this.gameObject = gameObject;
@@ -185,7 +138,7 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             this.outerRadius = outerRadius;
         
             middle = ClosestVertex(hitPoint-gameObject.transform.position);
-            if (middle == null) throw new Exception("no middle found");
+            if (middle == null) throw new Exception("no middle vertex found");
         
             innerSelection = VerticesInRadius(innerRadius, middle.Position);
             outerSelection = VerticesInRadius(outerRadius, middle.Position);
@@ -200,9 +153,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
                     if (triangle.ContainsVertex(vertex.Position)) affectedTriangles.Add(triangle);
                 }
             }
-        
-            Debug.Log("inner " + innerSelection.Count);
-            Debug.Log("outer " + outerSelection.Count);
         }
 
         /// <summary>
@@ -216,7 +166,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             Quaternion rotation = GameObject.transform.rotation;
             rotation = Quaternion.Inverse(rotation);
             Vector3 newMove = rotation * (move - pivot) + pivot;
-
         
             Vector3 originalPosition = middle.Position;
             middle.Position = newMove;
@@ -233,11 +182,17 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             RecalculateMesh();
         }
 
+        /// <summary>
+        /// Ends the deformation. Call this after the move operation(s). 
+        /// </summary>
         public void EndMove()
         {
             RecalculateMesh();
         }
 
+        /// <summary>
+        /// The vertices in the inner radius are moved by the full length.
+        /// </summary>
         private void MoveInnerRadius(Vector3 originalMiddlePosition)
         {
             foreach (Vertex vertex in innerSelection)
@@ -252,6 +207,9 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             }
         } 
 
+        /// <summary>
+        /// The vertices in the outer radius are moved by a ratio of the distance to the middle vertex. 
+        /// </summary>
         private void MoveOuterRadius()
         {
             foreach (Vertex vertex in outerSelection)

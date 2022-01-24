@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Plugins.WhatAMesh.MeshData
+namespace Plugins.WhatAMesh.MeshData.Slice
 {
+    /// <summary>
+    /// Represents a line between two vertices
+    /// </summary>
     public class Line
     {
         private Vector3 direction;

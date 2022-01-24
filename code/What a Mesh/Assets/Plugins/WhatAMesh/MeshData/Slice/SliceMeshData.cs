@@ -8,75 +8,24 @@ namespace Plugins.WhatAMesh.MeshData.Slice
         private List<Line> lines = new List<Line>();
     
         private Vector3 planeNormal;
-        private  Vector3 planeStart;
         public Vector3 PlaneNormal => planeNormal;
 
         private Plane intersectionPlane;
     
         protected SliceMeshData obj1meshData;
-
-        public SliceMeshData Obj1MeshData => obj1meshData;
-    
         protected SliceMeshData obj2meshData;
-
-        public SliceMeshData Obj2MeshData => obj2meshData;
-
-        private GameObject obj1;
-        private GameObject obj2;
     
         private List<Intersection> intersections = new List<Intersection>();
-
-        class Intersection
-        {
-            private Vector3 point;
-            private Vector2 uv;
-            private Vector3 normal;
-            private int index;
-            private Vertex v1;
-            private Vertex v2;
-
         
-            /// <summary>
-            /// Saves data of intersection between two vertices.
-            /// </summary>
-            public Intersection(Vector3 point, Vertex v1,Vertex v2)
-            {
-                this.point = point;
-                this.v1 = v1;
-                this.v2 = v2;
-            }
-
-            public int Index
-            {
-                get => index;
-                set => index = value;
-            }
-
-            public Vector3 Normal
-            {
-                get => normal;
-                set => normal = value;
-            }
-
-            public Vector2 UV
-            {
-                get => uv;
-                set => uv = value;
-            }
-
-            public Vector3 Point => point;
-
-            public Vertex V1 => v1;
-
-            public Vertex V2 => v2;
-        }
         public SliceMeshData(GameObject gameObject) : base(gameObject) { }
+        
+        /// <summary>
+        /// Handles the whole slice operation, based on the two copies of the sliced object (obj1 and obj2) and the plane. 
+        /// </summary>
         public bool SplitObject(GameObject obj1, GameObject obj2, Vector3 relativePosition, Vector3 direction, RaycastHit planeStart, Camera camera)
         {
-            this.obj1 = obj1;
-            this.obj2 = obj2;
             CreateLines();
-            CreateSlicePlane(relativePosition, planeStart, direction, camera);
+            CreateSlicePlane(relativePosition, planeStart, direction);
             CalculateIntersection();
 
             obj1meshData = new SliceMeshData(obj1);
@@ -107,9 +56,8 @@ namespace Plugins.WhatAMesh.MeshData.Slice
                 lines.Add(new Line(triangle.V3, triangle.V1, triangle.V1.Position - triangle.V3.Position, position));
             }
         }
-        private void CreateSlicePlane(Vector3 relativePosition, RaycastHit planeStart, Vector3 direction, Camera camera)
+        private void CreateSlicePlane(Vector3 relativePosition, RaycastHit planeStart, Vector3 direction)
         {
-            this.planeStart = planeStart.point;
             planeNormal = Vector3.Cross(relativePosition, -direction).normalized;
             intersectionPlane = new Plane(planeNormal, planeStart.point);
         }

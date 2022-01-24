@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Plugins.WhatAMesh.MeshData
 {
-    /**
-     * Represents a MeshData, consisting of vertices and triangles. 
-     */
+    /// <summary>
+    /// Represents a MeshData, consisting of vertices and triangles. 
+    /// </summary>
     public class MeshData
     {
         protected List<Triangle> triangles;
@@ -139,7 +139,7 @@ namespace Plugins.WhatAMesh.MeshData
             }
             return vertices;
         }
-
+        
         protected void AddNeighbors()
         {
             foreach (Triangle triangle in triangles)
@@ -158,6 +158,7 @@ namespace Plugins.WhatAMesh.MeshData
                 c.AddNeighbor(b);
             }
         }
+        
         /// <summary>
         /// Chooses the closest Vertex to a point in world space. Also considers the object's rotation. 
         /// </summary>
@@ -238,6 +239,9 @@ namespace Plugins.WhatAMesh.MeshData
             return list;
         }
         
+        /// <summary>
+        /// Reassign the MeshData values to the GameObject's mesh. 
+        /// </summary>
         public void RecalculateMesh()
         {
             mesh.Clear();
@@ -289,7 +293,10 @@ namespace Plugins.WhatAMesh.MeshData
             gameObject.GetComponent<MeshFilter>().mesh = mesh;
             Mesh = mesh;
         }
-
+        
+        /// <summary>
+        /// Refactor the mesh with g3sharp mesh calculations. Very expensive operations, take care! 
+        /// </summary>
         public void Remesh(int remeshPasses, float edgeLengthMultiplier)
         {
             DMesh3 dMesh = g3Conversions.MeshDataToDMesh(this);

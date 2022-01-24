@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Plugins.WhatAMesh;
 using UnityEngine;
 
 public class IterateHistories : MonoBehaviour
@@ -7,7 +8,7 @@ public class IterateHistories : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             for (int i = 0; i < histories.Count; i++)
             {
@@ -18,7 +19,7 @@ public class IterateHistories : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             for (int i = 0; i < histories.Count; i++)
             {

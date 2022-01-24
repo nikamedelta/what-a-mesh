@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Plugins.WhatAMesh.MeshData.Slice
+namespace Plugins.WhatAMesh.MeshData.Slice.Inputs
 {
-    public class SliceMouseClickSelectionOld : MonoBehaviour
+    public class SliceMouseClickSelection : MonoBehaviour
     {
-        [FormerlySerializedAs("whatAMeshSlice")] [FormerlySerializedAs("slice")] public WhatAMeshSliceControllerOld whatAMeshSliceController;
+        public SliceController whatAMeshSliceController;
 
         private bool firstSelected = false;
 
@@ -27,7 +26,6 @@ namespace Plugins.WhatAMesh.MeshData.Slice
                     firstSelected = false;
                 }
             }
-
         }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Plugins.WhatAMesh.MeshData.Smudge.Inputs
 {
+    /// <summary>
+    /// Smudge input by clicking to start, and clicking again to end the deformation.  
+    /// </summary>
     public class MouseClickAndDrag : MonoBehaviour
     {
         public WhatAMeshSmudgeController whatAMesh;
@@ -42,8 +45,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge.Inputs
 
                 }
             }
-
-
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 if (Input.mouseScrollDelta.y > 0)
@@ -55,7 +56,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge.Inputs
                     outerRadius -= .01f;
                 }
             }
-        
         }
     }
 }

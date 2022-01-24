@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Plugins.WhatAMesh.MeshData.Smudge
 {
+    /// <summary>
+    /// Handles smudge deformations with mouse inputs. 
+    /// </summary>
     [DisallowMultipleComponent]
     public class WhatAMeshSmudgeController : MonoBehaviour
     {
@@ -21,19 +23,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
         private float innerRadius;
 
         bool performingDeformation;
-    
-        public KeyCode xKeyPos;
-        public KeyCode xKeyNeg;
-        public KeyCode yKeyPos;
-        public KeyCode yKeyNeg;
-
-        private int xKeyPosVal;
-        private int xKeyNegVal;
-        private int yKeyPosVal;
-        private int yKeyNegVal;
-
-        public string xAxis;
-        public string yAxis;
 
         public float sensitivity = 0.01f;
 
@@ -41,7 +30,7 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
         public bool saveMeshData;
 
         public bool remesh = true;
-        [Tooltip("Remesh passes are very expensive! Expect performance drops when using this. 20 are default for a smooth topology.")] [Min(0)]
+        [Tooltip("Remesh passes are very expensive! Expect performance drops when using this. 20 are default for a smooth topology.")][Min(0)]
         public int remeshPasses = 20;
         [Min(0.1f)]
         public float edgeLengthMultiplier = 3;
@@ -50,16 +39,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
         public float deformationInterval = 0.1f;
         private float timer = 0;
 
-        [Serializable]
-        public enum InputType
-        {
-            Mouse,
-            ControllerAxis,
-            Keys
-        }
-
-        public InputType inputType;
-    
         private void Start()
         {
             mainCamera = Camera.main;
@@ -68,7 +47,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
         private void Update()
         {
             timer += Time.deltaTime;
-            //Debug.Log(timer);
             if (performingDeformation && timer > deformationInterval)
             {
                 timer = 0;
@@ -91,7 +69,6 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             objMeshData.BeginMove(startPoint, innerRadius, outerRadius, obj);
             performingDeformation = true;
             hitPoint = startPoint;
-            Debug.Log("end start");
         }
 
         /// <summary>
@@ -109,34 +86,12 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
 
             plane.Raycast(screenRay, out float distance);
 
-            switch (inputType)
-            {
-                case InputType.Mouse:
-                    screenPointV3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-                    screenRay = Camera.main.ScreenPointToRay(screenPointV3);
-                    position = screenRay.origin + screenRay.direction * distance;
-                    endPosition = position + worldOffset;
-                    break;
-
-                case InputType.Keys:
-                    xKeyPosVal = Input.GetKey(xKeyPos) ? 1 : 0;
-                    xKeyNegVal = Input.GetKey(xKeyNeg) ? 1 : 0;
-                    yKeyPosVal = Input.GetKey(yKeyPos) ? 1 : 0;
-                    yKeyNegVal = Input.GetKey(yKeyNeg) ? 1 : 0;
-
-                    screenPointV3 = new Vector3(
-                        endPosition.x +=(xKeyPosVal - xKeyNegVal) * sensitivity,
-                        endPosition.y +=(yKeyPosVal - yKeyNegVal) * sensitivity,
-                        0);
-                    break;
-
-                case InputType.ControllerAxis:
-                    screenPointV3 = new Vector3(
-                        endPosition.x += Input.GetAxis(xAxis) * sensitivity,
-                        endPosition.y += Input.GetAxis(yAxis) * sensitivity,
-                        0);
-                    break;
-            }
+            // calculate position based on mouse cursor position
+            screenPointV3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            screenRay = Camera.main.ScreenPointToRay(screenPointV3);
+            position = screenRay.origin + screenRay.direction * distance;
+            endPosition = position + worldOffset;
+            
             objMeshData.Move(endPosition);
         }
     
@@ -149,8 +104,8 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             objMeshData.EndMove();
             if (remesh)
             {
+                // apply remesh
                 objMeshData.Remesh(remeshPasses, 3);
-                Debug.Log("remesh");
             }
             ReassignCollider();
         
@@ -171,9 +126,11 @@ namespace Plugins.WhatAMesh.MeshData.Smudge
             ReassignCollider();
         }
 
+        /// <summary>
+        /// Reassign mesh collider (to allow further deformations). 
+        /// </summary>
         private void ReassignCollider()
         {
-            // reassign mesh collider (to allow further deformations)
             if (objMeshData.GameObject.GetComponent<Collider>() is MeshCollider)
             {
                 objMeshData.GameObject.GetComponent<MeshCollider>().sharedMesh = objMeshData.Mesh;
