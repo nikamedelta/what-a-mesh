@@ -23,3 +23,5 @@ In the case of performance issues, especially if multiple deformations have take
 
 Other plugins may be helpful, such as a [mesh simplifier](https://github.com/Whinarn/UnityMeshSimplifier), depending on your use case. 
 
+
+If any other issues or questions arise, please contact me through the [itch.io page](https://nikame.itch.io/what-a-mesh) of What a Mesh!.
