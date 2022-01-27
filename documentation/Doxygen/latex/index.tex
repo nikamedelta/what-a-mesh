@@ -1,0 +1,16 @@
+\label{index_md_C__Users_annika_Projects_GitLab_WhatAMesh_code_What_a_Mesh_Assets_Plugins_WhatAMesh_What_a_Mesh_Usage}%
+\Hypertarget{index_md_C__Users_annika_Projects_GitLab_WhatAMesh_code_What_a_Mesh_Assets_Plugins_WhatAMesh_What_a_Mesh_Usage}%
+\hypertarget{index_autotoc_md1}{}\doxysection{Getting Started}\label{index_autotoc_md1}
+To initially integrate the plugin into your Unity Project, simply go to {\ttfamily Assets -\/$>$ Import Package -\/$>$ Custom Package} and select the .unitypackage file. When asked about the files you want to import specifically, select everything. It is recommended to open the Test\+Scene in What\+AMesh/\+Scenes and try out the mechanics of the slice and smudge (left click to smudge, richt click to slice) on the provided objects. That way you know that everything is working properly and you have a possibility to double check your own input implementations and how the project structure should be to work successfully.\hypertarget{index_autotoc_md2}{}\doxysection{Smudge}\label{index_autotoc_md2}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{Smudge with Mouse Input}\label{index_autotoc_md3}
+Create a Smudge Tool Component via What a Mesh -\/$>$ Create Deformation Controller and select the desired mouse input method. A deformable object must have a What\+AMesh\+Object component attached with {\ttfamily smudgeable} boolean set to true.\hypertarget{index_autotoc_md4}{}\doxysection{Slice}\label{index_autotoc_md4}
+\hypertarget{index_autotoc_md5}{}\doxysubsection{Slice with Mouse Input}\label{index_autotoc_md5}
+Create a Slice Tool Component via What a Mesh -\/$>$ Create Deformation Controller and select the slice tool. A deformable object must have a What\+AMesh\+Object component attached with {\ttfamily sliceable} boolean set to true.\hypertarget{index_autotoc_md6}{}\doxysection{Define own Tools and Inputs}\label{index_autotoc_md6}
+You can create new tools based on the Mesh\+Data class, which provides a variety of util functions and structures vertices and triangles in a more accessible way. Simply have a class inheriting from the Mesh\+Data class and write your tool-\/specific code.
+
+Own inputs of the smudge and slice tool may be structured similar to the smudge/slice controller classes and how they pre-\/ and postprocess the tool\textquotesingle{}s results.\hypertarget{index_autotoc_md7}{}\doxysection{Troubleshooting}\label{index_autotoc_md7}
+\hypertarget{index_autotoc_md8}{}\doxysubsection{Smudge}\label{index_autotoc_md8}
+If an provided mouse input is not working as desired, check the values auf the inner and outer radius. For example, the whole object will be moved if they are bigger than the dimensions of the object itself. \hypertarget{index_autotoc_md9}{}\doxysubsection{Performance Issues}\label{index_autotoc_md9}
+In the case of performance issues, especially if multiple deformations have taken place, the vertex count might be too big to be handled efficiently by Unity. Experiment with the remesh passes parameter (which should be set lower) and, if using the smudge, you can increase the deformation interval. As a result the smudge will take place every few seconds/miliseconds instead of every frame.
+
+Other plugins may be helpful, such as a \href{https://github.com/Whinarn/UnityMeshSimplifier}{\texttt{ mesh simplifier}}, depending on your use case. 
