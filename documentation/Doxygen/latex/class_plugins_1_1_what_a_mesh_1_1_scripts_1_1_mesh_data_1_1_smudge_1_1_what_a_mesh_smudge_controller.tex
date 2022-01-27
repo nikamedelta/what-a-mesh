@@ -1,0 +1,130 @@
+\hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller}{}\doxysection{Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller Class Reference}
+\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller}\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+
+
+Handles smudge deformations with mouse inputs.  
+
+
+Inheritance diagram for Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a54f49c5384e592556d1c055e4810c246}{Start\+Deformation}} (Game\+Object obj, Vector3 start\+Point, float inner\+Radius, float outer\+Radius)
+\begin{DoxyCompactList}\small\item\em Starting the deformation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a94bfde435e4d6bfdad97554603e8ec66}{Stop\+Deformation}} ()
+\begin{DoxyCompactList}\small\item\em End and apply the deformation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a8f23758bc7fa730ffb6279d23a3756da}{Cancel\+Deformation}} ()
+\begin{DoxyCompactList}\small\item\em Deformation ist not applied to the object, original mesh will be applied. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a65393624a8c013f001c48fa158dd8721}{sensitivity}} = 0.\+01f
+\item 
+bool \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a6f0657954f6e1ed3b608bbdbe912eee7}{save\+Mesh\+Data}}
+\item 
+bool \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a42825feeedfbf5300ab1f6eaa6e8cb5b}{remesh}} = true
+\item 
+int \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_abff5246a440bfd3dfb77fea19cfec2f1}{remesh\+Passes}} = 20
+\item 
+float \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a5303b72ca4bc57f513e1e181a43be29d}{edge\+Length\+Multiplier}} = 3
+\item 
+float \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_aa079234174a4563880541f97674663f7}{deformation\+Interval}} = 0.\+1f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles smudge deformations with mouse inputs. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a8f23758bc7fa730ffb6279d23a3756da}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a8f23758bc7fa730ffb6279d23a3756da}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!CancelDeformation@{CancelDeformation}}
+\index{CancelDeformation@{CancelDeformation}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{CancelDeformation()}{CancelDeformation()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+Cancel\+Deformation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Deformation ist not applied to the object, original mesh will be applied. 
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a54f49c5384e592556d1c055e4810c246}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a54f49c5384e592556d1c055e4810c246}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!StartDeformation@{StartDeformation}}
+\index{StartDeformation@{StartDeformation}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{StartDeformation()}{StartDeformation()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+Start\+Deformation (\begin{DoxyParamCaption}\item[{Game\+Object}]{obj,  }\item[{Vector3}]{start\+Point,  }\item[{float}]{inner\+Radius,  }\item[{float}]{outer\+Radius }\end{DoxyParamCaption})}
+
+
+
+Starting the deformation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & the object to deform \\
+\hline
+{\em start\+Point} & the center of the deformation \\
+\hline
+{\em inner\+Radius} & vertices in inner radius are moved by the maximum amount \\
+\hline
+{\em outer\+Radius} & vertices in outer radius are smoothed out \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a94bfde435e4d6bfdad97554603e8ec66}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a94bfde435e4d6bfdad97554603e8ec66}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!StopDeformation@{StopDeformation}}
+\index{StopDeformation@{StopDeformation}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{StopDeformation()}{StopDeformation()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+Stop\+Deformation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+End and apply the deformation. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_aa079234174a4563880541f97674663f7}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_aa079234174a4563880541f97674663f7}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!deformationInterval@{deformationInterval}}
+\index{deformationInterval@{deformationInterval}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{deformationInterval}{deformationInterval}}
+{\footnotesize\ttfamily float Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+deformation\+Interval = 0.\+1f}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a5303b72ca4bc57f513e1e181a43be29d}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a5303b72ca4bc57f513e1e181a43be29d}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!edgeLengthMultiplier@{edgeLengthMultiplier}}
+\index{edgeLengthMultiplier@{edgeLengthMultiplier}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{edgeLengthMultiplier}{edgeLengthMultiplier}}
+{\footnotesize\ttfamily float Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+edge\+Length\+Multiplier = 3}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a42825feeedfbf5300ab1f6eaa6e8cb5b}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a42825feeedfbf5300ab1f6eaa6e8cb5b}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!remesh@{remesh}}
+\index{remesh@{remesh}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{remesh}{remesh}}
+{\footnotesize\ttfamily bool Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+remesh = true}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_abff5246a440bfd3dfb77fea19cfec2f1}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_abff5246a440bfd3dfb77fea19cfec2f1}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!remeshPasses@{remeshPasses}}
+\index{remeshPasses@{remeshPasses}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{remeshPasses}{remeshPasses}}
+{\footnotesize\ttfamily int Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+remesh\+Passes = 20}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a6f0657954f6e1ed3b608bbdbe912eee7}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a6f0657954f6e1ed3b608bbdbe912eee7}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!saveMeshData@{saveMeshData}}
+\index{saveMeshData@{saveMeshData}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{saveMeshData}{saveMeshData}}
+{\footnotesize\ttfamily bool Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+save\+Mesh\+Data}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a65393624a8c013f001c48fa158dd8721}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_smudge_1_1_what_a_mesh_smudge_controller_a65393624a8c013f001c48fa158dd8721}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}!sensitivity@{sensitivity}}
+\index{sensitivity@{sensitivity}!Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController@{Plugins.WhatAMesh.Scripts.MeshData.Smudge.WhatAMeshSmudgeController}}
+\doxysubsubsection{\texorpdfstring{sensitivity}{sensitivity}}
+{\footnotesize\ttfamily float Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Smudge.\+What\+AMesh\+Smudge\+Controller.\+sensitivity = 0.\+01f}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/annika/\+Projects/\+Git\+Lab/\+What\+AMesh/code/\+What a Mesh/\+Assets/\+Plugins/\+What\+AMesh/\+Scripts/\+Mesh\+Data/\+Smudge/\mbox{\hyperlink{_what_a_mesh_smudge_controller_8cs}{What\+AMesh\+Smudge\+Controller.\+cs}}\end{DoxyCompactItemize}

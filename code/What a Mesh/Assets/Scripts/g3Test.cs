@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using g3;
 using Plugins.WhatAMesh;
+using Plugins.WhatAMesh.Scripts;
 
 public class g3Test : MonoBehaviour
 {

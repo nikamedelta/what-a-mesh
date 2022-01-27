@@ -1,0 +1,103 @@
+\hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object}{}\doxysection{Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object Class Reference}
+\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object}\index{Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}}
+
+
+A WAM object holds information about the smudge-\/ and sliceability of an object and saves its deformation history.  
+
+
+Inheritance diagram for Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a4be5e1e1f8d1201d3a19b5aa0d9de156}{Add\+To\+History}} (Mesh mesh)
+\begin{DoxyCompactList}\small\item\em Adds the provided mesh to the object\textquotesingle{}s history. ~\newline
+ \end{DoxyCompactList}\item 
+Mesh \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_aae636ea5c388d9f07d5cdbfdd461175f}{Get\+Previous\+Mesh}} ()
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Undo\char`\"{} one step of the history. \end{DoxyCompactList}\item 
+Mesh \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_ac6ecd0b66ec6d4799d5d236eae5e3067}{Get\+Following\+Mesh}} ()
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Redo\char`\"{} one step of the history. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ Mesh $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a1910583441e623e7b42bd9e04f12a787}{history}} = new List$<$Mesh$>$()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a3d840d078cfd271f039fa10a7b6cb3f8}{Deformable}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_ab047bff21eca561eae7b08aa0cad4dee}{Sliceable}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A WAM object holds information about the smudge-\/ and sliceability of an object and saves its deformation history. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a4be5e1e1f8d1201d3a19b5aa0d9de156}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a4be5e1e1f8d1201d3a19b5aa0d9de156}} 
+\index{Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}!AddToHistory@{AddToHistory}}
+\index{AddToHistory@{AddToHistory}!Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}}
+\doxysubsubsection{\texorpdfstring{AddToHistory()}{AddToHistory()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object.\+Add\+To\+History (\begin{DoxyParamCaption}\item[{Mesh}]{mesh }\end{DoxyParamCaption})}
+
+
+
+Adds the provided mesh to the object\textquotesingle{}s history. ~\newline
+ 
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_ac6ecd0b66ec6d4799d5d236eae5e3067}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_ac6ecd0b66ec6d4799d5d236eae5e3067}} 
+\index{Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}!GetFollowingMesh@{GetFollowingMesh}}
+\index{GetFollowingMesh@{GetFollowingMesh}!Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}}
+\doxysubsubsection{\texorpdfstring{GetFollowingMesh()}{GetFollowingMesh()}}
+{\footnotesize\ttfamily Mesh Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object.\+Get\+Following\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Redo\char`\"{} one step of the history. 
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_aae636ea5c388d9f07d5cdbfdd461175f}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_aae636ea5c388d9f07d5cdbfdd461175f}} 
+\index{Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}!GetPreviousMesh@{GetPreviousMesh}}
+\index{GetPreviousMesh@{GetPreviousMesh}!Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}}
+\doxysubsubsection{\texorpdfstring{GetPreviousMesh()}{GetPreviousMesh()}}
+{\footnotesize\ttfamily Mesh Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object.\+Get\+Previous\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Undo\char`\"{} one step of the history. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a1910583441e623e7b42bd9e04f12a787}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a1910583441e623e7b42bd9e04f12a787}} 
+\index{Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}!history@{history}}
+\index{history@{history}!Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}}
+\doxysubsubsection{\texorpdfstring{history}{history}}
+{\footnotesize\ttfamily List$<$Mesh$>$ Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object.\+history = new List$<$Mesh$>$()}
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a3d840d078cfd271f039fa10a7b6cb3f8}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_a3d840d078cfd271f039fa10a7b6cb3f8}} 
+\index{Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}!Deformable@{Deformable}}
+\index{Deformable@{Deformable}!Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}}
+\doxysubsubsection{\texorpdfstring{Deformable}{Deformable}}
+{\footnotesize\ttfamily bool Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object.\+Deformable\hspace{0.3cm}{\ttfamily [get]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_ab047bff21eca561eae7b08aa0cad4dee}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_what_a_mesh_object_ab047bff21eca561eae7b08aa0cad4dee}} 
+\index{Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}!Sliceable@{Sliceable}}
+\index{Sliceable@{Sliceable}!Plugins.WhatAMesh.Scripts.WhatAMeshObject@{Plugins.WhatAMesh.Scripts.WhatAMeshObject}}
+\doxysubsubsection{\texorpdfstring{Sliceable}{Sliceable}}
+{\footnotesize\ttfamily bool Plugins.\+What\+AMesh.\+Scripts.\+What\+AMesh\+Object.\+Sliceable\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/annika/\+Projects/\+Git\+Lab/\+What\+AMesh/code/\+What a Mesh/\+Assets/\+Plugins/\+What\+AMesh/\+Scripts/\mbox{\hyperlink{_what_a_mesh_object_8cs}{What\+AMesh\+Object.\+cs}}\end{DoxyCompactItemize}

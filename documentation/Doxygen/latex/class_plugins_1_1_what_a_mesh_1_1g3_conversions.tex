@@ -1,0 +1,97 @@
+\hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions}{}\doxysection{Plugins.\+What\+AMesh.\+g3\+Conversions Class Reference}
+\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions}\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Mesh \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_afae8ad44a5da3c00f20bdd03f26e75d0}{DMesh\+To\+Unity\+Mesh}} (DMesh3 m, bool b\+Limit\+To64k=false)
+\begin{DoxyCompactList}\small\item\em Convert DMesh3 to unity Mesh \end{DoxyCompactList}\item 
+static DMesh3 \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a6bd4a603231a860e7a268f7260a09775}{Unity\+Mesh\+To\+DMesh}} (Mesh mesh)
+\begin{DoxyCompactList}\small\item\em Convert unity Mesh to a g3.\+DMesh3. Ignores UV\textquotesingle{}s. \end{DoxyCompactList}\item 
+static DMesh3 \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a66876f098d85aaa9b45f0fafe397f546}{Mesh\+Data\+To\+DMesh}} (\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data.\+Mesh\+Data}} mesh\+Data)
+\begin{DoxyCompactList}\small\item\em Convert \mbox{\hyperlink{namespace_plugins_1_1_what_a_mesh_1_1_mesh_data}{Mesh\+Data}} to a g3.\+Mesh3. Structured as \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a6bd4a603231a860e7a268f7260a09775}{Unity\+Mesh\+To\+DMesh(\+Mesh mesh)}}. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data.\+Mesh\+Data}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a97f52365a4e32747ab3057609764cb02}{DMesh\+To\+Mesh\+Data}} (DMesh3 dmesh, Game\+Object game\+Object, bool b\+Limit\+To64k=false)
+\item 
+static Vector3\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_ab3ddae62f1684a203de8209d293b8894}{dvector\+\_\+to\+\_\+vector3}} (DVector$<$ double $>$ vec)
+\item 
+static Vector3\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a9b1af2c27e957e747b07ff79ee220f6e}{dvector\+\_\+to\+\_\+vector3}} (DVector$<$ float $>$ vec)
+\item 
+static Vector2\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a89894f9c28e71a611f190b704d5c9fd3}{dvector\+\_\+to\+\_\+vector2}} (DVector$<$ float $>$ vec)
+\item 
+static Color\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_af0965cf618def85a28cfe8138df49c75}{dvector\+\_\+to\+\_\+color}} (DVector$<$ float $>$ vec)
+\item 
+static int\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a8d2ea3720a496733b8b35dd881999444}{dvector\+\_\+to\+\_\+int}} (DVector$<$ int $>$ vec)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a97f52365a4e32747ab3057609764cb02}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a97f52365a4e32747ab3057609764cb02}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!DMeshToMeshData@{DMeshToMeshData}}
+\index{DMeshToMeshData@{DMeshToMeshData}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{DMeshToMeshData()}{DMeshToMeshData()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data.\+Mesh\+Data}} Plugins.\+What\+AMesh.\+g3\+Conversions.\+DMesh\+To\+Mesh\+Data (\begin{DoxyParamCaption}\item[{DMesh3}]{dmesh,  }\item[{Game\+Object}]{game\+Object,  }\item[{bool}]{b\+Limit\+To64k = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_afae8ad44a5da3c00f20bdd03f26e75d0}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_afae8ad44a5da3c00f20bdd03f26e75d0}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!DMeshToUnityMesh@{DMeshToUnityMesh}}
+\index{DMeshToUnityMesh@{DMeshToUnityMesh}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{DMeshToUnityMesh()}{DMeshToUnityMesh()}}
+{\footnotesize\ttfamily static Mesh Plugins.\+What\+AMesh.\+g3\+Conversions.\+DMesh\+To\+Unity\+Mesh (\begin{DoxyParamCaption}\item[{DMesh3}]{m,  }\item[{bool}]{b\+Limit\+To64k = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Convert DMesh3 to unity Mesh 
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_af0965cf618def85a28cfe8138df49c75}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_af0965cf618def85a28cfe8138df49c75}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!dvector\_to\_color@{dvector\_to\_color}}
+\index{dvector\_to\_color@{dvector\_to\_color}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{dvector\_to\_color()}{dvector\_to\_color()}}
+{\footnotesize\ttfamily static Color \mbox{[}$\,$\mbox{]} Plugins.\+What\+AMesh.\+g3\+Conversions.\+dvector\+\_\+to\+\_\+color (\begin{DoxyParamCaption}\item[{DVector$<$ float $>$}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a8d2ea3720a496733b8b35dd881999444}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a8d2ea3720a496733b8b35dd881999444}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!dvector\_to\_int@{dvector\_to\_int}}
+\index{dvector\_to\_int@{dvector\_to\_int}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{dvector\_to\_int()}{dvector\_to\_int()}}
+{\footnotesize\ttfamily static int \mbox{[}$\,$\mbox{]} Plugins.\+What\+AMesh.\+g3\+Conversions.\+dvector\+\_\+to\+\_\+int (\begin{DoxyParamCaption}\item[{DVector$<$ int $>$}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a89894f9c28e71a611f190b704d5c9fd3}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a89894f9c28e71a611f190b704d5c9fd3}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!dvector\_to\_vector2@{dvector\_to\_vector2}}
+\index{dvector\_to\_vector2@{dvector\_to\_vector2}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{dvector\_to\_vector2()}{dvector\_to\_vector2()}}
+{\footnotesize\ttfamily static Vector2 \mbox{[}$\,$\mbox{]} Plugins.\+What\+AMesh.\+g3\+Conversions.\+dvector\+\_\+to\+\_\+vector2 (\begin{DoxyParamCaption}\item[{DVector$<$ float $>$}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_ab3ddae62f1684a203de8209d293b8894}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_ab3ddae62f1684a203de8209d293b8894}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!dvector\_to\_vector3@{dvector\_to\_vector3}}
+\index{dvector\_to\_vector3@{dvector\_to\_vector3}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{dvector\_to\_vector3()}{dvector\_to\_vector3()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static Vector3 \mbox{[}$\,$\mbox{]} Plugins.\+What\+AMesh.\+g3\+Conversions.\+dvector\+\_\+to\+\_\+vector3 (\begin{DoxyParamCaption}\item[{DVector$<$ double $>$}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a9b1af2c27e957e747b07ff79ee220f6e}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a9b1af2c27e957e747b07ff79ee220f6e}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!dvector\_to\_vector3@{dvector\_to\_vector3}}
+\index{dvector\_to\_vector3@{dvector\_to\_vector3}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{dvector\_to\_vector3()}{dvector\_to\_vector3()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static Vector3 \mbox{[}$\,$\mbox{]} Plugins.\+What\+AMesh.\+g3\+Conversions.\+dvector\+\_\+to\+\_\+vector3 (\begin{DoxyParamCaption}\item[{DVector$<$ float $>$}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a66876f098d85aaa9b45f0fafe397f546}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a66876f098d85aaa9b45f0fafe397f546}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!MeshDataToDMesh@{MeshDataToDMesh}}
+\index{MeshDataToDMesh@{MeshDataToDMesh}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{MeshDataToDMesh()}{MeshDataToDMesh()}}
+{\footnotesize\ttfamily static DMesh3 Plugins.\+What\+AMesh.\+g3\+Conversions.\+Mesh\+Data\+To\+DMesh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data.\+Mesh\+Data}}}]{mesh\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Convert \mbox{\hyperlink{namespace_plugins_1_1_what_a_mesh_1_1_mesh_data}{Mesh\+Data}} to a g3.\+Mesh3. Structured as \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a6bd4a603231a860e7a268f7260a09775}{Unity\+Mesh\+To\+DMesh(\+Mesh mesh)}}. 
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a6bd4a603231a860e7a268f7260a09775}\label{class_plugins_1_1_what_a_mesh_1_1g3_conversions_a6bd4a603231a860e7a268f7260a09775}} 
+\index{Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}!UnityMeshToDMesh@{UnityMeshToDMesh}}
+\index{UnityMeshToDMesh@{UnityMeshToDMesh}!Plugins.WhatAMesh.g3Conversions@{Plugins.WhatAMesh.g3Conversions}}
+\doxysubsubsection{\texorpdfstring{UnityMeshToDMesh()}{UnityMeshToDMesh()}}
+{\footnotesize\ttfamily static DMesh3 Plugins.\+What\+AMesh.\+g3\+Conversions.\+Unity\+Mesh\+To\+DMesh (\begin{DoxyParamCaption}\item[{Mesh}]{mesh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Convert unity Mesh to a g3.\+DMesh3. Ignores UV\textquotesingle{}s. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/annika/\+Projects/\+Git\+Lab/\+What\+AMesh/code/\+What a Mesh/\+Assets/\+Plugins/\+What\+AMesh/\mbox{\hyperlink{g3_conversions_8cs}{g3\+Conversions.\+cs}}\end{DoxyCompactItemize}

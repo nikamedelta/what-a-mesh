@@ -1,0 +1,313 @@
+\hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}{}\doxysection{Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data Class Reference}
+\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+
+
+Represents a \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data}}, consisting of vertices and triangles.  
+
+
+Inheritance diagram for Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.428571cm]{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ad5270651981b157e2f457c0038f52eae}{Mesh\+Data}} (\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}{Game\+Object}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a02014fecf00f40ad59e278149a20426e}{game\+Object}})
+\item 
+\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_af53d2fa10c644690d3a9026dbdc90304}{Mesh\+Data}} (\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data}} mesh\+Data)
+\item 
+\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a7ff5eba5a6df78b0bd0ecc546c8d0d35}{Mesh\+Data}} (Vector3\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ad9163d7b3d07e2c73362fd60c4cd2051}{vertices}}, Vector3\mbox{[}$\,$\mbox{]} normals, int\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab2e1db00e921d1b3a576832642e0ba63}{triangles}}, \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}{Game\+Object}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a02014fecf00f40ad59e278149a20426e}{game\+Object}})
+\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4bed68e6ea5be860b50cff329b8da25e}{Reassign\+Arrays}} (out Vector3\mbox{[}$\,$\mbox{]} verts, out int\mbox{[}$\,$\mbox{]} trigs, out Vector3\mbox{[}$\,$\mbox{]} normals)
+\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5ba727aa52e0d9c27cca1c5cbd2a9e51}{Recalculate\+Mesh}} ()
+\begin{DoxyCompactList}\small\item\em Reassign the \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data}} values to the Game\+Object\textquotesingle{}s mesh. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a0b3fc6b6d7bbf198da9717fc56f5d9ac}{Apply\+Original\+Mesh}} ()
+\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_acbf142aea1d363e52dcfee58afe9ab57}{Apply\+New\+Mesh}} (\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}{Mesh}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a8b7f2fc6826fcf4e8ba8327d10c38d68}{mesh}})
+\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a503b8f604bc4ed8813e6a1af2576d470}{Remesh}} (int remesh\+Passes, float edge\+Length\+Multiplier)
+\begin{DoxyCompactList}\small\item\em Refactor the mesh with g3sharp mesh calculations. Very expensive operations, take care! \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4f6fe2584b66e7a6a6449106154af1f8}{Vertices\+In\+Radius}} (float radius, Vector3 middle)
+\begin{DoxyCompactList}\small\item\em Get all vertices in specified radius, based on distance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5c189917174d7db93a2d561d4844d107}{Create\+Vertices}} (Vector3\mbox{[}$\,$\mbox{]} verts, Vector3\mbox{[}$\,$\mbox{]} normals)
+\item 
+void \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a991129c689c02568ae42aad1eaf052d8}{Add\+Neighbors}} ()
+\item 
+\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_abc52c9bc1a6e3e409cf06b7ba75c3e0a}{Closest\+Vertex}} (Vector3 hit\+Point)
+\begin{DoxyCompactList}\small\item\em Chooses the closest \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} to a point in world space. Also considers the object\textquotesingle{}s rotation. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4d5fc45fcfca6f5eb9f83a98b96d54c2}{Create\+Triangles}} (int\mbox{[}$\,$\mbox{]} trigs)
+\item 
+Vector3\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_afcc424968ef72b38b2452f371a675ad3}{Array\+From\+Normals}} ()
+\item 
+Vector2\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_aab6147db25bcf1eb2bc2e3e755b91f50}{Array\+From\+UVs}} ()
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab7544bebba5105de0f31a54ca16cf9b9}{Triangles\+Of\+Two\+Vectors}} (\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} v1, \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} v2)
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a842555ec005602ffbf8bcef8a38d060a}{Triangles\+Of\+Two\+Vectors\+With\+Indices}} (\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} v1, \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} v2)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab2e1db00e921d1b3a576832642e0ba63}{triangles}}
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ad9163d7b3d07e2c73362fd60c4cd2051}{vertices}}
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a1e5fd26c9c213ca15ca1d7cff5cbec91}{orig\+Triangles}}
+\item 
+\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}{Mesh}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a8b7f2fc6826fcf4e8ba8327d10c38d68}{mesh}}
+\item 
+\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}{Mesh}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5848c109c6de0922de3daf2b3910ba18}{original\+Mesh}}
+\item 
+float \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a33427fd2ff0acfbe5bb648f6c96898ca}{avg\+Distance}}
+\item 
+\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}{Game\+Object}} \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a02014fecf00f40ad59e278149a20426e}{game\+Object}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a32daf2e20b8e6f2073ca1b5afbe5e141}{Get\+Triangles}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+List$<$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} $>$ \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a0b0b002a9b850872604f436c725bf48a}{Get\+Vertices}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Mesh \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}{Mesh}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+float \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4cc4ef6af880c59c7f01cc263bc02de8}{Avg\+Distance}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Game\+Object \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}{Game\+Object}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data}}, consisting of vertices and triangles. 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ad5270651981b157e2f457c0038f52eae}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ad5270651981b157e2f457c0038f52eae}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!MeshData@{MeshData}}
+\index{MeshData@{MeshData}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{MeshData()}{MeshData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Mesh\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}{Game\+Object}}}]{game\+Object }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_af53d2fa10c644690d3a9026dbdc90304}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_af53d2fa10c644690d3a9026dbdc90304}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!MeshData@{MeshData}}
+\index{MeshData@{MeshData}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{MeshData()}{MeshData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Mesh\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data}}}]{mesh\+Data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a7ff5eba5a6df78b0bd0ecc546c8d0d35}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a7ff5eba5a6df78b0bd0ecc546c8d0d35}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!MeshData@{MeshData}}
+\index{MeshData@{MeshData}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{MeshData()}{MeshData()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Mesh\+Data (\begin{DoxyParamCaption}\item[{Vector3\mbox{[}$\,$\mbox{]}}]{vertices,  }\item[{Vector3\mbox{[}$\,$\mbox{]}}]{normals,  }\item[{int\mbox{[}$\,$\mbox{]}}]{triangles,  }\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}{Game\+Object}}}]{game\+Object }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a991129c689c02568ae42aad1eaf052d8}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a991129c689c02568ae42aad1eaf052d8}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!AddNeighbors@{AddNeighbors}}
+\index{AddNeighbors@{AddNeighbors}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{AddNeighbors()}{AddNeighbors()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Add\+Neighbors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_acbf142aea1d363e52dcfee58afe9ab57}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_acbf142aea1d363e52dcfee58afe9ab57}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!ApplyNewMesh@{ApplyNewMesh}}
+\index{ApplyNewMesh@{ApplyNewMesh}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{ApplyNewMesh()}{ApplyNewMesh()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Apply\+New\+Mesh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}{Mesh}}}]{mesh }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a0b3fc6b6d7bbf198da9717fc56f5d9ac}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a0b3fc6b6d7bbf198da9717fc56f5d9ac}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!ApplyOriginalMesh@{ApplyOriginalMesh}}
+\index{ApplyOriginalMesh@{ApplyOriginalMesh}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{ApplyOriginalMesh()}{ApplyOriginalMesh()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Apply\+Original\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_afcc424968ef72b38b2452f371a675ad3}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_afcc424968ef72b38b2452f371a675ad3}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!ArrayFromNormals@{ArrayFromNormals}}
+\index{ArrayFromNormals@{ArrayFromNormals}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{ArrayFromNormals()}{ArrayFromNormals()}}
+{\footnotesize\ttfamily Vector3 \mbox{[}$\,$\mbox{]} Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Array\+From\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_aab6147db25bcf1eb2bc2e3e755b91f50}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_aab6147db25bcf1eb2bc2e3e755b91f50}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!ArrayFromUVs@{ArrayFromUVs}}
+\index{ArrayFromUVs@{ArrayFromUVs}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{ArrayFromUVs()}{ArrayFromUVs()}}
+{\footnotesize\ttfamily Vector2 \mbox{[}$\,$\mbox{]} Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Array\+From\+UVs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_abc52c9bc1a6e3e409cf06b7ba75c3e0a}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_abc52c9bc1a6e3e409cf06b7ba75c3e0a}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!ClosestVertex@{ClosestVertex}}
+\index{ClosestVertex@{ClosestVertex}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{ClosestVertex()}{ClosestVertex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Closest\+Vertex (\begin{DoxyParamCaption}\item[{Vector3}]{hit\+Point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Chooses the closest \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}} to a point in world space. Also considers the object\textquotesingle{}s rotation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hit\+Point} & The point for comparison in world space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4d5fc45fcfca6f5eb9f83a98b96d54c2}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4d5fc45fcfca6f5eb9f83a98b96d54c2}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!CreateTriangles@{CreateTriangles}}
+\index{CreateTriangles@{CreateTriangles}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{CreateTriangles()}{CreateTriangles()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Create\+Triangles (\begin{DoxyParamCaption}\item[{int\mbox{[}$\,$\mbox{]}}]{trigs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5c189917174d7db93a2d561d4844d107}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5c189917174d7db93a2d561d4844d107}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!CreateVertices@{CreateVertices}}
+\index{CreateVertices@{CreateVertices}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{CreateVertices()}{CreateVertices()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Create\+Vertices (\begin{DoxyParamCaption}\item[{Vector3\mbox{[}$\,$\mbox{]}}]{verts,  }\item[{Vector3\mbox{[}$\,$\mbox{]}}]{normals }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4bed68e6ea5be860b50cff329b8da25e}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4bed68e6ea5be860b50cff329b8da25e}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!ReassignArrays@{ReassignArrays}}
+\index{ReassignArrays@{ReassignArrays}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{ReassignArrays()}{ReassignArrays()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Reassign\+Arrays (\begin{DoxyParamCaption}\item[{out Vector3\mbox{[}$\,$\mbox{]}}]{verts,  }\item[{out int\mbox{[}$\,$\mbox{]}}]{trigs,  }\item[{out Vector3\mbox{[}$\,$\mbox{]}}]{normals }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5ba727aa52e0d9c27cca1c5cbd2a9e51}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5ba727aa52e0d9c27cca1c5cbd2a9e51}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!RecalculateMesh@{RecalculateMesh}}
+\index{RecalculateMesh@{RecalculateMesh}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{RecalculateMesh()}{RecalculateMesh()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Recalculate\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reassign the \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data}{Mesh\+Data}} values to the Game\+Object\textquotesingle{}s mesh. 
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a503b8f604bc4ed8813e6a1af2576d470}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a503b8f604bc4ed8813e6a1af2576d470}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!Remesh@{Remesh}}
+\index{Remesh@{Remesh}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{Remesh()}{Remesh()}}
+{\footnotesize\ttfamily void Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Remesh (\begin{DoxyParamCaption}\item[{int}]{remesh\+Passes,  }\item[{float}]{edge\+Length\+Multiplier }\end{DoxyParamCaption})}
+
+
+
+Refactor the mesh with g3sharp mesh calculations. Very expensive operations, take care! 
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab7544bebba5105de0f31a54ca16cf9b9}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab7544bebba5105de0f31a54ca16cf9b9}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!TrianglesOfTwoVectors@{TrianglesOfTwoVectors}}
+\index{TrianglesOfTwoVectors@{TrianglesOfTwoVectors}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{TrianglesOfTwoVectors()}{TrianglesOfTwoVectors()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Triangles\+Of\+Two\+Vectors (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}}]{v1,  }\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}}]{v2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a842555ec005602ffbf8bcef8a38d060a}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a842555ec005602ffbf8bcef8a38d060a}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!TrianglesOfTwoVectorsWithIndices@{TrianglesOfTwoVectorsWithIndices}}
+\index{TrianglesOfTwoVectorsWithIndices@{TrianglesOfTwoVectorsWithIndices}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{TrianglesOfTwoVectorsWithIndices()}{TrianglesOfTwoVectorsWithIndices()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Triangles\+Of\+Two\+Vectors\+With\+Indices (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}}]{v1,  }\item[{\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}}]{v2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4f6fe2584b66e7a6a6449106154af1f8}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4f6fe2584b66e7a6a6449106154af1f8}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!VerticesInRadius@{VerticesInRadius}}
+\index{VerticesInRadius@{VerticesInRadius}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{VerticesInRadius()}{VerticesInRadius()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Vertices\+In\+Radius (\begin{DoxyParamCaption}\item[{float}]{radius,  }\item[{Vector3}]{middle }\end{DoxyParamCaption})}
+
+
+
+Get all vertices in specified radius, based on distance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em radius} & \\
+\hline
+{\em middle} & the middle position\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a33427fd2ff0acfbe5bb648f6c96898ca}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a33427fd2ff0acfbe5bb648f6c96898ca}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!avgDistance@{avgDistance}}
+\index{avgDistance@{avgDistance}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{avgDistance}{avgDistance}}
+{\footnotesize\ttfamily float Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+avg\+Distance\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a02014fecf00f40ad59e278149a20426e}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a02014fecf00f40ad59e278149a20426e}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!gameObject@{gameObject}}
+\index{gameObject@{gameObject}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{gameObject}{gameObject}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}{Game\+Object}} Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+game\+Object\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a8b7f2fc6826fcf4e8ba8327d10c38d68}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a8b7f2fc6826fcf4e8ba8327d10c38d68}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!mesh@{mesh}}
+\index{mesh@{mesh}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{mesh}{mesh}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}{Mesh}} Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+mesh\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5848c109c6de0922de3daf2b3910ba18}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a5848c109c6de0922de3daf2b3910ba18}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!originalMesh@{originalMesh}}
+\index{originalMesh@{originalMesh}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{originalMesh}{originalMesh}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}{Mesh}} Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+original\+Mesh\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a1e5fd26c9c213ca15ca1d7cff5cbec91}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a1e5fd26c9c213ca15ca1d7cff5cbec91}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!origTriangles@{origTriangles}}
+\index{origTriangles@{origTriangles}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{origTriangles}{origTriangles}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+orig\+Triangles\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab2e1db00e921d1b3a576832642e0ba63}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab2e1db00e921d1b3a576832642e0ba63}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!triangles@{triangles}}
+\index{triangles@{triangles}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{triangles}{triangles}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+triangles\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ad9163d7b3d07e2c73362fd60c4cd2051}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ad9163d7b3d07e2c73362fd60c4cd2051}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!vertices@{vertices}}
+\index{vertices@{vertices}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{vertices}{vertices}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+vertices\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4cc4ef6af880c59c7f01cc263bc02de8}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a4cc4ef6af880c59c7f01cc263bc02de8}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!AvgDistance@{AvgDistance}}
+\index{AvgDistance@{AvgDistance}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{AvgDistance}{AvgDistance}}
+{\footnotesize\ttfamily float Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Avg\+Distance\hspace{0.3cm}{\ttfamily [get]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_ab568bea6de46b2a8edcbb7f7f033c14b}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!GameObject@{GameObject}}
+\index{GameObject@{GameObject}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{GameObject}{GameObject}}
+{\footnotesize\ttfamily Game\+Object Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Game\+Object\hspace{0.3cm}{\ttfamily [get]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a32daf2e20b8e6f2073ca1b5afbe5e141}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a32daf2e20b8e6f2073ca1b5afbe5e141}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!GetTriangles@{GetTriangles}}
+\index{GetTriangles@{GetTriangles}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{GetTriangles}{GetTriangles}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_triangle}{Triangle}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Get\+Triangles\hspace{0.3cm}{\ttfamily [get]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a0b0b002a9b850872604f436c725bf48a}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_a0b0b002a9b850872604f436c725bf48a}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!GetVertices@{GetVertices}}
+\index{GetVertices@{GetVertices}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{GetVertices}{GetVertices}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_vertex}{Vertex}}$>$ Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Get\+Vertices\hspace{0.3cm}{\ttfamily [get]}}
+
+\mbox{\Hypertarget{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}\label{class_plugins_1_1_what_a_mesh_1_1_scripts_1_1_mesh_data_1_1_mesh_data_add854fd5e4f3cc0ffc0e623ccd1f1cd5}} 
+\index{Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}!Mesh@{Mesh}}
+\index{Mesh@{Mesh}!Plugins.WhatAMesh.Scripts.MeshData.MeshData@{Plugins.WhatAMesh.Scripts.MeshData.MeshData}}
+\doxysubsubsection{\texorpdfstring{Mesh}{Mesh}}
+{\footnotesize\ttfamily Mesh Plugins.\+What\+AMesh.\+Scripts.\+Mesh\+Data.\+Mesh\+Data.\+Mesh\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/annika/\+Projects/\+Git\+Lab/\+What\+AMesh/code/\+What a Mesh/\+Assets/\+Plugins/\+What\+AMesh/\+Scripts/\+Mesh\+Data/\mbox{\hyperlink{_mesh_data_8cs}{Mesh\+Data.\+cs}}\end{DoxyCompactItemize}

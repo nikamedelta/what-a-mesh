@@ -3470,7 +3470,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 788332170}
-  - component: {fileID: 788332169}
   - component: {fileID: 788332168}
   - component: {fileID: 788332171}
   m_Layer: 0
@@ -3493,18 +3492,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatAMeshSliceController: {fileID: 788332171}
---- !u!114 &788332169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788332167}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb6d9347845d5294994a4f34743cf591, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &788332170
 Transform:
   m_ObjectHideFlags: 0
@@ -5329,8 +5316,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1401883834}
   - component: {fileID: 1401883833}
-  - component: {fileID: 1401883832}
   - component: {fileID: 1401883835}
+  - component: {fileID: 1401883832}
   m_Layer: 0
   m_Name: What A Mesh Smudge
   m_TagString: Untagged
@@ -5351,8 +5338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatAMesh: {fileID: 1401883833}
-  innerRadius: 0.4
-  outerRadius: 0.6
+  innerRadius: 0.2
+  outerRadius: 0.5
 --- !u!114 &1401883833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5367,7 +5354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 0.01
   saveMeshData: 1
-  remesh: 1
+  remesh: 0
   remeshPasses: 20
   edgeLengthMultiplier: 3
   deformationInterval: 0
